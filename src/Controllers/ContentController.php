@@ -21,9 +21,7 @@ class ContentController extends Controller {
     public function sayHello(Twig $twig, EkomiServices $service, EkomiHelper $helper): string {
 
         $service->sendOrdersData(7);
-        echo '<br/>---------------<br/>';
 
-        die('====================');
         return $twig->render('EkomiIntegration::content.hello');
     }
 
