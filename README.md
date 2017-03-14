@@ -1,8 +1,8 @@
 # Plugin - Plentymarkets - EkomiIntegration
-This plugin allows you to integrate your JTL4 shop easily with eKomi system to collect verified reviews.
+This plugin allows you to integrate your Plentymarkets shop easily with eKomi system to collect verified reviews.
 ***
 
-eKomi Plugin for JTL allows you to integrate your JTL shop easily with eKomi system. This allows you to collect verified reviews, display eKomi seal on your website and get your seller ratings on Google. This helps you increase your website's click through rates, conversion rates and also, if you are running Google AdWord Campaigns, this helps in improving your Quality Score and hence your costs per click.
+eKomi Plugin for Plentymarkets allows you to integrate your Plentymarkets shop easily with eKomi system. This allows you to collect verified reviews, display eKomi seal on your website and get your seller ratings on Google. This helps you increase your website's click through rates, conversion rates and also, if you are running Google AdWord Campaigns, this helps in improving your Quality Score and hence your costs per click.
 
 **eKomi Reviews and Ratings allows you to:**
 
