@@ -1,0 +1,42 @@
+[
+    {
+        "tab"       : "Configuration",
+        "key"       : "is_active",
+        "label"     : "Enable",
+        "type"      : "checkbox",
+        "default"   : false
+    },
+    {
+        "tab"       : "Configuration",
+        "key"       : "mode",
+        "label"     : "Mode",
+        "type"      : "dropdown",
+        "possibleValues": {
+            "email"    : "Email",
+            "sms"      : "SMS",
+            "fallback" : "SMS if contact number, otherwise Email"
+        },
+        "default"   : "email"
+    },
+    {
+        "tab"       : "Configuration",
+        "key"       : "shop_id",
+        "label"     : "Interface Shop ID",
+        "type"      : "text",
+        "default"   : ""
+    },
+    {
+        "tab"       : "Configuration",
+        "key"       : "shop_secret",
+        "label"     : "Interface Shop Secret",
+        "type"      : "text",
+        "default"   : ""
+    },
+    {
+       "tab"       : "Configuration",
+       "key"       : "product_reviews",
+       "label"     : "Enable Product Reviews",
+       "type"      : "checkbox",
+       "default"   : false
+   }
+]

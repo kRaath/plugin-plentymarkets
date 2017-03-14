@@ -1,0 +1,10 @@
+{
+    "version": "1.0.0",
+    "name": "EkomiIntegration",
+    "description": "This plugin allows you to integrate your JTL4 shop easily with eKomi system to collect verified reviews.",
+    "namespace": "EkomiIntegration",
+    "author": "Khadim Raath",
+    "email": "khadim.nu@gmail.com",
+    "type": "general",
+    "serviceProvider": "EkomiIntegration\\Providers\\EkomiIntegrationServiceProvider"
+}

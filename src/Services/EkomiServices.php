@@ -1,0 +1,139 @@
+<?php
+
+namespace EkomiIntegration\Services;
+
+use EkomiIntegration\Helper\EkomiHelper;
+use EkomiIntegration\Helper\ConfigHelper;
+use EkomiIntegration\Repositories\OrderRepository;
+use Plenty\Plugin\ConfigRepository;
+use Plenty\Plugin\Log\Loggable;
+
+/**
+ * Class EkomiServices
+ */
+class EkomiServices {
+
+    use Loggable;
+
+    /**
+     * @var ConfigRepository
+     */
+    private $configHelper;
+    private $ekomiHelper;
+    private $orderRepository;
+
+    public function __construct(ConfigHelper $configHelper, OrderRepository $orderRepo, EkomiHelper $ekomiHelper) {
+        $this->configHelper = $configHelper;
+        $this->ekomiHelper = $ekomiHelper;
+        $this->orderRepository = $orderRepo;
+    }
+
+    /**
+     * Validates the shop
+     * 
+     * @return boolean True if validated False otherwise
+     */
+    public function validateShop() {
+        $ApiUrl = 'http://api.ekomi.de/v3/getSettings';
+
+        $ApiUrl .= "?auth={$this->configHelper->getShopId()}|{$this->configHelper->getShopSecret()}";
+        $ApiUrl .= '&version=cust-1.0.0&type=request&charset=iso';
+
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $ApiUrl);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $server_output = curl_exec($ch);
+        curl_close($ch);
+        if ($server_output == 'Access denied') {
+            return FALSE;
+        } else {
+            return TRUE;
+        }
+    }
+
+    /**
+     * Sends orders data to eKomi System
+     */
+    public function sendOrdersData($daysDiff = 7) {
+        if ($this->validateShop() && $this->configHelper->isEnabled()) {
+
+            $orderStatuses = array(7, 7.1);
+
+            $pageNum = 1;
+
+            $fetchOrders = TRUE;
+
+            while ($fetchOrders) {
+                $orders = $this->orderRepository->getOrders($pageNum);
+                // return $orders;
+                $flag = FALSE;
+                foreach ($orders as $key => $order) {
+
+                    $updatedAt = $this->ekomiHelper->toMySqlDateTime($order['updatedAt']);
+
+                    $statusId = $order['statusId'];
+
+                    $orderDaysDiff = $this->ekomiHelper->daysDifference($updatedAt);
+
+                    if ($orderDaysDiff <= $daysDiff) {
+
+                        if (in_array($statusId, $orderStatuses)) {
+                            $postVars = $this->ekomiHelper->preparePostVars($order);
+                            // sends order data to eKomi
+                            $this->addRecipient($postVars);
+                        }
+
+                        $flag = TRUE;
+                    }
+
+                    if ($flag) {
+                        $fetchOrders = TRUE;
+                        $pageNum++;
+                    } else {
+                        $fetchOrders = FALSE;
+                    }
+                }
+            }
+        } else {
+            $this->getLogger(__FUNCTION__)->error('EkomiIntegration::EkomiServices.sendOrdersData', 'Shop Id or Secret not correct!');
+        }
+    }
+
+    /**
+     * Calls the addRecipient API
+     * 
+     * @param string $postVars
+     * 
+     * @return string return the api status
+     */
+    public function addRecipient($postVars) {
+        if ($postVars != '') {
+            /*
+             * The Api Url
+             */
+            $apiUrl = 'https://apps.ekomi.com/srr/add-recipient';
+
+            $boundary = md5(time());
+            /*
+             * Send the curl call
+             */
+            try {
+                $ch = curl_init();
+                curl_setopt($ch, CURLOPT_URL, $apiUrl);
+                curl_setopt($ch, CURLOPT_HEADER, false);
+                curl_setopt($ch, CURLOPT_HTTPHEADER, array('ContentType:multipart/form-data;boundary=' . $boundary));
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                curl_setopt($ch, CURLOPT_POST, 1);
+                curl_setopt($ch, CURLOPT_POSTFIELDS, $postVars);
+                $exec = curl_exec($ch);
+                curl_close($ch);
+
+                return $exec;
+            } catch (Exception $e) {
+                $this->getLogger(__FUNCTION__)->error('EkomiIntegration::EkomiServices.addRecipient', $e->getMessage());
+            }
+        }
+        return NULL;
+    }
+
+}
