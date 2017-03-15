@@ -5,7 +5,7 @@ namespace EkomiIntegration\Controllers;
 use Plenty\Plugin\Controller;
 use Plenty\Plugin\Templates\Twig;
 use EkomiIntegration\Services\EkomiServices;
-use EkomiIntegration\Helper\EkomiHelper;
+use EkomiIntegration\Helper\ConfigHelper;
 
 /**
  * Class ContentController
@@ -18,9 +18,18 @@ class ContentController extends Controller {
      * @return string
      */
     //https://developers.plentymarkets.com/rest-doc/order/details#list-orders-by-filter-options
-    public function sayHello(Twig $twig, EkomiServices $service, EkomiHelper $helper): string {
+    public function sayHello(Twig $twig, EkomiServices $service, ConfigHelper $helper): string {
 
-        $service->sendOrdersData(7);
+        $status = $helper->getOrderStatus();
+        if (is_array($status)) {
+            foreach ($status as $key => $value) {
+                echo "{$key}:{$value}";
+                echo '<br/>';
+            }
+        } else {
+            echo $status;
+        }
+        //  $service->sendOrdersData(7);
 
         return $twig->render('EkomiIntegration::content.hello');
     }

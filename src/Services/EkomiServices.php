@@ -95,7 +95,7 @@ class EkomiServices {
                 }
             }
         } else {
-            $this->getLogger(__FUNCTION__)->error('EkomiIntegration::EkomiServices.sendOrdersData', 'Shop Id or Secret not correct!');
+            $this->getLogger(__FUNCTION__)->error('EkomiIntegration::EkomiServices.sendOrdersData', 'Shop id or shop secret is not correct!');
         }
     }
 

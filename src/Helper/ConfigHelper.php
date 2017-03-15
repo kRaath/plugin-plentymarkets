@@ -42,4 +42,8 @@ class ConfigHelper {
         return $this->config->get('EkomiIntegration.product_reviews');
     }
 
+    public function getOrderStatus() {
+        return $this->config->get('EkomiIntegration.order_status');
+    }
+
 }
