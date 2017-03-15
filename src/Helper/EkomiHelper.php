@@ -145,6 +145,19 @@ class EkomiHelper {
     }
 
     /**
+     * Gets item image url
+     * 
+     * @param type $itemId
+     * @return string
+     */
+    public function getItemImageUrl($itemId) {
+        $images = $this->imagesRepo->findByItemId($itemId);
+        if (isset($images[0])) {
+            return $images[0]['url'];
+        }
+        return '';
+    }
+    /**
      * Gets Item image url
      * 
      * @param int $itemId The item Id
