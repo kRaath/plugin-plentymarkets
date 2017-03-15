@@ -15,7 +15,7 @@ class EkomiIntegrationRouteServiceProvider extends RouteServiceProvider
 	 */
 	public function map(Router $router)
 	{
-		$router->get('hello', 'EkomiIntegration\Controllers\ContentController@sayHello');
+		$router->get('sendOrdersToEkomi', 'EkomiIntegration\Controllers\ContentController@sendOrdersToEkomi');
 	}
 
 }

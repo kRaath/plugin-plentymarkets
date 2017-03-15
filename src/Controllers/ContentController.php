@@ -5,7 +5,6 @@ namespace EkomiIntegration\Controllers;
 use Plenty\Plugin\Controller;
 use Plenty\Plugin\Templates\Twig;
 use EkomiIntegration\Services\EkomiServices;
-use EkomiIntegration\Helper\ConfigHelper;
 
 /**
  * Class ContentController
@@ -17,8 +16,7 @@ class ContentController extends Controller {
      * @param Twig $twig
      * @return string
      */
-    //https://developers.plentymarkets.com/rest-doc/order/details#list-orders-by-filter-options
-    public function sayHello(Twig $twig, EkomiServices $service, ConfigHelper $helper): string {
+    public function sendOrdersToEkomi(Twig $twig, EkomiServices $service): string {
 
         $service->sendOrdersData(7);
 
