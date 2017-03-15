@@ -1,14 +1,23 @@
 {
     "version": "1.0.0",
     "name": "EkomiIntegration",
+    "marketplaceName": {
+        "de": "EkomiIntegration",
+        "en": "EkomiIntegration"
+    },
+    "license": "AGPL-3.0",
+    "pluginIcon": "plugin.png",
+    "price": 0.00,
     "description": "This plugin allows you to integrate your JTL4 shop easily with eKomi system to collect verified reviews.",
     "shortDescription": {
         "de": "",
         "en": ""
     },
+    "author": "Sandor Barics",
+    "email": "sbarics@ekomi.de",
+    "keywords": ["cash in advance", "Vorkasse", "official", "plentymarkets", "payment"],
     "namespace": "EkomiIntegration",
-    "author": "Khadim Raath",
-    "email": "khadim.nu@gmail.com",
+
     "type": "general",
     "serviceProvider": "EkomiIntegration\\Providers\\EkomiIntegrationServiceProvider"
 }
