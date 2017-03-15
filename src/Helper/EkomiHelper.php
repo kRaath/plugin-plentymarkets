@@ -89,7 +89,7 @@ class EkomiHelper {
             $fields['screen_name'] = $customerInfo['searchName'];
         }
 
-        if ($this->configHelper->getProductReviews()) {
+        if ($this->configHelper->getProductReviews() == 'true') {
             $fields['has_products'] = 1;
             $productsData = $this->getProductsData($order['orderItems'], $plentyId);
             $fields['products_info'] = json_encode($productsData['product_info']);

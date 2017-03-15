@@ -56,7 +56,7 @@ class EkomiServices {
      */
     public function sendOrdersData($daysDiff = 7) {
 
-        if ($this->configHelper->getEnabled()) {
+        if ($this->configHelper->getEnabled() == 'true') {
             if ($this->validateShop()) {
 
                 $orderStatuses = $this->configHelper->getOrderStatus();
