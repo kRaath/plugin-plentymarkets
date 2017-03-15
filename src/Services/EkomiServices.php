@@ -133,7 +133,8 @@ class EkomiServices {
                 curl_setopt($ch, CURLOPT_POSTFIELDS, $postVars);
                 $exec = curl_exec($ch);
                 curl_close($ch);
-
+                $this->getLogger(__FUNCTION__)->error('EkomiIntegration::EkomiServices.addRecipient', $postVars);
+                $this->getLogger(__FUNCTION__)->error('EkomiIntegration::EkomiServices.addRecipient', $exec);
                 return $exec;
             } catch (Exception $e) {
                 $this->getLogger(__FUNCTION__)->error('EkomiIntegration::EkomiServices.addRecipient', $e->getMessage());
