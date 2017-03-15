@@ -21,7 +21,8 @@ class EkomiIntegrationServiceProvider extends ServiceProvider {
 
     public function boot(CronContainer $container) {
         // register crons
-        $container->add(CronContainer::DAILY, OrdersExportCron::class);
+        //EVERY_FIFTEEN_MINUTES | DAILY
+        $container->add(CronContainer::EVERY_FIFTEEN_MINUTES, OrdersExportCron::class);
     }
 
 }
