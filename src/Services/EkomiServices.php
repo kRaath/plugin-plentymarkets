@@ -69,26 +69,28 @@ class EkomiServices {
                     $orders = $this->orderRepository->getOrders($pageNum);
                     // return $orders;
                     $flag = FALSE;
-                    foreach ($orders as $key => $order) {
+                    if (!empty($orders)) {
+                        foreach ($orders as $key => $order) {
 
-                        $updatedAt = $this->ekomiHelper->toMySqlDateTime($order['updatedAt']);
+                            $updatedAt = $this->ekomiHelper->toMySqlDateTime($order['updatedAt']);
 
-                        $statusId = $order['statusId'];
+                            $orderId = $order['id'];
+                            $statusId = $order['statusId'];
 
-                        $orderDaysDiff = $this->ekomiHelper->daysDifference($updatedAt);
+                            $orderDaysDiff = $this->ekomiHelper->daysDifference($updatedAt);
 
-                        if ($orderDaysDiff <= $daysDiff) {
+                            if ($orderDaysDiff <= $daysDiff) {
 
-                            if (in_array($statusId, $orderStatuses)) {
-                                $postVars = $this->ekomiHelper->preparePostVars($order);
-                                // sends order data to eKomi
-                                $this->addRecipient($postVars);
+                                if (in_array($statusId, $orderStatuses)) {
+                                    $postVars = $this->ekomiHelper->preparePostVars($order);
+                                    // sends order data to eKomi
+                                    $this->addRecipient($postVars, $orderId);
+                                }
+
+                                $flag = TRUE;
                             }
-
-                            $flag = TRUE;
                         }
                     }
-
                     //check to fetch next page
                     if ($flag) {
                         $fetchOrders = TRUE;
@@ -112,8 +114,9 @@ class EkomiServices {
      * 
      * @return string return the api status
      */
-    public function addRecipient($postVars) {
+    public function addRecipient($postVars, $orderId = '') {
         if ($postVars != '') {
+            $logMessage = "OrderID: {$orderId} => ";
             /*
              * The Api Url
              */
@@ -133,14 +136,15 @@ class EkomiServices {
                 curl_setopt($ch, CURLOPT_POSTFIELDS, $postVars);
                 $exec = curl_exec($ch);
                 curl_close($ch);
-                $this->getLogger(__FUNCTION__)->error('EkomiIntegration::EkomiServices.addRecipient', $postVars);
-                $this->getLogger(__FUNCTION__)->error('EkomiIntegration::EkomiServices.addRecipient', $exec);
-                return $exec;
+                $logMessage .= $exec;
+                $this->getLogger(__FUNCTION__)->error('EkomiIntegration::EkomiServices.addRecipient', $logMessage);
+                return TRUE;
             } catch (Exception $e) {
-                $this->getLogger(__FUNCTION__)->error('EkomiIntegration::EkomiServices.addRecipient', $e->getMessage());
+                $logMessage .= $e->getMessage();
+                $this->getLogger(__FUNCTION__)->error('EkomiIntegration::EkomiServices.addRecipient', $logMessage);
             }
         }
-        return NULL;
+        return FALSE;
     }
 
 }
