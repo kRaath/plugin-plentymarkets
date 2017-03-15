@@ -43,7 +43,11 @@ class ConfigHelper {
     }
 
     public function getOrderStatus() {
-        return $this->config->get('EkomiIntegration.order_status');
+        $status = $this->config->get('EkomiIntegration.order_status');
+
+        $statusArray = explode(',', $status);
+
+        return $statusArray;
     }
 
 }

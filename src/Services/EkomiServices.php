@@ -55,37 +55,41 @@ class EkomiServices {
      * Sends orders data to eKomi System
      */
     public function sendOrdersData($daysDiff = 7) {
-        if ($this->validateShop() && $this->configHelper->isEnabled()) {
 
-            $orderStatuses = array(7, 7.1);
+        if ($this->configHelper->isEnabled()) {
+            if ($this->validateShop()) {
 
-            $pageNum = 1;
+                $orderStatuses = $this->configHelper->getOrderStatus();
 
-            $fetchOrders = TRUE;
+                $pageNum = 1;
 
-            while ($fetchOrders) {
-                $orders = $this->orderRepository->getOrders($pageNum);
-                // return $orders;
-                $flag = FALSE;
-                foreach ($orders as $key => $order) {
+                $fetchOrders = TRUE;
 
-                    $updatedAt = $this->ekomiHelper->toMySqlDateTime($order['updatedAt']);
+                while ($fetchOrders) {
+                    $orders = $this->orderRepository->getOrders($pageNum);
+                    // return $orders;
+                    $flag = FALSE;
+                    foreach ($orders as $key => $order) {
 
-                    $statusId = $order['statusId'];
+                        $updatedAt = $this->ekomiHelper->toMySqlDateTime($order['updatedAt']);
 
-                    $orderDaysDiff = $this->ekomiHelper->daysDifference($updatedAt);
+                        $statusId = $order['statusId'];
 
-                    if ($orderDaysDiff <= $daysDiff) {
+                        $orderDaysDiff = $this->ekomiHelper->daysDifference($updatedAt);
 
-                        if (in_array($statusId, $orderStatuses)) {
-                            $postVars = $this->ekomiHelper->preparePostVars($order);
-                            // sends order data to eKomi
-                            $this->addRecipient($postVars);
+                        if ($orderDaysDiff <= $daysDiff) {
+
+                            if (in_array($statusId, $orderStatuses)) {
+                                $postVars = $this->ekomiHelper->preparePostVars($order);
+                                // sends order data to eKomi
+                                $this->addRecipient($postVars);
+                            }
+
+                            $flag = TRUE;
                         }
-
-                        $flag = TRUE;
                     }
 
+                    //check to fetch next page
                     if ($flag) {
                         $fetchOrders = TRUE;
                         $pageNum++;
@@ -93,9 +97,11 @@ class EkomiServices {
                         $fetchOrders = FALSE;
                     }
                 }
+            } else {
+                $this->getLogger(__FUNCTION__)->error('EkomiIntegration::EkomiServices.sendOrdersData', 'Shop id or shop secret is not correct!');
             }
         } else {
-            $this->getLogger(__FUNCTION__)->error('EkomiIntegration::EkomiServices.sendOrdersData', 'Shop id or shop secret is not correct!');
+            $this->getLogger(__FUNCTION__)->error('EkomiIntegration::EkomiServices.sendOrdersData', 'Plugin is not enabled!');
         }
     }
 
