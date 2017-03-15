@@ -23,6 +23,7 @@ class OrdersExportCron extends Cron {
     public function handle() {
         $daysDiff = 7;
         $this->ekomiServices->sendOrdersData($daysDiff);
+        $this->getLogger(__FUNCTION__)->error('EkomiIntegration::OrdersExportCron.handle', 'CronRunning....');
     }
 
 }
