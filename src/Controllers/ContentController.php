@@ -20,6 +20,8 @@ class ContentController extends Controller {
     //https://developers.plentymarkets.com/rest-doc/order/details#list-orders-by-filter-options
     public function sayHello(Twig $twig, EkomiServices $service, ConfigHelper $helper): string {
 
+        echo $helper->getEnabled();
+        echo '<br/>';
           $service->sendOrdersData(7);
 
         return $twig->render('EkomiIntegration::content.hello');

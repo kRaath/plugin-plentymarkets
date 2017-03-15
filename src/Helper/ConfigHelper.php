@@ -22,10 +22,6 @@ class ConfigHelper {
         return $this->config->get('EkomiIntegration.is_active');
     }
 
-    public function isEnabled() {
-        return ($this->getEnabled()) ? TRUE : FALSE;
-    }
-
     public function getMod() {
         return $this->config->get('EkomiIntegration.mode');
     }
