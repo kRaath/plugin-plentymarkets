@@ -3,7 +3,6 @@
 namespace EkomiIntegration\Helper;
 
 use Plenty\Modules\Order\Address\Contracts\OrderAddressRepositoryContract;
-use Plenty\Modules\Helper\Contracts\UrlBuilderRepositoryContract;
 use Plenty\Modules\Item\Variation\Contracts\VariationRepositoryContract;
 use EkomiIntegration\Helper\ConfigHelper;
 use Plenty\Modules\System\Contracts\WebstoreRepositoryContract;
@@ -19,15 +18,13 @@ class EkomiHelper {
      */
     private $configHelper;
     private $orderAddress;
-    private $urlBuilder;
     private $itemVariation;
     private $webStoreRepo;
     private $imagesRepo;
 
-    public function __construct(WebstoreRepositoryContract $webStoreRepo, ConfigHelper $configHelper, VariationRepositoryContract $variation, OrderAddressRepositoryContract $orderAddress, UrlBuilderRepositoryContract $urlBuilder, ItemImageRepositoryContract $imagesRepo) {
+    public function __construct(WebstoreRepositoryContract $webStoreRepo, ConfigHelper $configHelper, VariationRepositoryContract $variation, OrderAddressRepositoryContract $orderAddress, ItemImageRepositoryContract $imagesRepo) {
         $this->configHelper = $configHelper;
         $this->orderAddress = $orderAddress;
-        $this->urlBuilder = $urlBuilder;
         $this->itemVariation = $variation;
         $this->webStoreRepo = $webStoreRepo;
         $this->imagesRepo = $imagesRepo;
@@ -61,7 +58,7 @@ class EkomiHelper {
 
         $scheduleTime = $this->toMySqlDateTime($createdAt);
 
-        $senderName = $this->getStoreName();
+        $senderName = $this->getStoreName($plentyId);
 
         if ($apiMode == 'sms' && strlen($senderName) > 11) {
             $senderName = substr($senderName, 0, 11);
@@ -148,31 +145,31 @@ class EkomiHelper {
     }
 
     /**
-     * Gets Item url
-     * 
-     * @param int    $itemId     The item Id
-     * @param int    $plentyId   Plenty Id
-     * @param string $urlContent (Optional)
-     *  
-     * @return string Url of Item
-     */
-    public function getItemUrl($itemId, $plentyId, $urlContent = '', $lang = 'de', $useHttpsDomain = true) {
-        return $this->urlBuilder->getItemUrl($itemId, $plentyId, $urlContent, $lang, $useHttpsDomain);
-    }
-
-    /**
      * Gets Item image url
      * 
      * @param int $itemId The item Id
      *  
      * @return string The url of image
      */
-    public function getItemImageUrl($itemId) {
-        $images = $this->imagesRepo->findByItemId($itemId);
+    public function getItemUrl($itemId, $plentyId) {
+        $itemUrl = '';
+
+        $images = $this->getItemImageUrl($itemId);
+
         if (isset($images[0])) {
-            return $images[0]['url'];
+            if (!empty($images[0]['url'])) {
+                $temp = explode('/item/', $images[0]['url']);
+                if (isset($temp[0])) {
+                    $itemUrl = $temp[0];
+                }
+            }
         }
-        return '';
+        if (empty($itemUrl)) {
+            $itemUrl = $this->getStoreDomain($plentyId);
+        }
+        $itemUrl = $itemUrl . '/a-' . $itemId;
+
+        return $itemUrl;
     }
 
     /**
@@ -204,7 +201,7 @@ class EkomiHelper {
             if (!empty($product['properties'])) {
                 $itemId = $this->getItemIdByVariationId($product['itemVariationId']);
 
-                $canonicalUrl = $this->getItemUrl($itemId, $plentyId, $urlContent = '', $lang = 'de', $useHttpsDomain = true);
+                $canonicalUrl = $this->getItemUrl($itemId, $plentyId);
 
                 $products['product_info'][$itemId] = $product['orderItemName'];
 
@@ -324,10 +321,27 @@ class EkomiHelper {
      * 
      * @access protected
      */
-    protected function getStoreName() {
-        $temp1 = $this->webStoreRepo->findByPlentyId(31650)->toArray();
+    protected function getStoreName($plentyId) {
+        $temp1 = $this->webStoreRepo->findByPlentyId($plentyId)->toArray();
         if (isset($temp1['name'])) {
             return $temp1['name'];
+        }
+        return '';
+    }
+
+    /**
+     * Gets Store domain Url
+     * 
+     * @param type $plentyId
+     * 
+     * @return string
+     * 
+     * @access protected
+     */
+    protected function getStoreDomain($plentyId) {
+        $temp1 = $this->webStoreRepo->findByPlentyId($plentyId)->toArray();
+        if (isset($temp1['configuration']['domain'])) {
+            return $temp1['configuration']['domain'];
         }
         return '';
     }
