@@ -53,6 +53,8 @@ class EkomiHelper {
 
         $customerInfo = $this->getCustomerInfo($addressId, $id, $addressTypeId);
 
+        $clientId = $this->getClientId($order['relations']);
+
         $telephone = $this->getCustomerPhone($addressId, $id, $addressTypeId);
         $apiMode = $this->getRecipientType($telephone);
 
@@ -78,13 +80,9 @@ class EkomiHelper {
             'sender_name' => $senderName,
             'sender_email' => $this->getStoreEmail()
         );
-        if ($customerInfo['id'] > 0) {
-            $fields['client_id'] = $customerInfo['id'];
-            $fields['screen_name'] = $customerInfo['searchName'];
-        } else {
-            $fields['client_id'] = $customerInfo['id'];
-            $fields['screen_name'] = $customerInfo['searchName'];
-        }
+
+        $fields['client_id'] = $clientId;
+        $fields['screen_name'] = $customerInfo['searchName'];
 
         if ($this->configHelper->getProductReviews() == 'true') {
             $fields['has_products'] = 1;
@@ -103,6 +101,17 @@ class EkomiHelper {
         }
 
         return $postVars;
+    }
+
+    protected function getClientId($relations) {
+        $clientId = '';
+        foreach ($relations as $key => $value) {
+            if ($value['relation'] == 'receiver') {
+                $clientId = $value['referenceId'];
+                break;
+            }
+        }
+        return $clientId;
     }
 
     /**
@@ -157,6 +166,7 @@ class EkomiHelper {
         }
         return '';
     }
+
     /**
      * Gets Item image url
      * 
