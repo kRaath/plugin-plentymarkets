@@ -16,7 +16,8 @@
     "author": "Sandor Barics",
     "authorIcon": "icon_author.png",
     "email": "sbarics@ekomi.de",
-    "keywords": ["cash in advance", "Vorkasse", "official", "plentymarkets", "payment"],
+    "keywords": ["plugins", "orders export", "ekomi", "integration"],
+    "isClosedSource": true,
     "namespace": "EkomiIntegration",
 
     "type": "general",
