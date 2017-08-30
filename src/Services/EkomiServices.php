@@ -44,6 +44,9 @@ class EkomiServices {
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         $server_output = curl_exec($ch);
         curl_close($ch);
+        
+        $this->getLogger(__FUNCTION__)->error('EkomiIntegration::EkomiServices.validateShop', $server_output);
+        
         if ($server_output == 'Access denied') {
             return FALSE;
         } else {
@@ -120,9 +123,9 @@ class EkomiServices {
             /*
              * The Api Url
              */
-            $apiUrl = 'https://apps.ekomi.com/srr/add-recipient';
+            $apiUrl = 'https://srr.ekomi.com/add-recipient';
 
-            $boundary = md5(time());
+            $boundary = md5(''.time());
             /*
              * Send the curl call
              */
@@ -139,7 +142,7 @@ class EkomiServices {
                 $logMessage .= $exec;
                 $this->getLogger(__FUNCTION__)->error('EkomiIntegration::EkomiServices.addRecipient', $logMessage);
                 return TRUE;
-            } catch (Exception $e) {
+            } catch (\Exception $e) {
                 $logMessage .= $e->getMessage();
                 $this->getLogger(__FUNCTION__)->error('EkomiIntegration::EkomiServices.addRecipient', $logMessage);
             }
