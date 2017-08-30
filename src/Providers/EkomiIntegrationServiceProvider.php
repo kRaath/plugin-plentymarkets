@@ -21,7 +21,7 @@ class EkomiIntegrationServiceProvider extends ServiceProvider {
 
     public function boot(CronContainer $container) {
         
-        $ApiUrl = 'http://plugindev.coeus-solutions.de/insert.php?value=plentyBoot';
+        $ApiUrl = 'http://plugindev.coeus-solutions.de/insert.php?value=plentyBoot..';
 
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $ApiUrl);
