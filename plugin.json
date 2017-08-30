@@ -1,9 +1,9 @@
 {
     "version": "1.0.2",
-    "name": "EkomiIntegration-Dev",
+    "name": "EkomiIntegrationDev",
     "marketplaceName": {
-        "de": "EkomiIntegration-Dev",
-        "en": "EkomiIntegration-Dev"
+        "de": "EkomiIntegrationDev",
+        "en": "EkomiIntegrationDev"
     },
     "license": "AGPL-3.0",
     "pluginIcon": "plugin.png",
