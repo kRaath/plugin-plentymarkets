@@ -73,6 +73,7 @@ class EkomiServices {
                     // return $orders;
                     $flag = FALSE;
                     if (!empty($orders)) {
+                        $this->getLogger(__FUNCTION__)->error('EkomiIntegration::EkomiServices.sendOrdersData', 'ordersCount:'. count($orders));
                         foreach ($orders as $key => $order) {
 
                             $updatedAt = $this->ekomiHelper->toMySqlDateTime($order['updatedAt']);
