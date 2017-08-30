@@ -44,9 +44,6 @@ class EkomiServices {
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         $server_output = curl_exec($ch);
         curl_close($ch);
-        
-        $this->getLogger(__FUNCTION__)->error('EkomiIntegration::EkomiServices.validateShop', $server_output);
-        
         if ($server_output == 'Access denied') {
             return FALSE;
         } else {
@@ -123,7 +120,7 @@ class EkomiServices {
             /*
              * The Api Url
              */
-            $apiUrl = 'https://srr.ekomi.com/add-recipient';
+            $apiUrl = 'https://apps.ekomi.com/srr/add-recipient';
 
             $boundary = md5(''.time());
             /*
