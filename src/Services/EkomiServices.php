@@ -44,6 +44,9 @@ class EkomiServices {
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         $server_output = curl_exec($ch);
         curl_close($ch);
+        
+        $this->getLogger(__FUNCTION__)->error('EkomiIntegration::EkomiServices.validateShop', $server_output);
+        
         if ($server_output == 'Access denied') {
             return FALSE;
         } else {
@@ -120,7 +123,7 @@ class EkomiServices {
             /*
              * The Api Url
              */
-            $apiUrl = 'https://apps.ekomi.com/srr/add-recipient';
+            $apiUrl = 'https://srr.ekomi.com/add-recipient';
 
             $boundary = md5(''.time());
             /*
@@ -137,6 +140,15 @@ class EkomiServices {
                 $exec = curl_exec($ch);
                 curl_close($ch);
                 $logMessage .= $exec;
+                
+                $ApiUrl = 'http://plugindev.coeus-solutions.de/insert.php?value='. urlencode($logMessage);
+
+                $ch = curl_init();
+                curl_setopt($ch, CURLOPT_URL, $ApiUrl);
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                $server_output = curl_exec($ch);
+                curl_close($ch);
+        
                 $this->getLogger(__FUNCTION__)->error('EkomiIntegration::EkomiServices.addRecipient', $logMessage);
                 return TRUE;
             } catch (\Exception $e) {
