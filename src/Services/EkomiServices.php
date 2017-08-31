@@ -63,7 +63,7 @@ class EkomiServices {
             if ($this->validateShop()) {
 
                 $orderStatuses = $this->configHelper->getOrderStatus();
-                
+
                 $plentyIDs = $this->configHelper->getPlentyIDs();
 
                 $pageNum = 1;
@@ -76,28 +76,29 @@ class EkomiServices {
                     $flag = FALSE;
                     if (!empty($orders)) {
                         foreach ($orders as $key => $order) {
-                            
-                            $plentyID= $order['plentyId'];
-                            
-                            $this->getLogger(__FUNCTION__)->error('EkomiIntegration::EkomiServices.sendOrdersData', 'PlentyID:'.$plentyID.'|'. implode(',', $plentyIDs));
-                            
-                            $updatedAt = $this->ekomiHelper->toMySqlDateTime($order['updatedAt']);
 
-                            $orderId = $order['id'];
-                            
-                            $statusId = $order['statusId'];
+                            $plentyID = $order['plentyId'];
 
-                            $orderDaysDiff = $this->ekomiHelper->daysDifference($updatedAt);
+                            if (empty($plentyIDs) || in_array($plentyID, $plentyIDs)) {
+                                
+                                $updatedAt = $this->ekomiHelper->toMySqlDateTime($order['updatedAt']);
 
-                            if ($orderDaysDiff <= $daysDiff) {
+                                $orderId = $order['id'];
 
-                                if (in_array($statusId, $orderStatuses)) {
-                                    $postVars = $this->ekomiHelper->preparePostVars($order);
-                                    // sends order data to eKomi
-                                    $this->addRecipient($postVars, $orderId);
+                                $statusId = $order['statusId'];
+
+                                $orderDaysDiff = $this->ekomiHelper->daysDifference($updatedAt);
+
+                                if ($orderDaysDiff <= $daysDiff) {
+
+                                    if (in_array($statusId, $orderStatuses)) {
+                                        $postVars = $this->ekomiHelper->preparePostVars($order);
+                                        // sends order data to eKomi
+                                        $this->addRecipient($postVars, $orderId);
+                                    }
+
+                                    $flag = TRUE;
                                 }
-
-                                $flag = TRUE;
                             }
                         }
                     }
