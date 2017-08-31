@@ -63,6 +63,8 @@ class EkomiServices {
             if ($this->validateShop()) {
 
                 $orderStatuses = $this->configHelper->getOrderStatus();
+                
+                $plentyIDs = $this->configHelper->getPlentyIDs();
 
                 $pageNum = 1;
 
@@ -74,10 +76,15 @@ class EkomiServices {
                     $flag = FALSE;
                     if (!empty($orders)) {
                         foreach ($orders as $key => $order) {
-
+                            
+                            $plentyID= $order['plentyId'];
+                            
+                            $this->getLogger(__FUNCTION__)->error('EkomiIntegration::EkomiServices.sendOrdersData', 'PlentyID:'.$plentyID.'|'. implode(',', $plentyIDs));
+                            
                             $updatedAt = $this->ekomiHelper->toMySqlDateTime($order['updatedAt']);
 
                             $orderId = $order['id'];
+                            
                             $statusId = $order['statusId'];
 
                             $orderDaysDiff = $this->ekomiHelper->daysDifference($updatedAt);

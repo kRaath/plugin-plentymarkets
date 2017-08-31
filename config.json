@@ -15,7 +15,7 @@
     },
     {
         "tab": "Configuration",
-        "key": "plentyIDs",
+        "key": "plenty_IDs",
         "label": "Stores Plenty ID",
         "type": "text",
         "default": ""
