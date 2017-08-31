@@ -6,7 +6,7 @@ use Plenty\Plugin\ServiceProvider;
 use Plenty\Modules\Cron\Services\CronContainer;
 use EkomiIntegration\Crons\OrdersExportCron;
 use Plenty\Plugin\Log\Loggable;
-use Plenty\Plugin\ConfigRepository;
+use EkomiIntegration\Helper\ConfigHelper;
 /**
  * Class EkomiIntegrationServiceProvider
  * @package EkomiIntegration\Providers
