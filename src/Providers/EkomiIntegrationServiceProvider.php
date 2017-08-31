@@ -5,13 +5,13 @@ namespace EkomiIntegration\Providers;
 use Plenty\Plugin\ServiceProvider;
 use Plenty\Modules\Cron\Services\CronContainer;
 use EkomiIntegration\Crons\OrdersExportCron;
-use Plenty\Plugin\Log\Loggable;
+
 /**
  * Class EkomiIntegrationServiceProvider
  * @package EkomiIntegration\Providers
  */
 class EkomiIntegrationServiceProvider extends ServiceProvider {
-    use Loggable;
+
     /**
      * Register the service provider.
      */
@@ -20,21 +20,9 @@ class EkomiIntegrationServiceProvider extends ServiceProvider {
     }
 
     public function boot(CronContainer $container) {
-        
-//        $ApiUrl = 'http://plugindev.coeus-solutions.de/insert.php?value=Boot';
-//
-//        $ch = curl_init();
-//        curl_setopt($ch, CURLOPT_URL, $ApiUrl);
-//        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-//        $server_output = curl_exec($ch);
-//        curl_close($ch);
-//        
-//        // register crons
-//        //EVERY_FIFTEEN_MINUTES | DAILY
-//        $this->getLogger(__FUNCTION__)->error('EkomiIntegration::EkomiIntegrationServiceProvider.boot', $server_output);
-//        $this->getLogger(__FUNCTION__)->error('EkomiIntegration::EkomiIntegrationServiceProvider.boot', 'CronDone');
-//    
-        $container->add(CronContainer::EVERY_FIFTEEN_MINUTES, OrdersExportCron::class);
+        // register crons
+        //EVERY_FIFTEEN_MINUTES | DAILY
+        $container->add(CronContainer::DAILY, OrdersExportCron::class);
     }
 
 }

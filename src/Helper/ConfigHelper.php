@@ -45,10 +45,5 @@ class ConfigHelper {
 
         return $statusArray;
     }
-    public function getOrderStatusStr() {
-        $status = $this->config->get('EkomiIntegration.order_status');
-
-        return $status;
-    }
 
 }

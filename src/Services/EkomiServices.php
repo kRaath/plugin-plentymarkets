@@ -44,9 +44,9 @@ class EkomiServices {
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         $server_output = curl_exec($ch);
         curl_close($ch);
-        
-        $this->getLogger(__FUNCTION__)->error('EkomiIntegration::EkomiServices.validateShop', $server_output);
-        
+
+        $this->getLogger(__FUNCTION__)->error('EkomiIntegration::EkomiServices.validateShop', 'server_output:' . $server_output);
+
         if ($server_output == 'Access denied') {
             return FALSE;
         } else {
@@ -73,7 +73,6 @@ class EkomiServices {
                     // return $orders;
                     $flag = FALSE;
                     if (!empty($orders)) {
-                        $this->getLogger(__FUNCTION__)->error('EkomiIntegration::EkomiServices.sendOrdersData', 'ordersStatus:'. $this->configHelper->getOrderStatusStr());
                         foreach ($orders as $key => $order) {
 
                             $updatedAt = $this->ekomiHelper->toMySqlDateTime($order['updatedAt']);
@@ -126,7 +125,7 @@ class EkomiServices {
              */
             $apiUrl = 'https://srr.ekomi.com/add-recipient';
 
-            $boundary = md5(''.time());
+            $boundary = md5('' . time());
             /*
              * Send the curl call
              */
@@ -140,17 +139,13 @@ class EkomiServices {
                 curl_setopt($ch, CURLOPT_POSTFIELDS, $postVars);
                 $exec = curl_exec($ch);
                 curl_close($ch);
-                $logMessage .= $exec;
-                
-                $ApiUrl = 'http://plugindev.coeus-solutions.de/insert.php?value='. urlencode($logMessage);
 
-                $ch = curl_init();
-                curl_setopt($ch, CURLOPT_URL, $ApiUrl);
-                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-                $server_output = curl_exec($ch);
-                curl_close($ch);
-        
-                $this->getLogger(__FUNCTION__)->error('EkomiIntegration::EkomiServices.addRecipient', $logMessage);
+                $decodedResp = json_decode($exec);
+
+                if ($decodedResp && $decodedResp->status == 'error') {
+                    $logMessage .= $exec;
+                    $this->getLogger(__FUNCTION__)->error('EkomiIntegration::EkomiServices.addRecipient', $logMessage);
+                }
                 return TRUE;
             } catch (\Exception $e) {
                 $logMessage .= $e->getMessage();

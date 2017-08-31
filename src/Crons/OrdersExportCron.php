@@ -26,15 +26,8 @@ class OrdersExportCron extends Cron {
     public function handle() {
         $daysDiff = 7;
 
-        $this->getLogger(__FUNCTION__)->error('EkomiIntegration::OrdersExportCron.handle', 'CronRunning');
-         
-        $ApiUrl = 'http://plugindev.coeus-solutions.de/insert.php?value=CronRunning....';
+        $this->getLogger(__FUNCTION__)->error('EkomiIntegration::OrdersExportCron.handle', 'CronRunning....');
 
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $ApiUrl);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        $server_output = curl_exec($ch);
-        curl_close($ch);
         $this->ekomiServices->sendOrdersData($daysDiff);
     }
 
