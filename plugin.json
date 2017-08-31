@@ -21,6 +21,6 @@
     "isClosedSource": true,
     "namespace": "EkomiIntegration",
 
-    "type": "general",
+    "type": "export",
     "serviceProvider": "EkomiIntegration\\Providers\\EkomiIntegrationServiceProvider"
 }
