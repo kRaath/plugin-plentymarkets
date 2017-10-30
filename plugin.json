@@ -13,7 +13,7 @@
         "de": "Diese plugin erlaubt es Ihnen Ihren Plentymarkets Store eShop ganz einfach im eKomi System zu integrieren um verifizierte Rezensionen zu sammeln.",
         "en": "This plugin allows you to integrate your Plentymarkets shop easily with eKomi system to collect verified reviews."
     },
-    "categories": ["3521"],
+    "categories": ["3521","3527"],
     "author": "eKomi Ltd",
     "authorIcon": "icon_author.jpg",
     "email": "support@ekomi.zendesk.com",

@@ -8,6 +8,20 @@
     },
     {
         "tab": "Configuration",
+        "key": "shop_id",
+        "label": "Interface Shop ID",
+        "type": "text",
+        "default": ""
+    },
+    {
+        "tab": "Configuration",
+        "key": "shop_secret",
+        "label": "Interface Shop Secret",
+        "type": "text",
+        "default": ""
+    },
+    {
+        "tab": "Configuration",
         "key": "product_reviews",
         "label": "Enable Product Reviews",
         "type": "checkbox",
@@ -15,10 +29,10 @@
     },
     {
         "tab": "Configuration",
-        "key": "plenty_IDs",
-        "label": "Client Store Plenty IDs (comma separated)",
-        "type": "text",
-        "default": ""
+        "key": "group_reviews",
+        "label": "Enable Group Reviews",
+        "type": "checkbox",
+        "default": false
     },
     {
         "tab": "Configuration",
@@ -34,16 +48,16 @@
     },
     {
         "tab": "Configuration",
-        "key": "shop_id",
-        "label": "Interface Shop ID",
+        "key": "plenty_IDs",
+        "label": "Client Store Plenty IDs (comma separated)",
         "type": "text",
         "default": ""
     },
     {
         "tab": "Configuration",
-        "key": "shop_secret",
-        "label": "Interface Shop Secret",
-        "type": "text",
+        "key": "no_review_text",
+        "label": "Text when no reviews found",
+        "type": "textarea",
         "default": ""
     },
     {
