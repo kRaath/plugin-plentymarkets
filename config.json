@@ -55,13 +55,6 @@
     },
     {
         "tab": "Configuration",
-        "key": "no_review_text",
-        "label": "Text when no reviews found",
-        "type": "textarea",
-        "default": ""
-    },
-    {
-        "tab": "Configuration",
         "key": "order_status",
         "label": "Order Status",
         "type": "multi_select",
@@ -201,5 +194,12 @@
             "152": "[152] BOL.com"
         },
         "default": "none"
+    },
+    {
+        "tab": "Configuration",
+        "key": "no_review_text",
+        "label": "Text when no reviews found",
+        "type": "textarea",
+        "default": ""
     }
 ]
