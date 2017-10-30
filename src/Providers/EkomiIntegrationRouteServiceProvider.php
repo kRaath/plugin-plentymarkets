@@ -1,21 +1,21 @@
 <?php
-namespace EkomiIntegration\Providers;
+namespace EkomiFeedback\Providers;
 
 use Plenty\Plugin\RouteServiceProvider;
 use Plenty\Plugin\Routing\Router;
 
 /**
- * Class EkomiIntegrationRouteServiceProvider
- * @package EkomiIntegration\Providers
+ * Class EkomiFeedbackRouteServiceProvider
+ * @package EkomiFeedback\Providers
  */
-class EkomiIntegrationRouteServiceProvider extends RouteServiceProvider
+class EkomiFeedbackRouteServiceProvider extends RouteServiceProvider
 {
 	/**
 	 * @param Router $router
 	 */
 	public function map(Router $router)
 	{
-		$router->get('sendOrdersToEkomi', 'EkomiIntegration\Controllers\ContentController@sendOrdersToEkomi');
+		$router->get('sendOrdersToEkomi', 'EkomiFeedback\Controllers\ContentController@sendOrdersToEkomi');
 	}
 
 }

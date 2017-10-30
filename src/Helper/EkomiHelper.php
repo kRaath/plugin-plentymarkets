@@ -1,10 +1,10 @@
 <?php
 
-namespace EkomiIntegration\Helper;
+namespace EkomiFeedback\Helper;
 
 use Plenty\Modules\Order\Address\Contracts\OrderAddressRepositoryContract;
 use Plenty\Modules\Item\Variation\Contracts\VariationRepositoryContract;
-use EkomiIntegration\Helper\ConfigHelper;
+use EkomiFeedback\Helper\ConfigHelper;
 use Plenty\Modules\System\Contracts\WebstoreRepositoryContract;
 use Plenty\Modules\Item\ItemImage\Contracts\ItemImageRepositoryContract;
 

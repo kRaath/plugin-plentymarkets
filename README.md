@@ -1,4 +1,4 @@
-# plugin-plentymarkets-official
+# EkomiFeedback
 
 eKomi Plugin for plentymarkets allows you to integrate your plentymarkets shop 4 easily with eKomi system. This allows you to collect verified reviews, display eKomi seal on your website and get your seller ratings on Google. This helps you increase your website's click through rates, conversion rates and also, if you are running Google AdWord Campaigns, this helps in improving your Quality Score and hence your costs per click.
 
@@ -62,7 +62,7 @@ Follow these steps to install the plugin.
 6. Fetch The Latest Plugin Changes
 
  
-7. Deploy EkomiIntegration Plugin In Productive It will take few minutes and then productive icon will turn to blue.
+7. Deploy EkomiFeedback Plugin In Productive It will take few minutes and then productive icon will turn to blue.
  
 8. Select Clients
     - Click on Search icon
@@ -70,7 +70,7 @@ Follow these steps to install the plugin.
 
 9. Plugin Configuration
 
-* Go to EkomiIntegration » Configuration
+* Go to EkomiFeedback » Configuration
  
   - Enable / Disable The Plugin
   - Enable / Disable Product Reviews ( if enabled, product attributes will also be sent to eKomi i.e.  product id, name, image and URL )
@@ -103,6 +103,10 @@ Follow these steps to install the plugin.
 
 - Plugin type changed from "general" to "export"
 - Plenty ID field in configuration added
+
+### v1.1.0 (12-10-2017)
+
+- Added options to filter out specific referrer ids.
 
 ## Authors
 

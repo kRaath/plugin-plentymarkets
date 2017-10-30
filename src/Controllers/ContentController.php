@@ -1,14 +1,14 @@
 <?php
 
-namespace EkomiIntegration\Controllers;
+namespace EkomiFeedback\Controllers;
 
 use Plenty\Plugin\Controller;
 use Plenty\Plugin\Templates\Twig;
-use EkomiIntegration\Services\EkomiServices;
+use EkomiFeedback\Services\EkomiServices;
 
 /**
  * Class ContentController
- * @package EkomiIntegration\Controllers
+ * @package EkomiFeedback\Controllers
  */
 class ContentController extends Controller {
 
@@ -20,7 +20,7 @@ class ContentController extends Controller {
 
         $service->sendOrdersData(7);
 
-        return $twig->render('EkomiIntegration::content.hello');
+        return $twig->render('EkomiFeedback::content.hello');
     }
 
 }

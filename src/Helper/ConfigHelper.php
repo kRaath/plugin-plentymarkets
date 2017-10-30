@@ -1,6 +1,6 @@
 <?php
 
-namespace EkomiIntegration\Helper;
+namespace EkomiFeedback\Helper;
 
 use Plenty\Plugin\ConfigRepository;
 
@@ -14,28 +14,33 @@ class ConfigHelper {
      */
     private $config;
 
-    public function __construct(ConfigRepository $config) {
+    public function __construct(ConfigRepository $config)
+    {
         $this->config = $config;
     }
 
-    public function getEnabled() {
-        return $this->config->get('EkomiIntegration.is_active');
+    public function getEnabled()
+    {
+        return $this->config->get('EkomiFeedback.is_active');
     }
 
-    public function getMod() {
-        return $this->config->get('EkomiIntegration.mode');
+    public function getMod()
+    {
+        return $this->config->get('EkomiFeedback.mode');
     }
 
-    public function getShopId() {
-        $shopId = $this->config->get('EkomiIntegration.shop_id');
+    public function getShopId()
+    {
+        $shopId = $this->config->get('EkomiFeedback.shop_id');
 
         return preg_replace('/\s+/', '', $shopId);
     }
 
-    public function getPlentyIDs() {
+    public function getPlentyIDs()
+    {
         $plentyIDs = false;
 
-        $IDs = $this->config->get('EkomiIntegration.plenty_IDs');
+        $IDs = $this->config->get('EkomiFeedback.plenty_IDs');
 
         $IDs = preg_replace('/\s+/', '', $IDs);
 
@@ -46,22 +51,32 @@ class ConfigHelper {
         return $plentyIDs;
     }
 
-    public function getShopSecret() {
-        $secret = $this->config->get('EkomiIntegration.shop_secret');
+    public function getShopSecret()
+    {
+        $secret = $this->config->get('EkomiFeedback.shop_secret');
 
         return preg_replace('/\s+/', '', $secret);
     }
 
-    public function getProductReviews() {
-        return $this->config->get('EkomiIntegration.product_reviews');
+    public function getProductReviews()
+    {
+        return $this->config->get('EkomiFeedback.product_reviews');
     }
 
-    public function getOrderStatus() {
-        $status = $this->config->get('EkomiIntegration.order_status');
-
+    public function getOrderStatus()
+    {
+        $status = $this->config->get('EkomiFeedback.order_status');
         $statusArray = explode(',', $status);
 
         return $statusArray;
+    }
+
+    public function getReferrerIds()
+    {
+        $referrerIds = $this->config->get('EkomiFeedback.referrer_id');
+        $referrerIds = explode(',', $referrerIds);
+
+        return $referrerIds;
     }
 
 }

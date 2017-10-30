@@ -1,6 +1,6 @@
 <?php
 
-namespace EkomiIntegration\Repositories;
+namespace EkomiFeedback\Repositories;
 
 use Plenty\Modules\Order\Contracts\OrderRepositoryContract;
 use Plenty\Repositories\Models\PaginatedResult;

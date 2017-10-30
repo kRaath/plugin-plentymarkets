@@ -1,16 +1,16 @@
 <?php
 
-namespace EkomiIntegration\Providers;
+namespace EkomiFeedback\Providers;
 
 use Plenty\Plugin\ServiceProvider;
 use Plenty\Modules\Cron\Services\CronContainer;
-use EkomiIntegration\Crons\OrdersExportCron;
+use EkomiFeedback\Crons\OrdersExportCron;
 use Plenty\Plugin\Log\Loggable;
 /**
- * Class EkomiIntegrationServiceProvider
- * @package EkomiIntegration\Providers
+ * Class EkomiFeedbackServiceProvider
+ * @package EkomiFeedback\Providers
  */
-class EkomiIntegrationServiceProvider extends ServiceProvider {
+class EkomiFeedbackServiceProvider extends ServiceProvider {
     
     use Loggable;
     
@@ -18,16 +18,16 @@ class EkomiIntegrationServiceProvider extends ServiceProvider {
      * Register the service provider.
      */
     public function register() {
-        $this->getApplication()->register(EkomiIntegrationRouteServiceProvider::class);
+        $this->getApplication()->register(EkomiFeedbackRouteServiceProvider::class);
     }
 
     public function boot(CronContainer $container) {
         // register crons
         //EVERY_FIFTEEN_MINUTES | DAILY
         
-        $this->getLogger(__FUNCTION__)->error('EkomiIntegration::EkomiIntegrationServiceProvider.boot', 'CronRegistered');
+        //$this->getLogger(__FUNCTION__)->error('EkomiFeedback::EkomiFeedbackServiceProvider.boot', 'CronRegistered');
         
-        $container->add(CronContainer::EVERY_FIFTEEN_MINUTES, OrdersExportCron::class);
+        $container->add(CronContainer::DAILY, OrdersExportCron::class);
     }
 
 }

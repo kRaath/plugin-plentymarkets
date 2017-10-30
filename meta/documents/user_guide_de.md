@@ -1,4 +1,4 @@
-# Plugin - Plentymarkets - EkomiIntegration
+# Plugin - Plentymarkets - EkomiFeedback
 This plugin allows you to integrate your Plentymarkets shop easily with eKomi system to collect verified reviews.
 ***
 

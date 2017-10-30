@@ -1,4 +1,4 @@
-# Release Notes for EkomiIntegration
+# Release Notes for EkomiFeedback
 
 ### v1.0.0 (16-04-2017)
 
@@ -12,6 +12,10 @@
 
 - Plugin type changed from "general" to "export"
 - Plenty ID field in configuration added
+
+### v1.1.0 (12-10-2017)
+
+- Added options to filter out specific referrer ids
 
 ### Features
 
