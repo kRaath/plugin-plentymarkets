@@ -23,5 +23,13 @@
     "namespace": "EkomiFeedback",
 
     "type": "export",
-    "serviceProvider": "EkomiFeedback\\Providers\\EkomiFeedbackServiceProvider"
+    "serviceProvider": "EkomiFeedback\\Providers\\EkomiFeedbackServiceProvider",
+    "dataProviders"         :
+    [
+        {
+            "key"           :"EkomiFeedback\\Containers\\EkomiFeedbackContainer",
+            "name"          :"Placeholder",
+            "description"   :"Display a placeholder image and text"
+        }
+    ]
 }
