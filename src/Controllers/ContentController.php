@@ -4,6 +4,7 @@ namespace EkomiFeedback\Controllers;
 
 use Plenty\Plugin\Controller;
 use Plenty\Plugin\Templates\Twig;
+use Plenty\Modules\Authorization\Services\AuthHelper;
 use EkomiFeedback\Services\EkomiServices;
 
 use Plenty\Plugin\Http\Request;
