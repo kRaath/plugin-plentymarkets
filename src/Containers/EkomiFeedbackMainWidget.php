@@ -4,10 +4,10 @@ namespace EkomiFeedback\Containers;
  
 use Plenty\Plugin\Templates\Twig;
  
-class EkomiFeedbackContainer
+class EkomiFeedbackMainWidget
 {
     public function call(Twig $twig):string
     {
-        return $twig->render('EkomiFeedback::content.hello');
+        return $twig->render('EkomiFeedback::content.mainWidget');
     }
 }

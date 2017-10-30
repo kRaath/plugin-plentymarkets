@@ -27,9 +27,14 @@
     "dataProviders"         :
     [
         {
-            "key"           :"EkomiFeedback\\Containers\\EkomiFeedbackContainer",
-            "name"          :"Placeholder",
-            "description"   :"Display a placeholder image and text"
+            "key"           :"EkomiFeedback\\Containers\\EkomiFeedbackMiniStarsWidget",
+            "name"          :"MiniStarsWidget",
+            "description"   :"eKomi Mini Stars Widget"
+        },
+        {
+            "key"           :"EkomiFeedback\\Containers\\EkomiFeedbackMainWidget",
+            "name"          :"MainWidget",
+            "description"   :"eKomi Product Review Container"
         }
     ]
 }
