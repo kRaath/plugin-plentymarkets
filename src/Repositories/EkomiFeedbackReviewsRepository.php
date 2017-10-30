@@ -24,6 +24,16 @@ class EkomiFeedbackReviewsRepository implements EkomiFeedbackReviewsRepositoryCo
         $this->accountService = $accountService;
     }
 
+     /**
+     * Get the current contact ID
+     * @return int
+     */
+    public function getCurrentContactId()
+    {
+        return $this->accountService->getAccountContactId();
+    }
+    
+    
     public function createTask(array $data) {
         try {
             EkomiFeedbackValidator::validateOrFail($data);
