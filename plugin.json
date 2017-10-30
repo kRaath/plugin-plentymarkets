@@ -21,9 +21,12 @@
     "keywords": ["plugins", "orders export", "ekomi", "integration","prc","feedback"],
     "isClosedSource": true,
     "namespace": "EkomiFeedback",
-
+    
     "type": "export",
+    
     "serviceProvider": "EkomiFeedback\\Providers\\EkomiFeedbackServiceProvider",
+    
+    "runOnBuild":["EkomiFeedback\\Migrations\\CreateTable"],
     "dataProviders"         :
     [
         {

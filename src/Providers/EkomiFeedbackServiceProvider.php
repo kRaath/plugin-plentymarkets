@@ -4,7 +4,9 @@ namespace EkomiFeedback\Providers;
 
 use Plenty\Plugin\ServiceProvider;
 use Plenty\Modules\Cron\Services\CronContainer;
-use EkomiFeedback\Crons\OrdersExportCron;
+use EkomiFeedback\Crons\EkomiFeedbackCron;
+use EkomiFeedback\Contracts\EkomiFeedbackReviewsRepositoryContract;
+use EkomiFeedback\Repositories\EkomiFeedbackReviewsRepository;
 use Plenty\Plugin\Log\Loggable;
 /**
  * Class EkomiFeedbackServiceProvider
@@ -19,6 +21,7 @@ class EkomiFeedbackServiceProvider extends ServiceProvider {
      */
     public function register() {
         $this->getApplication()->register(EkomiFeedbackRouteServiceProvider::class);
+        $this->getApplication()->bind(EkomiFeedbackReviewsRepositoryContract::class, EkomiFeedbackReviewsRepository::class);
     }
 
     public function boot(CronContainer $container) {
@@ -27,7 +30,7 @@ class EkomiFeedbackServiceProvider extends ServiceProvider {
         
         //$this->getLogger(__FUNCTION__)->error('EkomiFeedback::EkomiFeedbackServiceProvider.boot', 'CronRegistered');
         
-        $container->add(CronContainer::DAILY, OrdersExportCron::class);
+        $container->add(CronContainer::EVERY_FIFTEEN_MINUTES, EkomiFeedbackCron::class);
     }
 
 }

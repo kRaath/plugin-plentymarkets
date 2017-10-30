@@ -7,9 +7,9 @@ use EkomiFeedback\Services\EkomiServices;
 use Plenty\Plugin\Log\Loggable;
 
 /**
- * Class OrdersExportCron
+ * Class EkomiFeedbackCron
  */
-class OrdersExportCron extends Cron {
+class EkomiFeedbackCron extends Cron {
 
     use Loggable;
 
@@ -26,7 +26,7 @@ class OrdersExportCron extends Cron {
     public function handle() {
         $daysDiff = 7;
 
-        $this->getLogger(__FUNCTION__)->error('EkomiFeedback::OrdersExportCron.handle', 'CronRunning....');
+        $this->getLogger(__FUNCTION__)->error('EkomiFeedback::EkomiFeedbackCron.handle', 'CronRunning....');
 
         $this->ekomiServices->sendOrdersData($daysDiff);
     }
