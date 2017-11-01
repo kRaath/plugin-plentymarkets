@@ -23,10 +23,11 @@ class EkomiServices {
     private $ekomiHelper;
     private $orderRepository;
 
-    public function __construct(ConfigHelper $configHelper, OrderRepository $orderRepo, EkomiHelper $ekomiHelper) {
+    public function __construct(ConfigHelper $configHelper, OrderRepository $orderRepo, EkomiFeedbackReviewsRepository $ekomiReviewsRepo, EkomiHelper $ekomiHelper) {
         $this->configHelper = $configHelper;
         $this->ekomiHelper = $ekomiHelper;
         $this->orderRepository = $orderRepo;
+        $this->ekomiFeedbackReviewsRepository = $ekomiReviewsRepo;
     }
 
     /**
@@ -188,11 +189,15 @@ class EkomiServices {
                 curl_close($ch);
 
                 // log the results
-                if (!$product_reviews) {
+                if ($product_reviews) {
                     $this->getLogger(__FUNCTION__)->error('EkomiFeedback::EkomiServices.fetchProductReviews', $ekomi_api_url);
                 }
-                $this->getLogger(__FUNCTION__)->error('EkomiFeedback::EkomiServices.fetchProductReviews', $product_reviews);
-                return json_decode($product_reviews, true);
+                $reviews = json_decode($product_reviews, true);
+
+                if ($reviews) {
+                    $this->ekomiFeedbackReviewsRepository->saveReviews($reviews);
+                }
+                $this->getLogger(__FUNCTION__)->error('EkomiFeedback::EkomiServices.fetchProductReviews', 'Reviews Fetched');
             } else {
                 $this->getLogger(__FUNCTION__)->error('EkomiFeedback::EkomiServices.fetchProductReviews', 'Shop id or shop secret is not correct!');
             }

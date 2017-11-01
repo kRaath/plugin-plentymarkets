@@ -46,11 +46,7 @@ class ContentController extends Controller {
         /** @var \Plenty\Modules\Account\Address\Contracts\AddressRepositoryContract $service */
         $service = pluginApp(EkomiServices::class);
         
-        $reviews = $service->fetchProductReviews($range='1w');
-        
-        if($reviews){
-            $ekomiFeedbackReviewsRepo->saveReviews($reviews);
-        }
+        $service->fetchProductReviews($range='1w');
         
         return $twig->render('EkomiFeedback::content.hello');
     }

@@ -11,17 +11,20 @@ use EkomiFeedback\Helper\ConfigHelper;
 use Plenty\Plugin\Log\Loggable;
 
 class EkomiFeedbackReviewsRepository {
+
     use Loggable;
+
     /**
      * @var AccountService
      */
     private $accountService;
     private $configHelper;
+
     /**
      * UserSession constructor.
      * @param AccountService $accountService
      */
-    public function __construct(AccountService $accountService,ConfigHelper $configHelper) {
+    public function __construct(AccountService $accountService, ConfigHelper $configHelper) {
         $this->accountService = $accountService;
         $this->configHelper = $configHelper;
     }
@@ -107,19 +110,19 @@ class EkomiFeedbackReviewsRepository {
     public function saveReviews(array $reviews) {
 
         foreach ($reviews as $review) {
-           // if (!$this->isReviewExist($config, $review)) {
-                $insertData = array(
-                    'shopId' => $this->configHelper->getShopId(),
-                    'orderId' => $review['order_id'],
-                    'productId' => $review['product_id'],
-                    'timestamp' => $review['submitted'],
-                    'stars' => $review['rating'],
-                    'reviewComment' => $review['review'],
-                    'helpful' => 0,
-                    'nothelpful' => 0
-                );
-                
-                //}
+            // if (!$this->isReviewExist($config, $review)) {
+            $insertData = array(
+                'shopId' => $this->configHelper->getShopId(),
+                'orderId' => $review['order_id'],
+                'productId' => $review['product_id'],
+                'timestamp' => $review['submitted'],
+                'stars' => $review['rating'],
+                'reviewComment' => $review['review'],
+                'helpful' => 0,
+                'nothelpful' => 0
+            );
+
+            //}
         }
         return TRUE;
 
