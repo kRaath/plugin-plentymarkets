@@ -176,5 +176,19 @@ class EkomiServices {
         }
         return FALSE;
     }
+    
+        public function fetchProductReviews($range = 'all') {
+
+        if ($this->configHelper->getEnabled() == 'true') {
+            if ($this->validateShop()) {
+                
+                $this->getLogger(__FUNCTION__)->error('EkomiFeedback::EkomiServices.fetchProductReviews', 'Reviews fetched!');
+            } else {
+                $this->getLogger(__FUNCTION__)->error('EkomiFeedback::EkomiServices.fetchProductReviews', 'Shop id or shop secret is not correct!');
+            }
+        } else {
+            $this->getLogger(__FUNCTION__)->error('EkomiFeedback::EkomiServices.fetchProductReviews', 'Plugin is not enabled!');
+        }
+    }
 
 }
