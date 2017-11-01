@@ -62,6 +62,16 @@ class ConfigHelper {
     {
         return $this->config->get('EkomiFeedback.product_reviews');
     }
+    
+    public function getGroupReviews()
+    {
+        return $this->config->get('EkomiFeedback.group_reviews');
+    }
+    
+    public function getNoReviewTxt()
+    {
+        return $this->config->get('EkomiFeedback.no_review_text');
+    }
 
     public function getOrderStatus()
     {
