@@ -16,14 +16,14 @@ interface EkomiFeedbackReviewsRepositoryContract
      * @param array $data
      * @return EkomiFeedbackReviews
      */
-    public function createTask(array $data): EkomiFeedbackReviews;
+    public function createTask(array $data);
  
     /**
      * List all tasks of the To Do list
      *
      * @return EkomiFeedbackReviews[]
      */
-    public function getReviewsList(): array;
+    public function getReviewsList();
  
     /**
      * Update the status of the task
@@ -31,7 +31,7 @@ interface EkomiFeedbackReviewsRepositoryContract
      * @param int $id
      * @return EkomiFeedbackReviews
      */
-    public function updateTask($id): EkomiFeedbackReviews;
+    public function updateTask($id);
  
     /**
      * Delete a task from the To Do list
@@ -39,5 +39,5 @@ interface EkomiFeedbackReviewsRepositoryContract
      * @param int $id
      * @return EkomiFeedbackReviews
      */
-    public function deleteTask($id): EkomiFeedbackReviews;
+    public function deleteTask($id);
 }
