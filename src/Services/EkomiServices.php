@@ -22,6 +22,7 @@ class EkomiServices {
     private $configHelper;
     private $ekomiHelper;
     private $orderRepository;
+    private $ekomiFeedbackReviewsRepository;
 
     public function __construct(ConfigHelper $configHelper, OrderRepository $orderRepo, EkomiFeedbackReviewsRepository $ekomiReviewsRepo, EkomiHelper $ekomiHelper) {
         $this->configHelper = $configHelper;
