@@ -45,19 +45,7 @@ class ContentController extends Controller {
 
         /** @var \Plenty\Modules\Account\Address\Contracts\AddressRepositoryContract $service */
         $service = pluginApp(EkomiServices::class);
-
-        /** @var \Plenty\Modules\Authorization\Services\AuthHelper $authHelper */
-        $authHelper = pluginApp(AuthHelper::class);
-
-        $address = null;
-
-//guarded
-        $address = $authHelper->processUnguarded(
-                function () use ($service, $address) {
-            //unguarded
-            return $service->fetchProductReviews($range='1w');
-        }
-        );
+        $service->fetchProductReviews($range='1w');
         return $twig->render('EkomiFeedback::content.hello');
     }
 
