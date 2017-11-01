@@ -51,7 +51,7 @@ class ContentController extends Controller {
     {
         $list = $ekomiFeedbackReviewsRepo->getReviewsList();
         $templateData = array("tasks" => $list);
-        return $twig->render('EkomiFeedback::content.todo', $templateData);
+        return $twig->render('EkomiFeedback::content.review', $templateData);
     }
  
     /**
