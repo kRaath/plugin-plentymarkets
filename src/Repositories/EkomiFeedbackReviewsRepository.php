@@ -4,12 +4,11 @@ namespace EkomiFeedback\Repositories;
 
 use Plenty\Exceptions\ValidationException;
 use Plenty\Modules\Plugin\DataBase\Contracts\DataBase;
-use EkomiFeedback\Contracts\EkomiFeedbackReviewsRepositoryContract;
 use EkomiFeedback\Models\EkomiFeedbackReviews;
 use EkomiFeedback\Validators\EkomiFeedbackValidator;
 use Plenty\Modules\Frontend\Services\AccountService;
 
-class EkomiFeedbackReviewsRepository implements EkomiFeedbackReviewsRepositoryContract {
+class EkomiFeedbackReviewsRepository {
 
     /**
      * @var AccountService

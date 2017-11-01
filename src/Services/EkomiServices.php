@@ -5,6 +5,7 @@ namespace EkomiFeedback\Services;
 use EkomiFeedback\Helper\EkomiHelper;
 use EkomiFeedback\Helper\ConfigHelper;
 use EkomiFeedback\Repositories\OrderRepository;
+use EkomiFeedback\Repositories\EkomiFeedbackReviewsRepository;
 use Plenty\Plugin\ConfigRepository;
 use Plenty\Plugin\Log\Loggable;
 
