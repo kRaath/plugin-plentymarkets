@@ -41,12 +41,16 @@ class ContentController extends Controller {
         return $twig->render('EkomiFeedback::content.hello');
     }
 
-    public function fetchProductReviews(Twig $twig): string {
+    public function fetchProductReviews(Twig $twig, EkomiFeedbackReviewsRepository $ekomiFeedbackReviewsRepo): string {
 
         /** @var \Plenty\Modules\Account\Address\Contracts\AddressRepositoryContract $service */
         $service = pluginApp(EkomiServices::class);
         
-        $service->fetchProductReviews($range='1w');
+        $reviews = $service->fetchProductReviews($range='1w');
+        
+        if($reviews){
+            $ekomiFeedbackReviewsRepo->saveReviews($reviews);
+        }
         
         return $twig->render('EkomiFeedback::content.hello');
     }

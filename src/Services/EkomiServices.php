@@ -64,8 +64,8 @@ class EkomiServices {
             if ($this->validateShop()) {
 
                 $orderStatuses = $this->configHelper->getOrderStatus();
-                $referrerIds   = $this->configHelper->getReferrerIds();
-                $plentyIDs     = $this->configHelper->getPlentyIDs();
+                $referrerIds = $this->configHelper->getReferrerIds();
+                $plentyIDs = $this->configHelper->getPlentyIDs();
 
                 $pageNum = 1;
 
@@ -78,16 +78,15 @@ class EkomiServices {
                     if (!empty($orders)) {
                         foreach ($orders as $key => $order) {
 
-                            $plentyID   = $order['plentyId'];
+                            $plentyID = $order['plentyId'];
                             $referrerId = $order['orderItems'][0]['referrerId'];
 
                             if (!$plentyIDs || in_array($plentyID, $plentyIDs)) {
 
-                                if (!empty($referrerIds) && in_array((string)$referrerId, $referrerIds)) {
+                                if (!empty($referrerIds) && in_array((string) $referrerId, $referrerIds)) {
                                     $this->getLogger(__FUNCTION__)->error(
-                                        'EkomiFeedback::EkomiServices.sendOrdersData',
-                                        'Referrer ID :' . $referrerId .
-                                        ' Blocked in plugin configuration.'
+                                            'EkomiFeedback::EkomiServices.sendOrdersData', 'Referrer ID :' . $referrerId .
+                                            ' Blocked in plugin configuration.'
                                     );
                                     continue;
                                 }
@@ -111,9 +110,8 @@ class EkomiServices {
 
                                     $flag = TRUE;
                                 }
-
-                            } else{
-                                $this->getLogger(__FUNCTION__)->error('EkomiFeedback::EkomiServices.sendOrdersData', 'plenty ID not matched :'.$plentyID .'|'. implode(',', $plentyIDs));
+                            } else {
+                                $this->getLogger(__FUNCTION__)->error('EkomiFeedback::EkomiServices.sendOrdersData', 'plenty ID not matched :' . $plentyID . '|' . implode(',', $plentyIDs));
                             }
                         }
                     }
@@ -177,19 +175,28 @@ class EkomiServices {
         }
         return FALSE;
     }
-    
-        public function fetchProductReviews($range = 'all') {
+
+    public function fetchProductReviews($range = 'all') {
 
         if ($this->configHelper->getEnabled() == 'true') {
             if ($this->validateShop()) {
-                
-                $this->getLogger(__FUNCTION__)->error('EkomiFeedback::EkomiServices.fetchProductReviews', 'Reviews fetched!');
+                $ekomi_api_url = "http://api.ekomi.de/v3/getProductfeedback?interface_id={$this->configHelper->getShopId()}&interface_pw={$this->configHelper->getShopSecret()}&type=json&charset=utf-8&range={$range}";
+                // Get the reviews
+                $product_reviews = file_get_contents($ekomi_api_url);
+
+                // log the results
+                if (!$product_reviews) {
+                    $this->getLogger(__FUNCTION__)->error('EkomiFeedback::EkomiServices.fetchProductReviews', $ekomi_api_url);
+                }
+                $this->getLogger(__FUNCTION__)->error('EkomiFeedback::EkomiServices.fetchProductReviews', $product_reviews);
+                return json_decode($product_reviews, true);
             } else {
                 $this->getLogger(__FUNCTION__)->error('EkomiFeedback::EkomiServices.fetchProductReviews', 'Shop id or shop secret is not correct!');
             }
         } else {
             $this->getLogger(__FUNCTION__)->error('EkomiFeedback::EkomiServices.fetchProductReviews', 'Plugin is not enabled!');
         }
+        return NULL;
     }
 
 }
