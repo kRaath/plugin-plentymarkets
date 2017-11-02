@@ -24,11 +24,11 @@ class EkomiFeedbackReviews extends Model {
      */
     public $id;
     public $shopId = 0;
-    public $orderId;
-    public $productId;
-    public $timestamp;
-    public $stars;
-    public $reviewComment;
+    public $orderId = '';
+    public $productId = '';
+    public $timestamp = 0;
+    public $stars = 0;
+    public $reviewComment = '';
     public $helpful = 0;
     public $nothelpful = 0;
 
