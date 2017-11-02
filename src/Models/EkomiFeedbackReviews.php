@@ -1,34 +1,42 @@
 <?php
- 
+
 namespace EkomiFeedback\Models;
- 
+
 use Plenty\Modules\Plugin\DataBase\Contracts\Model;
- 
+
 /**
  * Class EkomiFeedbackReviews
  *
  * @property int     $id
- * @property string  $taskDescription
- * @property int     $userId
- * @property boolean $isDone
- * @property int     $createdAt
+ * @property int     $shopId
+ * @property string  $orderId
+ * @property string  $productId
+ * @property int     $timestamp
+ * @property int     $stars
+ * @property string  $reviewComment
+ * @property int     $helpful
+ * @property int     $nothelpful
  */
-class EkomiFeedbackReviews extends Model
-{
+class EkomiFeedbackReviews extends Model {
+
     /**
      * @var int
      */
-    public $id              = 0;
-    public $taskDescription = '';
-    public $userId          = 0;
-    public $isDone          = false;
-    public $createdAt       = 0;
- 
+    public $id;
+    public $shopId;
+    public $orderId;
+    public $productId;
+    public $timestamp;
+    public $stars;
+    public $reviewComment;
+    public $helpful = 0;
+    public $nothelpful = 0;
+
     /**
      * @return string
      */
-    public function getTableName(): string
-    {
+    public function getTableName(): string {
         return 'EkomiFeedback::EkomiFeedbackReviews';
     }
+
 }

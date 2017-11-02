@@ -190,7 +190,7 @@ class EkomiServices {
                 curl_close($ch);
 
                 // log the results
-                if ($product_reviews) {
+                if (!$product_reviews) {
                     $this->getLogger(__FUNCTION__)->error('EkomiFeedback::EkomiServices.fetchProductReviews', $ekomi_api_url);
                 }
                 $reviews = json_decode($product_reviews, true);
