@@ -120,22 +120,25 @@ class EkomiFeedbackReviewsRepository {
     }
 
     public function saveReviews($reviews) {
-
+        
+         $this->getLogger(__FUNCTION__)->error('EkomiFeedback::EkomiFeedbackReviewsRepository.saveReviews', json_encode($this->getReviews()));
+         
         foreach ($reviews as $review) {
             // if (!$this->isReviewExist($review)) {
-            $this->ekomiReviews->shopId = (int) $this->configHelper->getShopId();
-            $this->ekomiReviews->orderId = $review['order_id'];
-            $this->ekomiReviews->productId = $review['product_id'];
-            $this->ekomiReviews->timestamp = (int) $review['submitted'];
-            $this->ekomiReviews->stars = (int) $review['rating'];
-            $this->ekomiReviews->reviewComment = $review['review'];
-            $this->ekomiReviews->helpful = 0;
-            $this->ekomiReviews->nothelpful = 0;
+            $ekomiFeedbackReviews = pluginApp(EkomiFeedbackReviews::class);
+            $ekomiFeedbackReviews->shopId = (int) $this->configHelper->getShopId();
+            $ekomiFeedbackReviews->orderId = $review['order_id'];
+            $ekomiFeedbackReviews->productId = $review['product_id'];
+            $ekomiFeedbackReviews->timestamp = (int) $review['submitted'];
+            $ekomiFeedbackReviews->stars = (int) $review['rating'];
+            $ekomiFeedbackReviews->reviewComment = $review['review'];
+            $ekomiFeedbackReviews->helpful = 0;
+            $ekomiFeedbackReviews->nothelpful = 0;
 
-            $this->db->save($this->ekomiReviews);
+            $this->db->save($ekomiFeedbackReviews);
             // }
         }
-        $this->getLogger(__FUNCTION__)->error('EkomiFeedback::EkomiFeedbackReviewsRepository.saveReviews', json_encode($this->getReviews()));
+       
         return $this->getReviews();
     }
 
