@@ -36,7 +36,7 @@ class EkomiFeedbackReviews extends Model {
      * @return string
      */
     public function getTableName(): string {
-        return 'EkomiFeedback::EkomiFeedbackReviews';
+        return 'EkomiFeedback::Reviews';
     }
 
 }
