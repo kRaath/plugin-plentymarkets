@@ -37,79 +37,79 @@ class EkomiFeedbackReviewsRepository {
      * Get the current contact ID
      * @return int
      */
-    public function getCurrentContactId() {
-        return $this->accountService->getAccountContactId();
-    }
+//    public function getCurrentContactId() {
+//        return $this->accountService->getAccountContactId();
+//    }
+//
+//    public function createTask(array $data) {
+//        try {
+//            EkomiFeedbackValidator::validateOrFail($data);
+//        } catch (ValidationException $e) {
+//            throw $e;
+//        }
+//
+//        /**
+//         * @var DataBase $database
+//         */
+//        $database = pluginApp(DataBase::class);
+//
+//        $ekomiFeedbackReviews = pluginApp(EkomiFeedbackReviews::class);
+//
+//        $ekomiFeedbackReviews->taskDescription = $data['taskDescription'];
+//
+//        $ekomiFeedbackReviews->userId = $this->getCurrentContactId();
+//
+//        $ekomiFeedbackReviews->createdAt = time();
+//
+//        $database->save($ekomiFeedbackReviews);
+//
+//        return $ekomiFeedbackReviews;
+//    }
+//
+//    public function deleteTask($id) {
+//
+//        /**
+//         * @var DataBase $database
+//         */
+//        $database = pluginApp(DataBase::class);
+//
+//        $ekomiFeedbackReviewsList = $database->query(EkomiFeedbackReviews::class)
+//                ->where('id', '=', $id)
+//                ->get();
+//
+//        $ekomiFeedbackReviews = $ekomiFeedbackReviewsList[0];
+//        $database->delete($ekomiFeedbackReviews);
+//
+//        return $ekomiFeedbackReviews;
+//    }
+//
+//    public function getReviewsList() {
+//        $database = pluginApp(DataBase::class);
+//
+//        $id = $this->getCurrentContactId();
+//        /**
+//         * @var EkomiFeedbackReviews[] $ekomiFeedbackReviewsList
+//         */
+//        $ekomiFeedbackReviewsList = $database->query(EkomiFeedbackReviews::class)->where('userId', '=', $id)->get();
+//        return $ekomiFeedbackReviewsList;
+//    }
 
-    public function createTask(array $data) {
-        try {
-            EkomiFeedbackValidator::validateOrFail($data);
-        } catch (ValidationException $e) {
-            throw $e;
-        }
-
-        /**
-         * @var DataBase $database
-         */
-        $database = pluginApp(DataBase::class);
-
-        $ekomiFeedbackReviews = pluginApp(EkomiFeedbackReviews::class);
-
-        $ekomiFeedbackReviews->taskDescription = $data['taskDescription'];
-
-        $ekomiFeedbackReviews->userId = $this->getCurrentContactId();
-
-        $ekomiFeedbackReviews->createdAt = time();
-
-        $database->save($ekomiFeedbackReviews);
-
-        return $ekomiFeedbackReviews;
-    }
-
-    public function deleteTask($id) {
-
-        /**
-         * @var DataBase $database
-         */
-        $database = pluginApp(DataBase::class);
-
-        $ekomiFeedbackReviewsList = $database->query(EkomiFeedbackReviews::class)
-                ->where('id', '=', $id)
-                ->get();
-
-        $ekomiFeedbackReviews = $ekomiFeedbackReviewsList[0];
-        $database->delete($ekomiFeedbackReviews);
-
-        return $ekomiFeedbackReviews;
-    }
-
-    public function getReviewsList() {
-        $database = pluginApp(DataBase::class);
-
-        $id = $this->getCurrentContactId();
-        /**
-         * @var EkomiFeedbackReviews[] $ekomiFeedbackReviewsList
-         */
-        $ekomiFeedbackReviewsList = $database->query(EkomiFeedbackReviews::class)->where('userId', '=', $id)->get();
-        return $ekomiFeedbackReviewsList;
-    }
-
-    public function updateTask($id) {
-        /**
-         * @var DataBase $database
-         */
-        $database = pluginApp(DataBase::class);
-
-        $ekomiFeedbackReviewsList = $database->query(EkomiFeedbackReviews::class)
-                ->where('id', '=', $id)
-                ->get();
-
-        $ekomiFeedbackReviews = $ekomiFeedbackReviewsList[0];
-        $ekomiFeedbackReviews->isDone = true;
-        $database->save($ekomiFeedbackReviews);
-
-        return $ekomiFeedbackReviews;
-    }
+//    public function updateTask($id) {
+//        /**
+//         * @var DataBase $database
+//         */
+//        $database = pluginApp(DataBase::class);
+//
+//        $ekomiFeedbackReviewsList = $database->query(EkomiFeedbackReviews::class)
+//                ->where('id', '=', $id)
+//                ->get();
+//
+//        $ekomiFeedbackReviews = $ekomiFeedbackReviewsList[0];
+//        $ekomiFeedbackReviews->isDone = true;
+//        $database->save($ekomiFeedbackReviews);
+//
+//        return $ekomiFeedbackReviews;
+//    }
 
     public function isReviewExist($review) {
         $result = $this->db->query(EkomiFeedbackReviews::class)
