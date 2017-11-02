@@ -48,7 +48,7 @@ class ContentController extends Controller {
         
         $reviews =$service->fetchProductReviews($range='1w');
         
-         $templateData = array("reviews" => $reviews);
+        $templateData = array("reviews" => $reviews);
         
         return $twig->render('EkomiFeedback::content.reviews', $templateData);
     }
