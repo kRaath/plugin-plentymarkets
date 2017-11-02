@@ -23,7 +23,7 @@ class EkomiFeedbackReviews extends Model {
      * @var int
      */
     public $id;
-    public $shopId;
+    public $shopId = 0;
     public $orderId;
     public $productId;
     public $timestamp;
