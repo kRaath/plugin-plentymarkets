@@ -7,7 +7,7 @@ use Plenty\Plugin\Templates\Twig;
 use Plenty\Modules\Authorization\Services\AuthHelper;
 use EkomiFeedback\Services\EkomiServices;
 use Plenty\Plugin\Http\Request;
-use EkomiFeedback\Repositories\EkomiFeedbackReviewsRepository;
+use EkomiFeedback\Repositories\ReviewsRepository;
 
 /**
  * Class ContentController
@@ -41,7 +41,7 @@ class ContentController extends Controller {
         return $twig->render('EkomiFeedback::content.hello');
     }
 
-    public function fetchProductReviews(Twig $twig, EkomiFeedbackReviewsRepository $ekomiFeedbackReviewsRepo): string {
+    public function fetchProductReviews(Twig $twig, ReviewsRepository $ekomiFeedbackReviewsRepo): string {
 
         /** @var \Plenty\Modules\Account\Address\Contracts\AddressRepositoryContract $service */
         $service = pluginApp(EkomiServices::class);
@@ -55,10 +55,10 @@ class ContentController extends Controller {
 
     /**
      * @param Twig                   $twig
-     * @param EkomiFeedbackReviewsRepository $ekomiFeedbackReviewsRepo
+     * @param ReviewsRepository $ekomiFeedbackReviewsRepo
      * @return string
      */
-    public function showReview(Twig $twig, EkomiFeedbackReviewsRepository $ekomiFeedbackReviewsRepo): string {
+    public function showReview(Twig $twig, ReviewsRepository $ekomiFeedbackReviewsRepo): string {
         $list = $ekomiFeedbackReviewsRepo->getReviewsList();
         $templateData = array("tasks" => $list);
         return $twig->render('EkomiFeedback::content.review', $templateData);
@@ -66,30 +66,30 @@ class ContentController extends Controller {
 
     /**
      * @param  \Plenty\Plugin\Http\Request $request
-     * @param EkomiFeedbackReviewsRepository       $ekomiFeedbackReviewsRepo
+     * @param ReviewsRepository       $ekomiFeedbackReviewsRepo
      * @return string
      */
-//    public function createReview(Request $request, EkomiFeedbackReviewsRepository $ekomiFeedbackReviewsRepo): string {
+//    public function createReview(Request $request, ReviewsRepository $ekomiFeedbackReviewsRepo): string {
 //        $newReview = $ekomiFeedbackReviewsRepo->createTask($request->all());
 //        return json_encode($newReview);
 //    }
 
     /**
      * @param int                    $id
-     * @param EkomiFeedbackReviewsRepository $ekomiFeedbackReviewsRepo
+     * @param ReviewsRepository $ekomiFeedbackReviewsRepo
      * @return string
      */
-//    public function updateReview(int $id, EkomiFeedbackReviewsRepository $ekomiFeedbackReviewsRepo): string {
+//    public function updateReview(int $id, ReviewsRepository $ekomiFeedbackReviewsRepo): string {
 //        $updateReview = $ekomiFeedbackReviewsRepo->updateTask($id);
 //        return json_encode($updateReview);
 //    }
 
     /**
      * @param int                    $id
-     * @param EkomiFeedbackReviewsRepository $ekomiFeedbackReviewsRepo
+     * @param ReviewsRepository $ekomiFeedbackReviewsRepo
      * @return string
      */
-//    public function deleteReview(int $id, EkomiFeedbackReviewsRepository $ekomiFeedbackReviewsRepo): string {
+//    public function deleteReview(int $id, ReviewsRepository $ekomiFeedbackReviewsRepo): string {
 //        $deleteReview = $ekomiFeedbackReviewsRepo->deleteTask($id);
 //        return json_encode($deleteReview);
 //    }

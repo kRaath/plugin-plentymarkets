@@ -5,7 +5,7 @@ namespace EkomiFeedback\Services;
 use EkomiFeedback\Helper\EkomiHelper;
 use EkomiFeedback\Helper\ConfigHelper;
 use EkomiFeedback\Repositories\OrderRepository;
-use EkomiFeedback\Repositories\EkomiFeedbackReviewsRepository;
+use EkomiFeedback\Repositories\ReviewsRepository;
 use Plenty\Plugin\ConfigRepository;
 use Plenty\Plugin\Log\Loggable;
 
@@ -22,13 +22,13 @@ class EkomiServices {
     private $configHelper;
     private $ekomiHelper;
     private $orderRepository;
-    private $ekomiFeedbackReviewsRepository;
+    private $reviewsRepository;
 
-    public function __construct(ConfigHelper $configHelper, OrderRepository $orderRepo, EkomiFeedbackReviewsRepository $ekomiReviewsRepo, EkomiHelper $ekomiHelper) {
+    public function __construct(ConfigHelper $configHelper, OrderRepository $orderRepo, ReviewsRepository $ekomiReviewsRepo, EkomiHelper $ekomiHelper) {
         $this->configHelper = $configHelper;
         $this->ekomiHelper = $ekomiHelper;
         $this->orderRepository = $orderRepo;
-        $this->ekomiFeedbackReviewsRepository = $ekomiReviewsRepo;
+        $this->reviewsRepository = $ekomiReviewsRepo;
     }
 
     /**
@@ -196,7 +196,7 @@ class EkomiServices {
                 $reviews = json_decode($product_reviews, true);
 
                 if ($reviews) {
-                    $this->ekomiFeedbackReviewsRepository->saveReviews($reviews);
+                    $this->reviewsRepository->saveReviews($reviews);
                 }
                 $this->getLogger(__FUNCTION__)->error('EkomiFeedback::EkomiServices.fetchProductReviews', 'Reviews Fetched');
             } else {
