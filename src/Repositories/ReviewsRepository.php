@@ -91,7 +91,7 @@ class ReviewsRepository {
         /**
          * @var Reviews[] $ekomiFeedbackReviewsList
          */
-        $ekomiFeedbackReviewsList = $database->query(Reviews::class)->where('id', '=', 1)->get();
+        $ekomiFeedbackReviewsList = $database->query(Reviews::class)->where('shopId', '=', $this->configHelper->getShopId())->get();
         
          $this->getLogger(__FUNCTION__)->error('EkomiFeedback::ReviewsRepository.saveReviews', json_encode($ekomiFeedbackReviewsList));
          
