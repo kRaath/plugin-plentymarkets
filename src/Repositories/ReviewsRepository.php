@@ -126,13 +126,13 @@ class ReviewsRepository {
         foreach ($reviews as $review) {
             if (!$this->isReviewExist($review)) {
                 $this->ekomiReviews->shopId = (int) $this->configHelper->getShopId();
-                $ekomiReviews->orderId = $review['order_id'];
-                $ekomiReviews->productId = $review['product_id'];
-                $ekomiReviews->timestamp = (int) $review['submitted'];
-                $ekomiReviews->stars = (int) $review['rating'];
-                $ekomiReviews->reviewComment = $review['review'];
-                $ekomiReviews->helpful = 0;
-                $ekomiReviews->nothelpful = 0;
+                $this->ekomiReviews->orderId = $review['order_id'];
+                $this->ekomiReviews->productId = $review['product_id'];
+                $this->ekomiReviews->timestamp = (int) $review['submitted'];
+                $this->ekomiReviews->stars = (int) $review['rating'];
+                $this->ekomiReviews->reviewComment = $review['review'];
+                $this->ekomiReviews->helpful = 0;
+                $this->ekomiReviews->nothelpful = 0;
 
                 $this->db->save($this->ekomiReviews);
             }
