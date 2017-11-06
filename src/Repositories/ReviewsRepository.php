@@ -122,6 +122,7 @@ class ReviewsRepository {
         if (empty($review)) {
             return TRUE;
         }
+        $this->getLogger(__FUNCTION__)->error('EkomiFeedback::ReviewsRepository.isReviewExist', $result);
         return FALSE;
     }
 
@@ -139,7 +140,8 @@ class ReviewsRepository {
 
                 $this->db->save($this->ekomiReviews);
             } else {
-//                $this->getLogger(__FUNCTION__)->error('EkomiFeedback::ReviewsRepository.saveReviews', 'Reviews Fetched');
+                $this->getLogger(__FUNCTION__)->error('EkomiFeedback::ReviewsRepository.saveReviews', 'Reviews Fetched');
+                break;
             }
         }
         return count($reviews);

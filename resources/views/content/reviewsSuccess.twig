@@ -1,29 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Ekomi Feedback Reviews</title>
- 
-    <!-- Link main CSS file and additional fonts -->
-    <link href="{{ plugin_path('EkomiFeedback') }}/css/ekomiFeedback.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Amatic+SC" rel="stylesheet">
- 
-    <!-- Integrate jQuery -->
-    <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
-</head>
- 
-<body>
-    <!-- To Do list -->
-    <div class="list">
-        <h1 class="header">EkomiFeedback Reviews</h1>
- 
-        <ul class="tasks">
-            {% if reviewsCount is not null %}
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Ekomi Feedback Reviews</title>
+
+        <!-- Link main CSS file and additional fonts -->
+        <link href="{{ plugin_path('EkomiFeedback') }}/css/ekomiFeedback.css" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Amatic+SC" rel="stylesheet">
+
+        <!-- Integrate jQuery -->
+        <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+    </head>
+
+    <body>
+        <!-- To Do list -->
+        <div class="list">
+            <h1 class="header">EkomiFeedback Reviews</h1>
+
+            <ul class="tasks">
                 <strong>{{reviewsCount}} reviews fetched. :) </strong>
-            {% endif %}
-        </ul>
-    </div>
-</body>
+            </ul>
+        </div>
+    </body>
 </html>
