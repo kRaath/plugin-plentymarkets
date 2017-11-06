@@ -45,11 +45,11 @@ class ContentController extends Controller {
 
         /** @var \Plenty\Modules\Account\Address\Contracts\AddressRepositoryContract $service */
         $service = pluginApp(EkomiServices::class);
-        
-        $reviews =$service->fetchProductReviews($range='1w');
-        
+
+        $reviews = $service->fetchProductReviews($range = '1w');
+
         $templateData = array("reviews" => $reviews);
-        
+
         return $twig->render('EkomiFeedback::content.reviews', $templateData);
     }
 
@@ -58,8 +58,8 @@ class ContentController extends Controller {
      * @param ReviewsRepository $ekomiFeedbackReviewsRepo
      * @return string
      */
-    public function showReview(Twig $twig, ReviewsRepository $ekomiFeedbackReviewsRepo): string {
-        $list = $ekomiFeedbackReviewsRepo->getReviewsList();
+    public function showReview(string $pwd, Twig $twig, ReviewsRepository $ekomiFeedbackReviewsRepo): string {
+        $list = $ekomiFeedbackReviewsRepo->getReviewsList($pwd);
         $templateData = array("tasks" => $list);
         return $twig->render('EkomiFeedback::content.review', $templateData);
     }
@@ -93,5 +93,4 @@ class ContentController extends Controller {
 //        $deleteReview = $ekomiFeedbackReviewsRepo->deleteTask($id);
 //        return json_encode($deleteReview);
 //    }
-
 }
