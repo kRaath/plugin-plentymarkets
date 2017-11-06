@@ -40,6 +40,7 @@ class EkomiFeedbackReviewsRepository {
     public function getCurrentContactId() {
         return $this->accountService->getAccountContactId();
     }
+
 //
 //    public function createTask(array $data) {
 //        try {
@@ -93,6 +94,7 @@ class EkomiFeedbackReviewsRepository {
         $ekomiFeedbackReviewsList = $database->query(EkomiFeedbackReviews::class)->where('userId', '=', $id)->get();
         return $ekomiFeedbackReviewsList;
     }
+
 //    public function updateTask($id) {
 //        /**
 //         * @var DataBase $database
@@ -120,33 +122,35 @@ class EkomiFeedbackReviewsRepository {
     }
 
     public function saveReviews($reviews) {
-        
-         $this->getLogger(__FUNCTION__)->error('EkomiFeedback::EkomiFeedbackReviewsRepository.saveReviews', json_encode($this->getReviews()));
-         //[{"id":"1","shopId":0,"orderId":"","productId":"","timestamp":0,"stars":0,"reviewComment":"","helpful":0,"nothelpful":0}]
+
+        $this->getLogger(__FUNCTION__)->error('EkomiFeedback::EkomiFeedbackReviewsRepository.saveReviews', json_encode($this->getReviews()));
+        //[{"id":"1","shopId":0,"orderId":"","productId":"","timestamp":0,"stars":0,"reviewComment":"","helpful":0,"nothelpful":0}]
         foreach ($reviews as $review) {
             // if (!$this->isReviewExist($review)) {
             $database = pluginApp(DataBase::class);
             $ekomiFeedbackReviews = pluginApp(EkomiFeedbackReviews::class);
             $ekomiFeedbackReviews->shopId = (int) $this->configHelper->getShopId();
-            $ekomiFeedbackReviews->orderId = $review['order_id'];
-            $ekomiFeedbackReviews->productId = $review['product_id'];
-            $ekomiFeedbackReviews->timestamp = (int) $review['submitted'];
-            $ekomiFeedbackReviews->stars = (int) $review['rating'];
-            $ekomiFeedbackReviews->reviewComment = $review['review'];
-            $ekomiFeedbackReviews->helpful = 0;
-            $ekomiFeedbackReviews->nothelpful = 0;
+//            $ekomiFeedbackReviews->orderId = $review['order_id'];
+//            $ekomiFeedbackReviews->productId = $review['product_id'];
+//            $ekomiFeedbackReviews->timestamp = (int) $review['submitted'];
+//            $ekomiFeedbackReviews->stars = (int) $review['rating'];
+            $ekomiFeedbackReviews->taskDescription = $review['review'];
+            $ekomiFeedbackReviews->userId = $this->getCurrentContactId();
+//
+            $ekomiFeedbackReviews->createdAt = time();
+//            $ekomiFeedbackReviews->helpful = 0;
+//            $ekomiFeedbackReviews->nothelpful = 0;
 
             $database->save($ekomiFeedbackReviews);
             // }
-            break;
         }
-       
+
         return $this->getReviews();
     }
 
     public function getReviews() {
         $ekomiFeedbackReviewsList = $this->db->query(EkomiFeedbackReviews::class)
-                        ->where('id', '=', 1)->get();
+                        ->where('userId', '=', $this->getCurrentContactId())->get();
         return $ekomiFeedbackReviewsList;
     }
 

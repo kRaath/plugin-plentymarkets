@@ -8,30 +8,22 @@ use Plenty\Modules\Plugin\DataBase\Contracts\Model;
  * Class EkomiFeedbackReviews
  *
  * @property int     $id
- * @property int     $shopId
- * @property string  $orderId
- * @property string  $productId
- * @property int     $timestamp
- * @property int     $stars
- * @property string  $reviewComment
- * @property int     $helpful
- * @property int     $nothelpful
+ * @property string  $taskDescription
+ * @property int     $userId
+ * @property boolean $isDone
+ * @property int     $createdAt
  */
 class EkomiFeedbackReviews extends Model {
 
     /**
      * @var int
      */
-    public $id;
-    public $shopId = 0;
-    public $orderId = '';
-    public $productId = '';
-    public $timestamp = 0;
-    public $stars = 0;
-    public $reviewComment = '';
-    public $helpful = 0;
-    public $nothelpful = 0;
-
+    public $id              = 0;
+    public $taskDescription = '';
+    public $userId          = 0;
+    public $isDone          = false;
+    public $createdAt       = 0;
+ 
     /**
      * @return string
      */
