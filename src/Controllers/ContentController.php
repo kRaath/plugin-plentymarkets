@@ -38,59 +38,61 @@ class ContentController extends Controller {
         );
         //  $service->sendOrdersData(7);
 
+        $service = pluginApp(EkomiServices::class);
+        
+        $service->fetchProductReviews($range = '1w');
+
         return $twig->render('EkomiFeedback::content.hello');
     }
 
-    public function fetchProductReviews(Twig $twig, ReviewsRepository $ekomiFeedbackReviewsRepo): string {
-
-        /** @var \Plenty\Modules\Account\Address\Contracts\AddressRepositoryContract $service */
+    public function fetchProductReviews(Twig $twig, ReviewsRepository $ekomiReviewsRepo): string {
         $service = pluginApp(EkomiServices::class);
 
-        $reviews = $service->fetchProductReviews($range = '1w');
+        $reviews = $service->fetchProductReviews($range = 'all');
 
-        $templateData = array("reviews" => $reviews);
+        $templateData = array("reviewsCount" => count($reviews));
 
-        return $twig->render('EkomiFeedback::content.reviews', $templateData);
+        return $twig->render('EkomiFeedback::content.reviewsSuccess', $templateData);
     }
 
     /**
      * @param Twig                   $twig
-     * @param ReviewsRepository $ekomiFeedbackReviewsRepo
+     * @param ReviewsRepository $ekomiReviewsRepo
      * @return string
      */
-    public function showReview(string $pwd, Twig $twig, ReviewsRepository $ekomiFeedbackReviewsRepo): string {
-        $list = $ekomiFeedbackReviewsRepo->getReviewsList($pwd);
+    public function showReview(string $pwd, Twig $twig, ReviewsRepository $ekomiReviewsRepo): string {
+        $list = $ekomiReviewsRepo->getReviewsList($pwd);
         $templateData = array("tasks" => $list);
-        return $twig->render('EkomiFeedback::content.review', $templateData);
+        return $twig->render('EkomiFeedback::content.reviews', $templateData);
     }
 
     /**
      * @param  \Plenty\Plugin\Http\Request $request
-     * @param ReviewsRepository       $ekomiFeedbackReviewsRepo
+     * @param ReviewsRepository       $ekomiReviewsRepo
      * @return string
      */
-//    public function createReview(Request $request, ReviewsRepository $ekomiFeedbackReviewsRepo): string {
-//        $newReview = $ekomiFeedbackReviewsRepo->createTask($request->all());
+//    public function createReview(Request $request, ReviewsRepository $ekomiReviewsRepo): string {
+//        $newReview = $ekomiReviewsRepo->createTask($request->all());
 //        return json_encode($newReview);
 //    }
 
     /**
      * @param int                    $id
-     * @param ReviewsRepository $ekomiFeedbackReviewsRepo
+     * @param ReviewsRepository $ekomiReviewsRepo
      * @return string
      */
-//    public function updateReview(int $id, ReviewsRepository $ekomiFeedbackReviewsRepo): string {
-//        $updateReview = $ekomiFeedbackReviewsRepo->updateTask($id);
+//    public function updateReview(int $id, ReviewsRepository $ekomiReviewsRepo): string {
+//        $updateReview = $ekomiReviewsRepo->updateTask($id);
 //        return json_encode($updateReview);
 //    }
 
     /**
      * @param int                    $id
-     * @param ReviewsRepository $ekomiFeedbackReviewsRepo
+     * @param ReviewsRepository $ekomiReviewsRepo
      * @return string
      */
-//    public function deleteReview(int $id, ReviewsRepository $ekomiFeedbackReviewsRepo): string {
-//        $deleteReview = $ekomiFeedbackReviewsRepo->deleteTask($id);
+//    public function deleteReview(int $id, ReviewsRepository $ekomiReviewsRepo): string {
+//        $deleteReview = $ekomiReviewsRepo->deleteTask($id);
 //        return json_encode($deleteReview);
 //    }
 }
