@@ -122,9 +122,10 @@ class EkomiFeedbackReviewsRepository {
     public function saveReviews($reviews) {
         
          $this->getLogger(__FUNCTION__)->error('EkomiFeedback::EkomiFeedbackReviewsRepository.saveReviews', json_encode($this->getReviews()));
-         
+         //[{"id":"1","shopId":0,"orderId":"","productId":"","timestamp":0,"stars":0,"reviewComment":"","helpful":0,"nothelpful":0}]
         foreach ($reviews as $review) {
             // if (!$this->isReviewExist($review)) {
+            $database = pluginApp(DataBase::class);
             $ekomiFeedbackReviews = pluginApp(EkomiFeedbackReviews::class);
             $ekomiFeedbackReviews->shopId = (int) $this->configHelper->getShopId();
             $ekomiFeedbackReviews->orderId = $review['order_id'];
@@ -135,8 +136,9 @@ class EkomiFeedbackReviewsRepository {
             $ekomiFeedbackReviews->helpful = 0;
             $ekomiFeedbackReviews->nothelpful = 0;
 
-            $this->db->save($ekomiFeedbackReviews);
+            $database->save($ekomiFeedbackReviews);
             // }
+            break;
         }
        
         return $this->getReviews();
