@@ -58,11 +58,11 @@ class ContentController extends Controller {
      * @param EkomiFeedbackReviewsRepository $ekomiFeedbackReviewsRepo
      * @return string
      */
-//    public function showReview(Twig $twig, EkomiFeedbackReviewsRepository $ekomiFeedbackReviewsRepo): string {
-//        $list = $ekomiFeedbackReviewsRepo->getReviewsList();
-//        $templateData = array("tasks" => $list);
-//        return $twig->render('EkomiFeedback::content.review', $templateData);
-//    }
+    public function showReview(Twig $twig, EkomiFeedbackReviewsRepository $ekomiFeedbackReviewsRepo): string {
+        $list = $ekomiFeedbackReviewsRepo->getReviewsList();
+        $templateData = array("tasks" => $list);
+        return $twig->render('EkomiFeedback::content.review', $templateData);
+    }
 
     /**
      * @param  \Plenty\Plugin\Http\Request $request

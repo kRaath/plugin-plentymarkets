@@ -37,9 +37,9 @@ class EkomiFeedbackReviewsRepository {
      * Get the current contact ID
      * @return int
      */
-//    public function getCurrentContactId() {
-//        return $this->accountService->getAccountContactId();
-//    }
+    public function getCurrentContactId() {
+        return $this->accountService->getAccountContactId();
+    }
 //
 //    public function createTask(array $data) {
 //        try {
@@ -83,16 +83,16 @@ class EkomiFeedbackReviewsRepository {
 //        return $ekomiFeedbackReviews;
 //    }
 //
-//    public function getReviewsList() {
-//        $database = pluginApp(DataBase::class);
-//
-//        $id = $this->getCurrentContactId();
-//        /**
-//         * @var EkomiFeedbackReviews[] $ekomiFeedbackReviewsList
-//         */
-//        $ekomiFeedbackReviewsList = $database->query(EkomiFeedbackReviews::class)->where('userId', '=', $id)->get();
-//        return $ekomiFeedbackReviewsList;
-//    }
+    public function getReviewsList() {
+        $database = pluginApp(DataBase::class);
+
+        $id = $this->getCurrentContactId();
+        /**
+         * @var EkomiFeedbackReviews[] $ekomiFeedbackReviewsList
+         */
+        $ekomiFeedbackReviewsList = $database->query(EkomiFeedbackReviews::class)->where('userId', '=', $id)->get();
+        return $ekomiFeedbackReviewsList;
+    }
 //    public function updateTask($id) {
 //        /**
 //         * @var DataBase $database

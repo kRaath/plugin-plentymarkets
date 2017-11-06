@@ -15,6 +15,7 @@ class CreateTable
      */
     public function run(Migrate $migrate)
     {
+        $migrate->deleteTable(EkomiFeedbackReviews::class);
         $migrate->createTable(EkomiFeedbackReviews::class);
     }
 }
