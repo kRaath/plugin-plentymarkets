@@ -120,9 +120,11 @@ class ReviewsRepository {
                         ->where('productId', '=', $review['product_id'])
                         ->where('timestamp', '=', $review['submitted'])->get();
         if (empty($review)) {
+            $this->getLogger(__FUNCTION__)->error('EkomiFeedback::ReviewsRepository.isReviewExist', "Exist" . json_encode($result));
             return TRUE;
+        } else {
+            $this->getLogger(__FUNCTION__)->error('EkomiFeedback::ReviewsRepository.isReviewExist', "not Exist" . json_encode($result));
         }
-        $this->getLogger(__FUNCTION__)->error('EkomiFeedback::ReviewsRepository.isReviewExist', $result);
         return FALSE;
     }
 
