@@ -144,7 +144,7 @@ class EkomiFeedbackReviewsRepository {
 
     public function getReviews() {
         $ekomiFeedbackReviewsList = $this->db->query(EkomiFeedbackReviews::class)
-                        ->where('shopId', '=', $this->configHelper->getShopId())->get();
+                        ->where('id', '=', 1)->get();
         return $ekomiFeedbackReviewsList;
     }
 
