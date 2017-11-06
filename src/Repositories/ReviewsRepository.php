@@ -119,7 +119,10 @@ class ReviewsRepository {
                         ->where('orderId', '=', $review['order_id'])
                         ->where('productId', '=', $review['product_id'])
                         ->where('timestamp', '=', $review['submitted'])->get();
-        return $result;
+        if (empty($review)) {
+            return TRUE;
+        }
+        return FALSE;
     }
 
     public function saveReviews($reviews) {
@@ -135,10 +138,11 @@ class ReviewsRepository {
                 $this->ekomiReviews->nothelpful = 0;
 
                 $this->db->save($this->ekomiReviews);
+            } else {
+//                $this->getLogger(__FUNCTION__)->error('EkomiFeedback::ReviewsRepository.saveReviews', 'Reviews Fetched');
             }
         }
-
-        return $this->getReviews();
+        return count($reviews);
     }
 
     public function getReviews() {

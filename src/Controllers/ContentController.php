@@ -50,7 +50,7 @@ class ContentController extends Controller {
 
         $reviews = $service->fetchProductReviews($range = 'all');
 
-        $templateData = array("reviewsCount" => count($reviews));
+        $templateData = array("reviewsCount" => $reviews);
 
         return $twig->render('EkomiFeedback::content.reviewsSuccess', $templateData);
     }
