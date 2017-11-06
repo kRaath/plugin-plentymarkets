@@ -20,17 +20,15 @@ class ReviewsRepository {
     private $accountService;
     private $db;
     private $configHelper;
-    private $ekomiReviews;
 
     /**
      * UserSession constructor.
      * @param AccountService $accountService
      */
-    public function __construct(AccountService $accountService, ConfigHelper $configHelper, DataBase $db, Reviews $reviewsModel) {
+    public function __construct(AccountService $accountService, ConfigHelper $configHelper, DataBase $db) {
         $this->accountService = $accountService;
         $this->configHelper = $configHelper;
         $this->db = $db;
-        $this->ekomiReviews = $reviewsModel;
     }
 
     /**
@@ -131,16 +129,17 @@ class ReviewsRepository {
     public function saveReviews($reviews) {
         foreach ($reviews as $review) {
             if (!$this->isReviewExist($review)) {
-                $this->ekomiReviews->shopId = (int) $this->configHelper->getShopId();
-                $this->ekomiReviews->orderId = $review['order_id'];
-                $this->ekomiReviews->productId = $review['product_id'];
-                $this->ekomiReviews->timestamp = (int) $review['submitted'];
-                $this->ekomiReviews->stars = (int) $review['rating'];
-                $this->ekomiReviews->reviewComment = $review['review'];
-                $this->ekomiReviews->helpful = 0;
-                $this->ekomiReviews->nothelpful = 0;
+                $review = pluginApp(Reviews::class);
+                $review->shopId = (int) $this->configHelper->getShopId();
+                $review->orderId = $review['order_id'];
+                $review->productId = $review['product_id'];
+                $review->timestamp = (int) $review['submitted'];
+                $review->stars = (int) $review['rating'];
+                $review->reviewComment = $review['review'];
+                $review->helpful = 0;
+                $review->nothelpful = 0;
 
-                $this->db->save($this->ekomiReviews);
+                $this->db->save($review);
             }
         }
         return count($reviews);
