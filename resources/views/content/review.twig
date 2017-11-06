@@ -23,16 +23,16 @@
             {% if tasks is not null %}
                 {% for review in tasks %}
                      <li>
-                            <span class="task">{{ review.id }}</span>
-                            <span class="task">{{ review.shopId }}</span>
-                            <span class="task">{{ review.orderId }}</span>
-                            <span class="task">{{ review.productId }}</span>
-                            <span class="task">{{ review.timestamp }}</span>
-                            <span class="task">{{ review.stars }}</span>
-                            <span class="task">{{ review.reviewComment }}</span>
-                            <span class="task">{{ review.helpful }}</span>
-                            <span class="task">{{ review.nothelpful }}</span>
-                        </li>
+                            id: <span class="task">{{ review.id }}</span> <br/>
+                            <span class="task">{{ review.shopId }}</span> <br/>
+                            <span class="task">{{ review.orderId }}</span> <br/>
+                            <span class="task">{{ review.productId }}</span> <br/>
+                            <span class="task">{{ review.timestamp }}</span> <br/>
+                            <span class="task">{{ review.stars }}</span> <br/>
+                            <span class="task">{{ review.reviewComment }}</span> <br/>
+                            <span class="task">{{ review.helpful }}</span> <br/>
+                            <span class="task">{{ review.nothelpful }}</span> 
+                        </li> 
                 {% endfor %}
             {% endif %}
         </ul>
