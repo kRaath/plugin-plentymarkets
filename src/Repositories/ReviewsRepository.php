@@ -123,7 +123,7 @@ class ReviewsRepository {
             $this->getLogger(__FUNCTION__)->error('EkomiFeedback::ReviewsRepository.isReviewExist', "not Exist" . json_encode($result));
             return FALSE;
         } else {
-            $this->getLogger(__FUNCTION__)->error('EkomiFeedback::ReviewsRepository.isReviewExist', "Exist" . json_encode($result));
+            $this->getLogger(__FUNCTION__)->error('EkomiFeedback::ReviewsRepository.isReviewExist', "Exist" . json_encode($review));
         }
         return TRUE;
     }
