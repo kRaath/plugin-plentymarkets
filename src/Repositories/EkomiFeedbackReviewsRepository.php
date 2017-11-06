@@ -129,7 +129,7 @@ class EkomiFeedbackReviewsRepository {
             // if (!$this->isReviewExist($review)) {
             $database = pluginApp(DataBase::class);
             $ekomiFeedbackReviews = pluginApp(EkomiFeedbackReviews::class);
-            $ekomiFeedbackReviews->shopId = (int) $this->configHelper->getShopId();
+//            $ekomiFeedbackReviews->shopId = (int) $this->configHelper->getShopId();
 //            $ekomiFeedbackReviews->orderId = $review['order_id'];
 //            $ekomiFeedbackReviews->productId = $review['product_id'];
 //            $ekomiFeedbackReviews->timestamp = (int) $review['submitted'];
