@@ -10,4 +10,7 @@ class EkomiFeedbackMiniStarsWidget
     {
         return $twig->render('EkomiFeedback::content.miniStarsWidget');
     }
+    public function getAvgRating() {
+        return 3.7;
+    }
 }
