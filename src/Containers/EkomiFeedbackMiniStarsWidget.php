@@ -4,11 +4,9 @@ namespace EkomiFeedback\Containers;
 
 use Plenty\Plugin\Templates\Twig;
 
-use EkomiFeedback\Repositories\ReviewsRepository
-
 class EkomiFeedbackMiniStarsWidget {
 
-    public function call(Twig $twig, ReviewsRepository $reviewRepo): string {
+    public function call(Twig $twig, \EkomiFeedback\Repositories\ReviewsRepository $reviewRepo): string {
         $avg = $reviewRepo->getAvgRating('ZUBFER-144');
         $count = $reviewRepo->getReviewsCount('ZUBFER-144');
         $itemTitle = 'Abc Item';
