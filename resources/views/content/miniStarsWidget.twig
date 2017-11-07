@@ -1,1 +1,12 @@
-<h1>Hello --- {{ $ID }} === {% htmlentities($Name[1]) %} Mini Stars Widget!</h1>
+<h1>Hello ---  === 
+    --
+    $ID
+    ---
+    {% htmlentities($Name[1]) %}
+    Mini Stars Widget!
+    {% $_ratingResult = $Rating / $RatingMax * 100 %}
+    --
+    {% $ID %}
+    {{ $ID }}
+    {% $ID %}
+</h1>
