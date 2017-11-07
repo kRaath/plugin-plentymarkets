@@ -154,11 +154,14 @@ class ReviewsRepository {
 
     public function getReviewsCount($pId) {
         $database = pluginApp(DataBase::class);
-        
+
         $result = $database->query(Reviews::class)
-                ->count('id')
-                ->where('productId', '=', $pId)
-                ->where("shopId", '=', $this->configHelper->getShopId());
+                        ->count('id')
+                        ->where('productId', '=', $pId)
+                        ->where('shopId', '=', $this->configHelper->getShopId())->get();
+        if (empty($result)) {
+            return 0;
+        }
         return $result;
     }
 
