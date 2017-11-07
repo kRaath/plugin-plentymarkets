@@ -148,4 +148,16 @@ class ReviewsRepository {
         return $ekomiReviewsList;
     }
 
+    public function getAvgRating($pId) {
+        return 3.6;
+    }
+
+    public function getReviewsCount($pId) {
+        $result = $this->db->query(Reviews::class)
+                ->count('id')
+                ->where('productId', '=', $pId)
+                ->where("shopId", '=', $this->configHelper->getShopId());
+        return $result;
+    }
+
 }

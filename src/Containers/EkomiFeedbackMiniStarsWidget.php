@@ -4,17 +4,17 @@ namespace EkomiFeedback\Containers;
 
 use Plenty\Plugin\Templates\Twig;
 
+use EkomiFeedback\Repositories\ReviewsRepository
+
 class EkomiFeedbackMiniStarsWidget {
 
-    public function call(Twig $twig): string {
-        $templateData = array("reviewsCount" => 29, "avgRating" => 3.5, 'articleName' => 'Test');
-        
-        
-        return $twig->render('EkomiFeedback::content.miniStarsWidget', $templateData);
-    }
+    public function call(Twig $twig, ReviewsRepository $reviewRepo): string {
+        $avg = $reviewRepo->getAvgRating('ZUBFER-144');
+        $count = $reviewRepo->getReviewsCount('ZUBFER-144');
+        $itemTitle = 'Abc Item';
 
-    public function getAvgRating() {
-        return 3.7;
+        $templateData = array("reviewsCount" => $count, "avgRating" => $avg, 'articleName' => $itemTitle);
+        return $twig->render('EkomiFeedback::content.miniStarsWidget', $templateData);
     }
 
 }
