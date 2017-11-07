@@ -35,8 +35,13 @@
             "description"   :"eKomi Mini Stars Widget"
         },
         {
-            "key"           :"EkomiFeedback\\Containers\\EkomiFeedbackMainWidget",
-            "name"          :"MainWidget",
+            "key"           :"EkomiFeedback\\Containers\\EkomiFeedbackReviewsContainerTab",
+            "name"          :"Reviews Container Tab",
+            "description"   :"eKomi Product Review Container Tab"
+        },
+        {
+            "key"           :"EkomiFeedback\\Containers\\EkomiFeedbackReviewsContainer",
+            "name"          :"Reviews Container",
             "description"   :"eKomi Product Review Container"
         }
     ]
