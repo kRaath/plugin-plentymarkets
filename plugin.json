@@ -22,7 +22,7 @@
     "isClosedSource": true,
     "namespace": "EkomiFeedback",
     
-    "type": "template",
+    "type": "general",
     
     "serviceProvider": "EkomiFeedback\\Providers\\EkomiFeedbackServiceProvider",
     
