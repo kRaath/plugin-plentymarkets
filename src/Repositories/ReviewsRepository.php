@@ -129,17 +129,17 @@ class ReviewsRepository {
     public function saveReviews($reviews) {
         foreach ($reviews as $review) {
             if (!$this->isReviewExist($review)) {
-                $review = pluginApp(Reviews::class);
-                $review->shopId = (int) $this->configHelper->getShopId();
-                $review->orderId = $review['order_id'];
-                $review->productId = $review['product_id'];
-                $review->timestamp = (int) $review['submitted'];
-                $review->stars = (int) $review['rating'];
-                $review->reviewComment = $review['review'];
-                $review->helpful = 0;
-                $review->nothelpful = 0;
+                $ekomiReview = pluginApp(Reviews::class);
+                $ekomiReview->shopId = (int) $this->configHelper->getShopId();
+                $ekomiReview->orderId = $review['order_id'];
+                $ekomiReview->productId = $review['product_id'];
+                $ekomiReview->timestamp = (int) $review['submitted'];
+                $ekomiReview->stars = (int) $review['rating'];
+                $ekomiReview->reviewComment = $review['review'];
+                $ekomiReview->helpful = 0;
+                $ekomiReview->nothelpful = 0;
 
-                $this->db->save($review);
+                $this->db->save($ekomiReview);
             }
         }
         return count($reviews);
