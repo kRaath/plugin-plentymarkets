@@ -156,7 +156,7 @@ class ReviewsRepository {
         if (!empty($result)) {
             $sum = 0;
             foreach ($result as $key => $review) {
-                $sum = $sum + $review . stars;
+                $sum = $sum + $review->stars;
             }
             $avg = $sum / count($result);
         }
