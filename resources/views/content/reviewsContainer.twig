@@ -4,14 +4,14 @@
         <meta content="{{productImage}}" itemprop="image">
         {%if reviewsCountTotal > 0 %}
             <script type='text/javascript'>
-            var ajaxUrl = '{{ plugin_path('EkomiFeedback') }}v1/prcAjax.php/';
-            var prcProductId = '{{productId}}';
-            var queryBy = '{{productId}}';
-            var prcFilter = 0;
-            var prcOffset = 0;
-                    var reviewsLimit = {{reviewsLimit}};
-                    var reviewsCountTotal = {{reviewsCountTotal}};
-                    var reviewsCountPage = {{reviewsCountPage}};
+                var ajaxUrl = '{{ plugin_path('EkomiFeedback') }}v1/prcAjax.php/';
+                var prcProductId = '{{productId}}';
+                var queryBy = '{{productId}}';
+                var prcFilter = 0;
+                var prcOffset = 0;
+                        var reviewsLimit = {{reviewsLimit}};
+                        var reviewsCountTotal = {{reviewsCountTotal}};
+                        var reviewsCountPage = {{reviewsCountPage}};
             </script>
 
             <div class="ekomi_prc_widget reviews_large">
@@ -30,7 +30,7 @@
                             <div class="ek-logo-text" style="">
                                 <span class="ek-powered-by">Powered by</span>
                                 <a class="ek-logo" href="http://www.ekomi.de/de/" target="_blank">
-                                    <img src="{{ plugin_path('EkomiFeedback') }}resources/images/ekomi_logo.png"/>
+                                    <img src="{{ plugin_path('EkomiFeedback') }}/resources/images/ekomi_logo.png"/>
                                 </a>
                             </div>
 
@@ -53,7 +53,7 @@
                                             </div>
                                         </div>
                                         <div class="ek-small-3 ek-large-3 ek-columns ek-text-left">
-                                            <span class="ratings_overview_number">{{starsCountArray[i].total}}</span>
+                                            <span class="ratings_overview_number">{{starsCountArray[i]['total']}}</span>
                                             <input type="submit" class="ekomi_button ekomi_ratings_filter_reset" value="X"/>
                                         </div>
                                     </div>
