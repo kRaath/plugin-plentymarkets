@@ -1,5 +1,127 @@
-<div class="tab-pane" id="ekomi_prc_tab" role="tabpanel">
-    <div class="m-y-2">
-        ekomi reviews here...
-    </div>
+<div class="ek-row" itemtype="http://schema.org/Product" itemscope="">
+    <meta content="{{productId}}" itemprop="productID">
+    <meta content="{{productImage}}" itemprop="image">
+    {%if reviewsCountTotal > 0 %}
+        <script type='text/javascript'>
+            var ajaxUrl = '{{ plugin_path('EkomiFeedback') }}v1/prcAjax.php/';
+            var prcProductId = '{{productId}}';
+            var queryBy = '{{productId}}';
+            var prcFilter = 0;
+            var prcOffset = 0;
+            var reviewsLimit = {{reviewsLimit}};
+            var reviewsCountTotal = {{reviewsCountTotal}};
+            var reviewsCountPage = {{reviewsCountPage}};
+        </script>
+
+        <div class="ekomi_mm_review_widget reviews_large">
+            <div class="ekomi_header">
+                <div class="ek-row">
+                    <div class="ek-small-12 ek-large-6 ek-columns">
+                        <span class="header_first_line">Product reviews for</span>
+                        <span class="header_second_line">
+                            <span itemprop="name"> {{productName}} </span>
+                            ({{reviewsCountTotal}})
+                        </span>
+                        <meta content="{{productDescription|striptags}}" itemprop="description">
+                        <meta content="{{productSku}}" itemprop="sku">
+                    </div>
+                    <div class="ek-small-12 ek-large-6 ek-columns ek-text-right">
+                        <div class="ek-logo-text" style="">
+                            <span class="ek-powered-by">Powered by</span>
+                            <a class="ek-logo" href="http://www.ekomi.de/de/" target="_blank">
+                                <img src="{{ plugin_path('EkomiFeedback') }}resources/images/ekomi_logo.png"/>
+                            </a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="ekomi_statistics">
+                <div class="ek-row">
+                    <div class="ek-small-12 ek-large-6 ek-columns">
+                        <div class="ekomi_rating_graph">
+                            {% for i in 5..1 %}
+                                <div class="ek-row ekomi_bar ek-small-collapse" data-sort-id={{i}}>
+                                    <div class="ek-small-3 ek-large-3 ek-columns ek-text-right">
+                                        <span class="ratings_stars_amount">{{i}}{{(i == 1) ? " Star &nbsp;" :" Stars" }}</span>
+                                    </div>
+                                    <div class="ek-small-6 ek-large-6 ek-columns">
+                                        <div class="prc-progress round">
+                                            <span class="meter"
+                                                  style="width: {{starsCountArray.i.avg * 100 }}%"></span>
+                                        </div>
+                                    </div>
+                                    <div class="ek-small-3 ek-large-3 ek-columns ek-text-left">
+                                        <span class="ratings_overview_number">{{starsCountArray.i}}</span>
+                                        <input type="submit" class="ekomi_button ekomi_ratings_filter_reset" value="X"/>
+                                    </div>
+                                </div>
+                            {%endfor%}
+
+                        </div>
+                    </div>
+                    <div class="ek-small-12 ek-large-6 ek-columns ek-text-center">
+                        <!-- product average rating  -->
+                        <section itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
+                            <div class="ekomi_average_rating">
+                                <div class="ek-row ekomi_average_title ek-text-center">
+                                    Average rating
+                                </div>
+                                <div class="ek-row ek-text-center">
+                                    <div class="ekomi_average_stars">
+                                        <div class="ekomi_stars_wrap">
+                                            <div class="ekomi_stars_gold" style="width:{{(avgStars * 20)}}%"></div>
+                                        </div>
+                                        <div class="ekomi_agregate_rating">
+                                            <span itemprop="ratingValue">{{"%.1f"|format(avgStars)}}</span> / 5
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="ek-row ekomi_average_description ek-text-center">
+                                Calculated from
+                                <span itemprop="reviewCount">{{reviewsCountTotal}}</span>
+                                reviews
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </div>
+            <div class="ekomi_filter">
+                <div class="ek-row">
+                    <div class="ek-small-12 ek-medium-6 ek-columns ek-small-text-center">
+                        <span class="current_review_batch">{{reviewsCountPage}}</span> out of {{reviewsCountTotal}} reviews :
+                    </div>
+                    <div class="ek-small-12 ek-medium-6 ek-columns ek-small-text-center ek-medium-text-right">
+                        <select class="ekomi_reviews_sort" autocomplete="off">
+                            <option value="1">Newest reviews</option>
+                            <option value="2">Oldest reviews</option>
+                            <option value="3">Most helpful reviews</option>
+                            <option value="4">Highest rating</option>
+                            <option value="5">Lowest rating</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div id="ekomi_reviews_container" class="ekomi_reviews">
+                {% include 'reviewsContainerWidgetPartial.twig' %}
+            </div>
+            <div class="ekomi_footer">
+                <div class="ek-row">
+                    <div class="ek-large-12 ek-columns ek-text-center">
+                        {% if reviewsCountPage < reviewsCountTotal%}
+                            <span class="loads_more_reviews">Show more</span>
+                        {%endif%}
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% else %}
+        {{noReviewText}}
+    {% endif %}
 </div>
+{% block AdditionalScripts %}
+	<link rel="stylesheet" type="text/css" href="{{ plugin_path('EkomiFeedback') }}/css/ekomifeedback.css">
+	<script src="{{ plugin_path('EkomiFeedback') }}/js/jquery-3.1.1.min.js"></script>
+        <script src="{{ plugin_path('EkomiFeedback') }}/js/ekomiFeedback.js"></script>
+{% endblock %}   
