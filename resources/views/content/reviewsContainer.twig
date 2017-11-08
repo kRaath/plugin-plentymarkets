@@ -105,7 +105,7 @@
                     </div>
                 </div>
                 <div id="ekomi_reviews_container" class="ekomi_reviews">
-                    {{item.documents[0].data.calculatedPrices.rrp.price}}
+                    {% include "EkomiFeedback::content.reviewsContainerPartial" with { 'reviews': reviews } %}
                 </div>
                 <div class="ekomi_footer">
                     <div class="ek-row">

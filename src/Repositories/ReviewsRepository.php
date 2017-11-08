@@ -176,7 +176,9 @@ class ReviewsRepository {
      * 
      * @return array The star counts array
      */
-    public function getReviewsStats($productID, $offset, $limit) {
+    public function getReviewsStats($item, $productID, $offset, $limit) {
+        $this->getLogger(__FUNCTION__)->error('EkomiFeedback::ReviewsRepository.getReviewsStats', $item);
+
         $result = $this->db->query(Reviews::class)
                         ->whereIn('productId', explode(',', $productID))
                         ->where('shopId', '=', $this->configHelper->getShopId())->get();

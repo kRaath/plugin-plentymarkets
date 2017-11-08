@@ -7,7 +7,7 @@ use EkomiFeedback\Repositories\ReviewsRepository;
 
 class EkomiFeedbackReviewsContainer {
 
-    public function call(Twig $twig): string {
+    public function call(Twig $twig, $arg): string {
         $productID = 'omair33330';
 
         $offset = 0;
@@ -15,7 +15,8 @@ class EkomiFeedbackReviewsContainer {
 
         $reviewRepo = $database = pluginApp(ReviewsRepository::class);
 
-        $data = $reviewRepo->getReviewsStats($productID, $offset, $limit);
+        $data = $reviewRepo->getReviewsStats($arg[0],$productID, $offset, $limit);
+        $data["item"] = $arg[0];
 
         return $twig->render('EkomiFeedback::content.reviewsContainer', $data);
     }
