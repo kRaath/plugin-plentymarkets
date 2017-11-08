@@ -153,6 +153,8 @@ class ReviewsRepository {
                         ->whereIn('productId', explode(',', $pId))
                         ->where('shopId', '=', $this->configHelper->getShopId())->get();
         $avg = 0;
+        $this->getLogger(__FUNCTION__)->error('EkomiFeedback::ReviewsRepository.getAvgRating', 'server_output:' . json_encode($result));
+        $this->getLogger(__FUNCTION__)->error('EkomiFeedback::ReviewsRepository.getAvgRating', $result);
         if (!empty($result)) {
             $sum = 0;
             foreach ($result as $key => $review) {
