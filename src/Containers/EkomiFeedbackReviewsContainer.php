@@ -3,6 +3,7 @@
 namespace EkomiFeedback\Containers;
 
 use Plenty\Plugin\Templates\Twig;
+use EkomiFeedback\Repositories\ReviewsRepository;
 
 class EkomiFeedbackReviewsContainer {
 

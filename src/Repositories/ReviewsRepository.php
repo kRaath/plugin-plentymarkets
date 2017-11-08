@@ -256,7 +256,7 @@ class ReviewsRepository {
                 $orderBy['direction'] = 'desc';
                 break;
             case 2:
-                $$orderBy['fieldName'] = 'id';
+                $orderBy['fieldName'] = 'id';
                 $orderBy['direction'] = 'asc';
                 break;
             case 3:
