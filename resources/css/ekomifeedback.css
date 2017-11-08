@@ -3,12 +3,15 @@
     cursor: pointer;
 }
 .ekomi_total_reviews_wrap{
-	width: 0;
-	display: inline !important;
+    width: 0;
+    display: inline !important;
 }
 .mini_stars_counter{
-	margin: 3px 0px;
+    margin: 3px 0px;
 }
 .ekomi_prc_widget.mini_stars_counter{
-display: inline-block;
+    display: inline-block;
+}
+#ekomi_prc_tab{
+    margin: 3px 0;
 }
