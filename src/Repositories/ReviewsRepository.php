@@ -156,7 +156,7 @@ class ReviewsRepository {
 
         $result = $this->db->query(Reviews::class)
                         ->whereIn('productId', '=', explode(',', $pId))
-                        ->wher('shopId', '=', $this->configHelper->getShopId())->count();
+                        ->where('shopId', '=', $this->configHelper->getShopId())->count();
 
         if (empty($result)) {
             return 0;
