@@ -7,7 +7,7 @@ use EkomiFeedback\Repositories\ReviewsRepository;
 
 class EkomiFeedbackMiniStarsWidget {
 
-    public function call(Twig $twig): string {
+    public function call(Twig $twig, $arg): string {
         $productID = 'omair33330';
 
         $reviewRepo = $database = pluginApp(ReviewsRepository::class);
