@@ -152,7 +152,7 @@ class ReviewsRepository {
         return 3.6;
     }
 
-    public function getReviewsCount(array $pId) {
+    public function getReviewsCount($pId) {
 
         $result = $this->db->query(Reviews::class)
                         ->whereIn('productId', explode(',', $pId))
