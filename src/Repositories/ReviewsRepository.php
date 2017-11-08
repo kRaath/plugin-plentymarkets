@@ -155,7 +155,7 @@ class ReviewsRepository {
     public function getReviewsCount(array $pId) {
 
         $result = $this->db->query(Reviews::class)
-                        ->whereIn('productId', '=',$pId)
+                        ->whereIn('productId', explode(',', $pId))
                         ->where('shopId', '=', $this->configHelper->getShopId())->count();
 
         if (empty($result)) {
