@@ -193,7 +193,7 @@ class ReviewsRepository {
                 if (!isset($starsCountArray[$review->stars])) {
                     $starsCountArray[$review->stars] = array('total' => 0, 'avg' => 0);
                 }
-                $starsCountArray[$review->stars] = 1 + $starsCountArray[$review->stars]['total'];
+                $starsCountArray[$review->stars]['total'] = 1 + $starsCountArray[$review->stars]['total'];
             }
             // set count for all stars
             for ($i = 1; $i <= 5; $i++) {
