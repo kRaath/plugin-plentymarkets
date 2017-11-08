@@ -7,24 +7,24 @@
             <div class="ek-large-4 ek-column ek-text-center">
                 <div class="ekomi_stars_container" itemprop="reviewRating" itemscope itemtype="http://schema.org/Rating">
                     <meta itemprop="worstRating" content="1">
-                    <meta itemprop="ratingValue" content="{{ value['stars']}}">
+                    <meta itemprop="ratingValue" content="{{ value.stars]}}">
                     <meta itemprop="bestRating"  content="5">
 
                     <div class="ekomi_stars_wrap">
-                        <div class="ekomi_stars_gold" style="width:{{value['stars'] * 20}}%"></div>
+                        <div class="ekomi_stars_gold" style="width:{{value.stars * 20}}%"></div>
                     </div>
                 </div>
-                <span class="ekomi_review_time" itemprop="datePublished" content="{{ value['timestamp']|date("d.m.Y H:i:s", false) }}">
-                    {{ value['timestamp']|date("d.m.Y H:i:s", false) }}
+                <span class="ekomi_review_time" itemprop="datePublished" content="{{ value.timestamp|date("d.m.Y H:i:s", false) }}">
+                    {{ value.timestamp|date("d.m.Y H:i:s", false) }}
                 </span>
             </div>
             <div class="ek-large-8 ek-column">
-                <p class="ekomi_review_text" itemprop="reviewBody">{{value['reviewComment']}}</p>
+                <p class="ekomi_review_text" itemprop="reviewBody">{{value.reviewComment}}</p>
                 <div class="ekomi_review_helpful_button_wrapper ">
 
                     <span class="ekomi_review_helpful_info ek-small-text-center ek-medium-text-left"  style="display:block;" >
-                        {% if ((value['helpful'] + value['nothelpful']) > 0) %}
-                            {{value['helpful']}} people out of {{(value['helpful'] + value['nothelpful'])}} found this review helpful
+                        {% if ((value.helpful + value.nothelpful) > 0) %}
+                            {{value.helpful}} people out of {{(value.helpful + value.nothelpful)}} found this review helpful
                         {%endif%}
                     </span>
 
@@ -35,9 +35,9 @@
                     <div class="ekomi_review_helpful_question ek-small-text-center ek-medium-text-left">
                         <span>Did you find this review helpful?</span>
                         <input type="submit" class="ekomi_button ekomi_review_helpful_button" name="ekomi_answer"
-                               data-review-helpfulness="1" data-review-id="{{value['id']}}" value=Yes>
+                               data-review-helpfulness="1" data-review-id="{{value.id}}" value=Yes>
                         <input type="submit" class="ekomi_button ekomi_review_helpful_button" name="ekomi_answer"
-                               data-review-helpfulness="0" data-review-id="{{value['id']}}" value=No>
+                               data-review-helpfulness="0" data-review-id="{{value.id}}" value=No>
                     </div>
                 </div>
             </div>
