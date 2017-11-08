@@ -149,7 +149,19 @@ class ReviewsRepository {
     }
 
     public function getAvgRating($pId) {
-        return 3.6;
+        $result = $this->db->query(Reviews::class)
+                        ->whereIn('productId', explode(',', $pId))
+                        ->where('shopId', '=', $this->configHelper->getShopId())->get();
+        $avg = 0;
+        if (!empty($result)) {
+            $sum = 0;
+            foreach ($result as $key => $value) {
+                $sum = $sum + $value['stars'];
+            }
+            $avg = $sum / count($result);
+        }
+
+        return $avg;
     }
 
     public function getReviewsCount($pId) {
