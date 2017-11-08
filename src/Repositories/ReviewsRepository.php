@@ -142,19 +142,12 @@ class ReviewsRepository {
         return count($reviews);
     }
 
-    public function getReviews() {
-        $ekomiReviewsList = $this->db->query(Reviews::class)
-                ->where("shopId", '=', $this->configHelper->getShopId());
-        return $ekomiReviewsList;
-    }
-
-    public function getAvgRating($pId) {
+    public function getAvgRating($productID) {
         $result = $this->db->query(Reviews::class)
-                        ->whereIn('productId', explode(',', $pId))
+                        ->whereIn('productId', explode(',', $productID))
                         ->where('shopId', '=', $this->configHelper->getShopId())->get();
         $avg = 0;
-        $this->getLogger(__FUNCTION__)->error('EkomiFeedback::ReviewsRepository.getAvgRating', 'server_output:' . json_encode($result));
-        $this->getLogger(__FUNCTION__)->error('EkomiFeedback::ReviewsRepository.getAvgRating', $result);
+//        $this->getLogger(__FUNCTION__)->error('EkomiFeedback::ReviewsRepository.getAvgRating', $result);
         if (!empty($result)) {
             $sum = 0;
             foreach ($result as $key => $review) {
@@ -166,16 +159,123 @@ class ReviewsRepository {
         return $avg;
     }
 
-    public function getReviewsCount($pId) {
+    public function getReviewsCount($productID) {
 
         $result = $this->db->query(Reviews::class)
-                        ->whereIn('productId', explode(',', $pId))
+                        ->whereIn('productId', explode(',', $productID))
                         ->where('shopId', '=', $this->configHelper->getShopId())->count();
 
         if (empty($result)) {
             return 0;
         }
         return $result;
+    }
+
+    /**
+     * Counts the stars
+     * 
+     * @return array The star counts array
+     */
+    public function getReviewsStats($productID, $offset, $limit) {
+        $result = $this->db->query(Reviews::class)
+                        ->whereIn('productId', explode(',', $productID))
+                        ->where('shopId', '=', $this->configHelper->getShopId())->get();
+        $avg = 0;
+        $reviewsCountTotal = 0;
+        $starsCountArray = array();
+
+        if (!empty($result)) {
+            $reviewsCountTotal = count($result);
+            $sum = 0;
+            foreach ($result as $key => $review) {
+                $sum = $sum + $review->stars;
+
+                if (!isset($starsCountArray[$review->stars])) {
+                    $starsCountArray[$review->stars] = array('total' => 0, 'avg' => 0);
+                }
+                $starsCountArray[$review->stars] = 1 + $starsCountArray[$review->stars]['total'];
+            }
+            // set count for all stars
+            for ($i = 1; $i <= 5; $i++) {
+                if (isset($starsCountArray[$i])) {
+                    $starsCountArray[$i]['avg'] = $starsCountArray[$i]['total'] / $reviewsCountTotal;
+                } else {
+                    $starsCountArray[$i] = array('total' => 0, 'avg' => 0);
+                }
+            }
+            $avg = $sum / $reviewsCountTotal;
+        }
+
+        $reviews = $this->getReviews($productID, $offset, $limit, $filter_type = 1);
+
+        $data = array(
+            'productId' => $productID,
+            'productName' => 'ABC',
+            'productImage' => 'ABC-URL',
+            'productSku' => 'ABC-sku',
+            'productDescription' => 'ABC-Descs',
+            'reviewsLimit' => $limit,
+            'reviewsCountTotal' => $reviewsCountTotal,
+            'reviewsCountPage' => count($reviews),
+            'avgStars' => $avg,
+            'starsCountArray' => $starsCountArray,
+            'reviews' => $reviews,
+            'noReviewText' => $this->configHelper->getNoReviewTxt(),
+            'baseUrl' => 'base-url',
+        );
+
+        $this->getLogger(__FUNCTION__)->error('EkomiFeedback::ReviewsRepository.getReviewsStats', $data);
+
+        return $data;
+    }
+
+    public function getReviews($productID, $offset, $limit, $filter_type) {
+        $orderBy = $this->resolveOrderBy($filter_type);
+
+        $result = $this->db->query(Reviews::class)
+                        ->whereIn('productId', explode(',', $productID))
+                        ->where('shopId', '=', $this->configHelper->getShopId())
+                        ->limit($limit)
+                        ->orderBy($orderBy['fieldName'], $orderBy['direction'])
+                        ->offset($offset)->get();
+        return $result;
+    }
+
+    /**
+     * 
+     * @param int $filter_type The sorting filter value
+     * 
+     * @return string The Sorting filter
+     */
+    public function resolveOrderBy($filter_type) {
+        $orderBy = array('fieldName' => 'id', 'direction' => 'asc');
+
+        switch ($filter_type) {
+            case 1:
+                $orderBy['fieldName'] = 'id';
+                $orderBy['direction'] = 'desc';
+                break;
+            case 2:
+                $$orderBy['fieldName'] = 'id';
+                $orderBy['direction'] = 'asc';
+                break;
+            case 3:
+                $orderBy['fieldName'] = 'helpful';
+                $orderBy['direction'] = 'desc';
+                break;
+            case 4:
+                $orderBy['fieldName'] = 'stars';
+                $orderBy['direction'] = 'desc';
+                break;
+            case 5:
+                $orderBy['fieldName'] = 'stars';
+                $orderBy['direction'] = 'asc';
+                break;
+
+            default:
+                break;
+        }
+        return $orderBy;
     }
 
 }

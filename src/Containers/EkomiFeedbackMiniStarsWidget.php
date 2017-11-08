@@ -8,9 +8,11 @@ use EkomiFeedback\Repositories\ReviewsRepository;
 class EkomiFeedbackMiniStarsWidget {
 
     public function call(Twig $twig): string {
+        $productID = 'omair33330';
+
         $reviewRepo = $database = pluginApp(ReviewsRepository::class);
-        $avg = $reviewRepo->getAvgRating('omair33330');
-        $count = $reviewRepo->getReviewsCount('omair33330');
+        $avg = $reviewRepo->getAvgRating($productID);
+        $count = $reviewRepo->getReviewsCount($productID);
         $itemTitle = 'Abc Item';
 
         $templateData = array("reviewsCount" => $count, "avgRating" => $avg, 'articleName' => $itemTitle);
