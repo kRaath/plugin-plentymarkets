@@ -9,8 +9,8 @@ class EkomiFeedbackMiniStarsWidget {
 
     public function call(Twig $twig): string {
         $reviewRepo = $database = pluginApp(ReviewsRepository::class);
-        $avg = $reviewRepo->getAvgRating('ZUBFER-144');
-        $count = $reviewRepo->getReviewsCount('ZUBFER-144');
+        $avg = $reviewRepo->getAvgRating('omair33330');
+        $count = $reviewRepo->getReviewsCount('omair33330');
         $itemTitle = 'Abc Item';
 
         $templateData = array("reviewsCount" => $count, "avgRating" => $avg, 'articleName' => $itemTitle);
