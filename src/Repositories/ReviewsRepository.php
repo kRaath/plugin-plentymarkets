@@ -158,7 +158,7 @@ class ReviewsRepository {
                         ->where('productId', '=', $pId)
                         ->where('shopId', '=', $this->configHelper->getShopId())->count();
 
-        $this->getLogger(__FUNCTION__)->error('EkomiFeedback::ReviewsRepository.getReviewsCount', json_encode($result));
+        $this->getLogger(__FUNCTION__)->error('EkomiFeedback::ReviewsRepository.getReviewsCount', $pId.($result));
         if (empty($result)) {
             return 0;
         }
