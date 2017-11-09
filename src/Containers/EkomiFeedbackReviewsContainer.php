@@ -13,7 +13,7 @@ class EkomiFeedbackReviewsContainer {
 
         $reviewRepo = $database = pluginApp(ReviewsRepository::class);
 
-        $data = $reviewRepo->getReviewsStats($arg[0], $offset, $limit);
+        $data = $reviewRepo->getReviewsContainerStats($arg[0], $offset, $limit);
 
         return $twig->render('EkomiFeedback::content.reviewsContainer', $data);
     }

@@ -142,33 +142,43 @@ class ReviewsRepository {
         return count($reviews);
     }
 
-    public function getAvgRating($productID) {
-        $result = $this->db->query(Reviews::class)
-                        ->whereIn('productId', explode(',', $productID))
-                        ->where('shopId', '=', $this->configHelper->getShopId())->get();
-        $avg = 0;
-//        $this->getLogger(__FUNCTION__)->error('EkomiFeedback::ReviewsRepository.getAvgRating', $result);
-        if (!empty($result)) {
-            $sum = 0;
-            foreach ($result as $key => $review) {
-                $sum = $sum + $review->stars;
+    public function getMiniStarsStats($item) {
+
+        $data = array('count' => 0, 'avg' => 0, 'itemName' => '');
+
+        $itemID = $this->getItemID($item);
+
+        if ($itemID) {
+            $result = $this->db->query(Reviews::class)
+                            ->whereIn('productId', explode(',', $itemID))
+                            ->where('shopId', '=', $this->configHelper->getShopId())->get();
+
+            if (!empty($result)) {
+                $data['count'] = count($result);
+                $sum = 0;
+                foreach ($result as $key => $review) {
+                    $sum = $sum + $review->stars;
+                }
+                $data['avg'] = $sum / $data['count'];
             }
-            $avg = $sum / count($result);
+            $data['itemName'] = $this->getItemName($item);
         }
 
-        return $avg;
+        return $data;
     }
 
-    public function getReviewsCount($productID) {
+    public function getReviewsCount($item) {
+        $itemID = $this->getItemID($item);
+        if ($itemID) {
+            $result = $this->db->query(Reviews::class)
+                            ->whereIn('productId', explode(',', $itemID))
+                            ->where('shopId', '=', $this->configHelper->getShopId())->count();
 
-        $result = $this->db->query(Reviews::class)
-                        ->whereIn('productId', explode(',', $productID))
-                        ->where('shopId', '=', $this->configHelper->getShopId())->count();
-
-        if (empty($result)) {
-            return 0;
+            if (!empty($result)) {
+                return $result;
+            }
         }
-        return $result;
+        return 0;
     }
 
     /**
@@ -176,7 +186,7 @@ class ReviewsRepository {
      * 
      * @return array The star counts array
      */
-    public function getReviewsStats($item, $offset, $limit) {
+    public function getReviewsContainerStats($item, $offset, $limit) {
         $this->getLogger(__FUNCTION__)->error('EkomiFeedback::ReviewsRepository.getReviewsStats', $item);
 
         $itemID = $this->getItemID($item);
