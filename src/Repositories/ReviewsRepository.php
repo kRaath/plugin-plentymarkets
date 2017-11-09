@@ -146,7 +146,7 @@ class ReviewsRepository {
 
         $data = array('count' => 0, 'avg' => 0, 'itemName' => '');
 
-        $itemID = $this->getItemID($item);
+        $itemID = $this->getItemIDs($item);
 
         if ($itemID) {
             $result = $this->db->query(Reviews::class)
@@ -168,9 +168,8 @@ class ReviewsRepository {
     }
 
     public function getReviewsCount($item) {
-        $itemID = $this->getItemID($item);
+        $itemID = $this->getItemIDs($item);
         if ($itemID) {
-            $this->getLogger(__FUNCTION__)->error('EkomiFeedback::ReviewsRepository.getReviewsCount', explode(',', $itemID));
             $result = $this->db->query(Reviews::class)
                             ->whereIn('productId', explode(',', $itemID))
                             ->where('shopId', '=', $this->configHelper->getShopId())->count();
@@ -189,8 +188,8 @@ class ReviewsRepository {
      */
     public function getReviewsContainerStats($item, $offset, $limit) {
         $this->getLogger(__FUNCTION__)->error('EkomiFeedback::ReviewsRepository.getReviewsContainerStats', $item);
-        
-        $itemID = $this->getItemID($item);
+
+        $itemID = $this->getItemIDs($item);
         if (!$itemID) {
             $this->getLogger(__FUNCTION__)->error('EkomiFeedback::ReviewsRepository.getReviewsContainerStats', 'ItemId is Null:' . $itemID);
             return NULL;
@@ -231,7 +230,7 @@ class ReviewsRepository {
             'productId' => $itemID,
             'productName' => $this->getItemName($item),
             'productImage' => $this->getItemImageUrl($item),
-            'productSku' => $this->getItemVarNumber($item),
+            'productSku' => '',
             'productDescription' => $this->getItemDesc($item),
             'reviewsLimit' => $limit,
             'reviewsCountTotal' => $reviewsCountTotal,
@@ -296,7 +295,7 @@ class ReviewsRepository {
         return $orderBy;
     }
 
-    public function getItemID($item) {
+    public function getItemIDs($item) {
         if (isset($item['item']['id'])) {
             return trim($item['item']['id']);
         }
@@ -305,7 +304,10 @@ class ReviewsRepository {
     }
 
     public function getItemDesc($item) {
-        if (isset($item['texts']['shortDescription'])) {
+        if (isset($item['texts']['description'])) {
+            if (empty($item['texts']['shortDescription'])) {
+                return $item['texts']['description'];
+            }
             return $item['texts']['shortDescription'];
         }
         return '';
