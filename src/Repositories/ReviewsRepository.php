@@ -176,12 +176,17 @@ class ReviewsRepository {
      * 
      * @return array The star counts array
      */
-    public function getReviewsStats($item, $productID, $offset, $limit) {
-        $this->getProductIDs($item);
-//        $this->getLogger(__FUNCTION__)->error('EkomiFeedback::ReviewsRepository.getReviewsStats', $item);
+    public function getReviewsStats($item, $offset, $limit) {
+        $this->getLogger(__FUNCTION__)->error('EkomiFeedback::ReviewsRepository.getReviewsStats', $item);
+
+        $itemID = $this->getProductIDs($item);
+        if (!$itemID) {
+            $this->getLogger(__FUNCTION__)->error('EkomiFeedback::ReviewsRepository.getReviewsStats', 'ItemId is Null:' . $itemID);
+            return NULL;
+        }
 
         $result = $this->db->query(Reviews::class)
-                        ->whereIn('productId', explode(',', $productID))
+                        ->where('productId', '=', $itemID)
                         ->where('shopId', '=', $this->configHelper->getShopId())->get();
         $avg = 0;
         $reviewsCountTotal = 0;
@@ -209,14 +214,14 @@ class ReviewsRepository {
             $avg = $sum / $reviewsCountTotal;
         }
 
-        $reviews = $this->getReviews($productID, $offset, $limit, $filter_type = 1);
+        $reviews = $this->getReviews($itemID, $offset, $limit, $filter_type = 1);
 
         $data = array(
-            'productId' => $productID,
-            'productName' => 'ABC',
-            'productImage' => 'ABC-URL',
-            'productSku' => 'ABC-sku',
-            'productDescription' => 'ABC-Descs',
+            'productId' => $itemID,
+            'productName' => $this->getItemName($item),
+            'productImage' => $this->getItemImageUrl($item),
+            'productSku' => $this->getItemVarNumber($item),
+            'productDescription' => $this->getItemDesc($item),
             'reviewsLimit' => $limit,
             'reviewsCountTotal' => $reviewsCountTotal,
             'reviewsCountPage' => count($reviews),
@@ -227,15 +232,15 @@ class ReviewsRepository {
             'baseUrl' => 'base-url',
         );
 
-
+        $this->getLogger(__FUNCTION__)->error('EkomiFeedback::ReviewsRepository.getReviewsStats', $data);
         return $data;
     }
 
-    public function getReviews($productID, $offset, $limit, $filter_type) {
+    public function getReviews($itemID, $offset, $limit, $filter_type) {
         $orderBy = $this->resolveOrderBy($filter_type);
 
         $result = $this->db->query(Reviews::class)
-                        ->whereIn('productId', explode(',', $productID))
+                        ->where('productId', '=', $itemID)
                         ->where('shopId', '=', $this->configHelper->getShopId())
                         ->limit($limit)
                         ->orderBy($orderBy['fieldName'], $orderBy['direction'])
@@ -280,13 +285,40 @@ class ReviewsRepository {
         return $orderBy;
     }
 
-    public function getProductIDs($item) {
-        if ($item) {
-            $this->getLogger(__FUNCTION__)->error('EkomiFeedback::ReviewsRepository.getReviewsStats', $item['item']['id']);
-
-//            return $item['item'];
+    public function getItemID($item) {
+        if (isset($item['item']['id'])) {
+            return $item['item']['id'];
         }
-        $this->getLogger(__FUNCTION__)->error('EkomiFeedback::ReviewsRepository.getReviewsStats', $item['item']);
+        return NULL;
+//        $this->getLogger(__FUNCTION__)->error('EkomiFeedback::ReviewsRepository.getReviewsStats', $item['item']);
+    }
+
+    public function getItemDesc($item) {
+        if (isset($item['texts']['shortDescription'])) {
+            return $item['texts']['shortDescription'];
+        }
+        return '';
+    }
+
+    public function getItemName($item) {
+        if (isset($item['texts']['name1'])) {
+            return $item['texts']['name1'];
+        }
+        return '';
+    }
+
+    public function getItemImageUrl($item) {
+        if (isset($item['images']['all'][0])) {
+            return $item['images']['all'][0]['urlPreview'];
+        }
+        return '';
+    }
+
+    public function getItemVarNumber($item) {
+        if (isset($item['variation']['number'])) {
+            return $item['variation']['number'];
+        }
+        return '';
     }
 
 }
