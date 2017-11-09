@@ -177,7 +177,8 @@ class ReviewsRepository {
      * @return array The star counts array
      */
     public function getReviewsStats($item, $productID, $offset, $limit) {
-        $this->getLogger(__FUNCTION__)->error('EkomiFeedback::ReviewsRepository.getReviewsStats', $item);
+        $this->getProductIDs($item);
+//        $this->getLogger(__FUNCTION__)->error('EkomiFeedback::ReviewsRepository.getReviewsStats', $item);
 
         $result = $this->db->query(Reviews::class)
                         ->whereIn('productId', explode(',', $productID))
@@ -226,7 +227,6 @@ class ReviewsRepository {
             'baseUrl' => 'base-url',
         );
 
-        $this->getLogger(__FUNCTION__)->error('EkomiFeedback::ReviewsRepository.getReviewsStats', $this->getProductIDs($item));
 
         return $data;
     }
@@ -279,11 +279,14 @@ class ReviewsRepository {
         }
         return $orderBy;
     }
-    
+
     public function getProductIDs($item) {
-        if($item){
-            return $item->item->id;
+        if ($item) {
+            $this->getLogger(__FUNCTION__)->error('EkomiFeedback::ReviewsRepository.getReviewsStats', $item['item']['id']);
+
+//            return $item['item'];
         }
+        $this->getLogger(__FUNCTION__)->error('EkomiFeedback::ReviewsRepository.getReviewsStats', $item['item']);
     }
 
 }
