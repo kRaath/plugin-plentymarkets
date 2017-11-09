@@ -282,7 +282,7 @@ class ReviewsRepository {
     
     public function getProductIDs($item) {
         if($item){
-            return $item.item.id;
+            return $item->item->id;
         }
     }
 
