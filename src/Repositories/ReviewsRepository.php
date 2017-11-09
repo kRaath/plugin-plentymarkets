@@ -170,6 +170,7 @@ class ReviewsRepository {
     public function getReviewsCount($item) {
         $itemID = $this->getItemID($item);
         if ($itemID) {
+            $this->getLogger(__FUNCTION__)->error('EkomiFeedback::ReviewsRepository.getReviewsCount', explode(',', $itemID));
             $result = $this->db->query(Reviews::class)
                             ->whereIn('productId', explode(',', $itemID))
                             ->where('shopId', '=', $this->configHelper->getShopId())->count();
@@ -187,16 +188,16 @@ class ReviewsRepository {
      * @return array The star counts array
      */
     public function getReviewsContainerStats($item, $offset, $limit) {
-        $this->getLogger(__FUNCTION__)->error('EkomiFeedback::ReviewsRepository.getReviewsStats', $item);
-
+        $this->getLogger(__FUNCTION__)->error('EkomiFeedback::ReviewsRepository.getReviewsContainerStats', $item);
+        
         $itemID = $this->getItemID($item);
         if (!$itemID) {
-            $this->getLogger(__FUNCTION__)->error('EkomiFeedback::ReviewsRepository.getReviewsStats', 'ItemId is Null:' . $itemID);
+            $this->getLogger(__FUNCTION__)->error('EkomiFeedback::ReviewsRepository.getReviewsContainerStats', 'ItemId is Null:' . $itemID);
             return NULL;
         }
 
         $result = $this->db->query(Reviews::class)
-                        ->where('productId', '=', $itemID)
+                        ->whereIn('productId', explode(',', $itemID))
                         ->where('shopId', '=', $this->configHelper->getShopId())->get();
         $avg = 0;
         $reviewsCountTotal = 0;
@@ -242,7 +243,7 @@ class ReviewsRepository {
             'baseUrl' => 'base-url',
         );
 
-        $this->getLogger(__FUNCTION__)->error('EkomiFeedback::ReviewsRepository.getReviewsStats', $data);
+        $this->getLogger(__FUNCTION__)->error('EkomiFeedback::ReviewsRepository.getReviewsContainerStats', $data);
         return $data;
     }
 
@@ -250,7 +251,7 @@ class ReviewsRepository {
         $orderBy = $this->resolveOrderBy($filter_type);
 
         $result = $this->db->query(Reviews::class)
-                        ->where('productId', '=', $itemID)
+                        ->whereIn('productId', explode(',', $itemID))
                         ->where('shopId', '=', $this->configHelper->getShopId())
                         ->limit($limit)
                         ->orderBy($orderBy['fieldName'], $orderBy['direction'])
@@ -297,7 +298,7 @@ class ReviewsRepository {
 
     public function getItemID($item) {
         if (isset($item['item']['id'])) {
-            return $item['item']['id'];
+            return trim($item['item']['id']);
         }
         return NULL;
 //        $this->getLogger(__FUNCTION__)->error('EkomiFeedback::ReviewsRepository.getReviewsStats', $item['item']);
