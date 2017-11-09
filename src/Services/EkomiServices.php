@@ -85,13 +85,13 @@ class EkomiServices {
 
                             if (!$plentyIDs || in_array($plentyID, $plentyIDs)) {
 
-//                                if (!empty($referrerIds) && in_array((string) $referrerId, $referrerIds)) {
-//                                    $this->getLogger(__FUNCTION__)->error(
-//                                            'EkomiFeedback::EkomiServices.sendOrdersData', 'Referrer ID :' . $referrerId .
-//                                            ' Blocked in plugin configuration.'
-//                                    );
-//                                    continue;
-//                                }
+                                if (!empty($referrerIds) && in_array((string) $referrerId, $referrerIds)) {
+                                    $this->getLogger(__FUNCTION__)->error(
+                                            'EkomiFeedback::EkomiServices.sendOrdersData', 'Referrer ID :' . $referrerId .
+                                            ' Blocked in plugin configuration.'
+                                    );
+                                    continue;
+                                }
 
                                 $updatedAt = $this->ekomiHelper->toMySqlDateTime($order['updatedAt']);
 
@@ -192,16 +192,17 @@ class EkomiServices {
                 curl_close($ch);
 
                 // log the results
-                if (!$product_reviews) {
-                    $this->getLogger(__FUNCTION__)->error('EkomiFeedback::EkomiServices.fetchProductReviews', $ekomi_api_url);
-                }
-                $reviews = json_decode($product_reviews, true);
+                if ($product_reviews) {
+                    $reviews = json_decode($product_reviews, true);
 
-                if ($reviews) {
-                    $this->reviewsRepository->saveReviews($reviews);
-                    $this->getLogger(__FUNCTION__)->error('EkomiFeedback::EkomiServices.fetchProductReviews', 'Reviews Fetched');
+                    if ($reviews) {
+                        $this->reviewsRepository->saveReviews($reviews);
+                        $this->getLogger(__FUNCTION__)->error('EkomiFeedback::EkomiServices.fetchProductReviews', 'Reviews fetched  successfully');
+                    } else {
+                        $this->getLogger(__FUNCTION__)->error('EkomiFeedback::EkomiServices.fetchProductReviews', 'Something went wrong!');
+                    }
                 } else {
-                    $this->getLogger(__FUNCTION__)->error('EkomiFeedback::EkomiServices.fetchProductReviews', 'Something went wrong!');
+                    $this->getLogger(__FUNCTION__)->error('EkomiFeedback::EkomiServices.fetchProductReviews', 'no reviews available: ' . $ekomi_api_url);
                 }
             } else {
                 $this->getLogger(__FUNCTION__)->error('EkomiFeedback::EkomiServices.fetchProductReviews', 'Shop id or shop secret is not correct!');
