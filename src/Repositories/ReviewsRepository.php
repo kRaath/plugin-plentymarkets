@@ -179,7 +179,7 @@ class ReviewsRepository {
     public function getReviewsStats($item, $offset, $limit) {
         $this->getLogger(__FUNCTION__)->error('EkomiFeedback::ReviewsRepository.getReviewsStats', $item);
 
-        $itemID = $this->getProductIDs($item);
+        $itemID = $this->getItemID($item);
         if (!$itemID) {
             $this->getLogger(__FUNCTION__)->error('EkomiFeedback::ReviewsRepository.getReviewsStats', 'ItemId is Null:' . $itemID);
             return NULL;
