@@ -226,7 +226,7 @@ class ReviewsRepository {
             'baseUrl' => 'base-url',
         );
 
-        $this->getLogger(__FUNCTION__)->error('EkomiFeedback::ReviewsRepository.getReviewsStats', $data);
+        $this->getLogger(__FUNCTION__)->error('EkomiFeedback::ReviewsRepository.getReviewsStats', $this->getProductIDs($item));
 
         return $data;
     }
@@ -278,6 +278,12 @@ class ReviewsRepository {
                 break;
         }
         return $orderBy;
+    }
+    
+    public function getProductIDs($item) {
+        if($item){
+            return $item.item.id;
+        }
     }
 
 }
