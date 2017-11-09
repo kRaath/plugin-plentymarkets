@@ -29,7 +29,7 @@ class EkomiFeedbackCron extends Cron {
         $this->getLogger(__FUNCTION__)->error('EkomiFeedback::EkomiFeedbackCron.handle', 'CronRunning....');
 
         $this->ekomiServices->sendOrdersData($daysDiff);
-        $this->ekomiServices->fetchProductReviews($range = '1w');
+        $this->ekomiServices->fetchProductReviews($range = 'all');
     }
 
 }
