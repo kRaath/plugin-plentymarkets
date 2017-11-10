@@ -110,7 +110,7 @@ class ContentController extends Controller {
             $review = $ekomiReviewsRepo->rateReview($itemID, $reviewId, $helpfulness);
 
             if (!empty($review)) {
-                $message = ($review['helpful']) . ' out of ' . ($review['helpful'] + $review['nothelpful']) . ' people found this review helpful';
+                $message = ($review->helpful) . ' out of ' . ($review->helpful + $review->nothelpful) . ' people found this review helpful';
 
                 $response['state'] = 'success';
                 $response['message'] = $message;
