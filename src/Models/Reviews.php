@@ -39,20 +39,4 @@ class Reviews extends Model {
         return 'EkomiFeedback::Reviews';
     }
 
-    public function getHelpful() {
-        return $this->helpful;
-    }
-
-    public function getNotHelpful() {
-        return $this->nothelpful;
-    }
-
-    public function setHelpful($val) {
-        $this->helpful = $val;
-    }
-
-    public function setNotHelpful($val) {
-        $this->nothelpful = $val;
-    }
-
 }

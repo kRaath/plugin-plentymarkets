@@ -266,11 +266,11 @@ class ReviewsRepository {
 
         if ($review) {
             if ($helpfulness == '1') {
-
-                $review->setHelpful(1 + $review->getHelpful());
+                $review['helpful'] = 1 + $review['helpful'];
             } else {
-                $review->setNotHelpful(1 + $review->getNotHelpful());
+                $review['nothelpful'] = 1 + $review['nothelpful'];
             }
+
             $review = $this->db->save($review);
             return $review;
         } else {
