@@ -24,7 +24,7 @@ if (typeof jQuery !== 'undefined') {
 
             jQuery.ajax({
                 type: "POST",
-                url: ajaxUrl + 'loadReviews',
+                url: '/loadReviews',
                 data: data,
                 cache: false,
                 success: function (data) {
@@ -54,7 +54,7 @@ if (typeof jQuery !== 'undefined') {
 
             jQuery.ajax({
                 type: "POST",
-                url: ajaxUrl + 'saveFeedback',
+                url: 'saveFeedback',
                 data: data,
                 cache: false,
                 success: function (data) {
@@ -82,7 +82,7 @@ if (typeof jQuery !== 'undefined') {
 
                 jQuery.ajax({
                     type: "POST",
-                    url: ajaxUrl + 'loadReviews',
+                    url: 'loadReviews',
                     data: data,
                     cache: false,
                     success: function (data) {

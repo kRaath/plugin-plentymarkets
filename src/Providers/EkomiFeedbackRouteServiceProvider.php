@@ -18,7 +18,9 @@ class EkomiFeedbackRouteServiceProvider extends RouteServiceProvider {
         $router->get('sendOrdersToEkomi', 'EkomiFeedback\Controllers\ContentController@sendOrdersToEkomi');
         $router->get('fetchProductReviews', 'EkomiFeedback\Controllers\ContentController@fetchProductReviews');
         $router->get('reviews/{pwd}', 'EkomiFeedback\Controllers\ContentController@showReview');
-//        $router->post('reviews', 'EkomiFeedback\Controllers\ContentController@createReview');
+
+        $router->post('loadReviews', 'EkomiFeedback\Controllers\ContentController@loadReviews');
+        $router->post('saveFeedback', 'EkomiFeedback\Controllers\ContentController@saveFeedback');
 //        $router->put('reviews/{id}', 'EkomiFeedback\Controllers\ContentController@updateReview')->where('id', '\d+');
 //        $router->delete('reviews/{id}', 'EkomiFeedback\Controllers\ContentController@deleteReview')->where('id', '\d+');
     }

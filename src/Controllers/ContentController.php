@@ -39,7 +39,7 @@ class ContentController extends Controller {
         //  $service->sendOrdersData(7);
 
         $service = pluginApp(EkomiServices::class);
-        
+
         $service->fetchProductReviews($range = '1w');
 
         return $twig->render('EkomiFeedback::content.hello');
@@ -71,10 +71,20 @@ class ContentController extends Controller {
      * @param ReviewsRepository       $ekomiReviewsRepo
      * @return string
      */
-//    public function createReview(Request $request, ReviewsRepository $ekomiReviewsRepo): string {
-//        $newReview = $ekomiReviewsRepo->createTask($request->all());
-//        return json_encode($newReview);
-//    }
+    public function loadReviews(Request $request, ReviewsRepository $ekomiReviewsRepo): string {
+        $newReview = array('loadReviews' => $request->all()); //$ekomiReviewsRepo->createTask($request->all());
+        return json_encode($newReview);
+    }
+
+    /**
+     * @param  \Plenty\Plugin\Http\Request $request
+     * @param ReviewsRepository       $ekomiReviewsRepo
+     * @return string
+     */
+    public function saveFeedback(Request $request, ReviewsRepository $ekomiReviewsRepo): string {
+        $newReview = array('saveFeedback' => $request->all()); //$ekomiReviewsRepo->createTask($request->all());
+        return json_encode($newReview);
+    }
 
     /**
      * @param int                    $id
