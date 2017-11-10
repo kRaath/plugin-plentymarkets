@@ -262,16 +262,20 @@ class ReviewsRepository {
         $column = $helpfulness == '1' ? 'helpful' : 'nothelpful';
 
         $review = $this->db->find(Reviews::class, $reviewId);
+        $this->getLogger(__FUNCTION__)->error('EkomiFeedback::ReviewsRepository.rateReview', $review);
 
-        if ($helpfulness == '1') {
-            $review->helpful = 1 + $review->helpful;
+        if ($review) {
+            if ($helpfulness == '1') {
+                // $review->helpful = 1 + $review->helpful;
+            } else {
+                // $review->nothelpful = 1 + $review->nothelpful;
+            }
+
+            //$review = $this->db->save($review);
+            return $review;
         } else {
-            $review->nothelpful = 1 + $review->nothelpful;
+            return NULL;
         }
-
-        $review = $this->db->save($review);
-
-        return $review;
     }
 
     /**
