@@ -1,10 +1,10 @@
 <div class="tab-pane" id="ekomi_prc_tab" role="tabpanel">
     <div class="ek-row" itemtype="http://schema.org/Product" itemscope="">
-        <meta content="{{itemID}}" itemprop="productID">
+        <meta content="{{productId}}" itemprop="productID">
         <meta content="{{productImage}}" itemprop="image">
         {%if reviewsCountTotal > 0 %}
             <script type='text/javascript'>
-                var prcItemID = '{{itemID}}';
+                var prcItemID = '{{productId}}';
                 var prcFilter = 0;
                 var prcOffset = 0;
                 var reviewsLimit = {{reviewsLimit}};
