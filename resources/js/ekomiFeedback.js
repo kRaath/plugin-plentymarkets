@@ -15,8 +15,7 @@ if (typeof jQuery !== 'undefined') {
             prcFilter = this.value;
             prcOffset = 0;
             var data = {
-                prcProductId: prcProductId,
-                queryBy: queryBy,
+                prcItemID: prcItemID,
                 prcOffset: prcOffset,
                 reviewsLimit: reviewsLimit,
                 prcFilter: prcFilter
@@ -47,7 +46,7 @@ if (typeof jQuery !== 'undefined') {
             var current = jQuery(this);
 
             var data = {
-                prcProductId: prcProductId,
+                prcItemID: prcItemID,
                 review_id: jQuery(this).data('review-id'),
                 helpfulness: jQuery(this).data('review-helpfulness')
             };
@@ -73,8 +72,7 @@ if (typeof jQuery !== 'undefined') {
 
             if (reviewsCountTotal / reviewsCountPage > 1) {
                 var data = {
-                    prcProductId: prcProductId,
-                    queryBy: queryBy,
+                    prcItemID: prcItemID,
                     prcOffset: prcOffset,
                     reviewsLimit: reviewsLimit,
                     prcFilter: prcFilter

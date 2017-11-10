@@ -71,9 +71,22 @@ class ContentController extends Controller {
      * @param ReviewsRepository       $ekomiReviewsRepo
      * @return string
      */
-    public function loadReviews(Request $request, ReviewsRepository $ekomiReviewsRepo): string {
-        $newReview = array('loadReviews' => $request->all()); //$ekomiReviewsRepo->createTask($request->all());
-        return json_encode($newReview);
+    public function loadReviews(Request $request, ReviewsRepository $ekomiReviewsRepo, Twig $twig): string {
+        $data = $request->all();
+        if (!empty($data)) {
+            $itemID = trim($data['prcItemID']);
+            $offset = trim($data['prcOffset']);
+            $limit = trim($data['reviewsLimit']);
+            $filter_type = trim($data['prcFilter']);
+
+            $reviews = $ekomiReviewsRepo->getReviews($itemID, $offset, $limit, $filter_type);
+
+            $result = $twig->render('EkomiFeedback::content.reviews', ['reviews' => $reviews]);
+
+            return json_encode(['result' => $result, 'count' => count($reviews), 'state' => 'success', 'message' => 'reviews fetched']);
+        } else {
+            return json_encode(['state' => 'error', 'message' => 'empty data fields', 'data' => $data]);
+        }
     }
 
     /**
@@ -82,8 +95,38 @@ class ContentController extends Controller {
      * @return string
      */
     public function saveFeedback(Request $request, ReviewsRepository $ekomiReviewsRepo): string {
-        $newReview = array('saveFeedback' => $request->all()); //$ekomiReviewsRepo->createTask($request->all());
-        return json_encode($newReview);
+        $data = $request->all();
+
+        $response = array(
+            'state' => '',
+            'message' => ''
+        );
+
+        if (!empty($data)) {
+            $itemID = trim($data['prcItemID']);
+            $reviewId = trim($data['review_id']);
+            $helpfulness = trim($data['helpfulness']);
+
+            $review = $ekomiReviewsRepo->rateReview($itemID, $reviewId, $helpfulness);
+
+            if (!empty($review)) {
+                $message = ($review['helpful']) . ' out of ' . ($review['helpful'] + $review['nothelpful']) . ' people found this review helpful';
+
+                $response['state'] = 'success';
+                $response['message'] = $message;
+                $response['rateHelpfulness'] = $helpfulness == '1' ? 'helpful' : 'nothelpful';
+            } else {
+                $response['state'] = 'success';
+                $response['message'] = "Something went wrong! Ma be review_id {$reviewId} not exist!";
+                $response['data'] = $data;
+            }
+        } else {
+            $response['state'] = 'success';
+            $response['message'] = 'Missing data fields';
+            $response['data'] = $data;
+        }
+
+        return json_encode($response);
     }
 
     /**

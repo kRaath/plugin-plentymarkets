@@ -258,6 +258,22 @@ class ReviewsRepository {
         return $result;
     }
 
+    public function rateReview($itemID, $reviewId, $helpfulness) {
+        $column = $helpfulness == '1' ? 'helpful' : 'nothelpful';
+
+        $review = $this->db->find(Reviews::class, $reviewId);
+
+        if ($helpfulness == '1') {
+            $review->helpful = 1 + $review->helpful;
+        } else {
+            $review->nothelpful = 1 + $review->nothelpful;
+        }
+
+        $review = $this->db->save($review);
+
+        return $review;
+    }
+
     /**
      * 
      * @param int $filter_type The sorting filter value

@@ -1,17 +1,15 @@
 <div class="tab-pane" id="ekomi_prc_tab" role="tabpanel">
     <div class="ek-row" itemtype="http://schema.org/Product" itemscope="">
-        <meta content="{{productId}}" itemprop="productID">
+        <meta content="{{itemID}}" itemprop="productID">
         <meta content="{{productImage}}" itemprop="image">
         {%if reviewsCountTotal > 0 %}
             <script type='text/javascript'>
-                var ajaxUrl = '{{ plugin_path('EkomiFeedback') }}v1/prcAjax.php/';
-                var prcProductId = '{{productId}}';
-                var queryBy = '{{productId}}';
+                var prcItemID = '{{itemID}}';
                 var prcFilter = 0;
                 var prcOffset = 0;
-                        var reviewsLimit = {{reviewsLimit}};
-                        var reviewsCountTotal = {{reviewsCountTotal}};
-                        var reviewsCountPage = {{reviewsCountPage}};
+                var reviewsLimit = {{reviewsLimit}};
+                var reviewsCountTotal = {{reviewsCountTotal}};
+                var reviewsCountPage = {{reviewsCountPage}};
             </script>
 
             <div class="ekomi_prc_widget reviews_large">
