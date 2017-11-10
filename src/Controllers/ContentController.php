@@ -81,7 +81,7 @@ class ContentController extends Controller {
 
             $reviews = $ekomiReviewsRepo->getReviews($itemID, $offset, $limit, $filter_type);
 
-            $result = $twig->render('EkomiFeedback::content.reviews', ['reviews' => $reviews]);
+            $result = $twig->render('EkomiFeedback::content.reviewsContainerPartial', ['reviews' => $reviews]);
 
             return json_encode(['result' => $result, 'count' => count($reviews), 'state' => 'success', 'message' => 'reviews fetched']);
         } else {
