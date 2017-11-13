@@ -111,7 +111,7 @@ class ContentController extends Controller {
             $reviewId = trim($data['review_id']);
             $helpfulness = trim($data['helpfulness']);
 
-            $review = $ekomiReviewsRepo->rateReview($itemID, $reviewId, $helpfulness);
+            $review = $ekomiReviewsRepo->rateReview($itemID, (int)$reviewId, $helpfulness);
 
             if (!empty($review)) {
                 $message = ($review->helpful) . ' out of ' . ($review->helpful + $review->nothelpful) . ' people found this review helpful';
