@@ -202,7 +202,7 @@ class ReviewsRepository {
             } else {
                 $review->nothelpful = 1 + $review->nothelpful;
             }
-            $review = $this->db->save($review);
+            $this->db->save($review);
             return $review;
         } else {
             return NULL;
