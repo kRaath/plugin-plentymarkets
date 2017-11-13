@@ -77,8 +77,8 @@ class ContentController extends Controller {
         $data = $request->all();
         if (!empty($data)) {
             $itemID = trim($data['prcItemID']);
-            $offset = trim($data['prcOffset']);
-            $limit = trim($data['reviewsLimit']);
+            $offset = (int) trim($data['prcOffset']);
+            $limit = (int) trim($data['reviewsLimit']);
             $filter_type = trim($data['prcFilter']);
 
             $reviews = $ekomiReviewsRepo->getReviews($itemID, $offset, $limit, $filter_type);
@@ -103,7 +103,7 @@ class ContentController extends Controller {
             'state' => '',
             'message' => ''
         );
-        
+
         $this->getLogger(__FUNCTION__)->error('EkomiFeedback::ContentController.saveFeedback', $data);
 
         if (!empty($data)) {
@@ -111,7 +111,7 @@ class ContentController extends Controller {
             $reviewId = trim($data['review_id']);
             $helpfulness = trim($data['helpfulness']);
 
-            $review = $ekomiReviewsRepo->rateReview($itemID, (int)$reviewId, $helpfulness);
+            $review = $ekomiReviewsRepo->rateReview($itemID, (int) $reviewId, $helpfulness);
 
             if (!empty($review)) {
                 $message = ($review->helpful) . ' out of ' . ($review->helpful + $review->nothelpful) . ' people found this review helpful';
