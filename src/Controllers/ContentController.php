@@ -8,6 +8,7 @@ use Plenty\Modules\Authorization\Services\AuthHelper;
 use EkomiFeedback\Services\EkomiServices;
 use Plenty\Plugin\Http\Request;
 use EkomiFeedback\Repositories\ReviewsRepository;
+use Plenty\Plugin\Log\Loggable;
 
 /**
  * Class ContentController
@@ -15,13 +16,14 @@ use EkomiFeedback\Repositories\ReviewsRepository;
  */
 class ContentController extends Controller {
 
+    use Loggable;
+
     /**
      * @param Twig $twig
      * @return string
      */
     public function sendOrdersToEkomi(Twig $twig): string {
 
-        /** @var \Plenty\Modules\Account\Address\Contracts\AddressRepositoryContract $service */
         $service = pluginApp(EkomiServices::class);
 
         /** @var \Plenty\Modules\Authorization\Services\AuthHelper $authHelper */
@@ -101,6 +103,8 @@ class ContentController extends Controller {
             'state' => '',
             'message' => ''
         );
+        
+        $this->getLogger(__FUNCTION__)->error('EkomiFeedback::ContentController.saveFeedback', $data);
 
         if (!empty($data)) {
             $itemID = trim($data['prcItemID']);
@@ -129,23 +133,4 @@ class ContentController extends Controller {
         return json_encode($response);
     }
 
-    /**
-     * @param int                    $id
-     * @param ReviewsRepository $ekomiReviewsRepo
-     * @return string
-     */
-//    public function updateReview(int $id, ReviewsRepository $ekomiReviewsRepo): string {
-//        $updateReview = $ekomiReviewsRepo->updateTask($id);
-//        return json_encode($updateReview);
-//    }
-
-    /**
-     * @param int                    $id
-     * @param ReviewsRepository $ekomiReviewsRepo
-     * @return string
-     */
-//    public function deleteReview(int $id, ReviewsRepository $ekomiReviewsRepo): string {
-//        $deleteReview = $ekomiReviewsRepo->deleteTask($id);
-//        return json_encode($deleteReview);
-//    }
 }

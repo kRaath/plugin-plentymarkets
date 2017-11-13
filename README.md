@@ -47,7 +47,7 @@ Follow these steps to install the plugin.
 
     Remote Url: 
     ```
-    https://github.com/ekomi-ltd/ekomi-plentymarkets.git
+    https://github.com/ekomi-ltd/plugin-plentymarkets-ekomifeedback.git
     ```
     User name: --your git username
 
@@ -74,11 +74,15 @@ Follow these steps to install the plugin.
  
   - Enable / Disable The Plugin
   - Enable / Disable Product Reviews ( if enabled, product attributes will also be sent to eKomi i.e.  product id, name, image and URL )
+  - Enable / Disable Group Reviews ( if enabled, Reviews of child/variants products will also be added  )
   - Insert Client Store Plenty IDs. Multiple comma separated Plenty ID can also be added.(optional)
   - Select Mode. (for SMS, mobile number format should be according E164)
   - Insert your Interface Shop Id
-  - Insert your Interface Shop Secret
   - Choose Order Statuses on which you want to send information to eKomi.
+  - Insert your Interface Shop Secret
+  - Client Store plenty IDs comma separated (optional) to activate to client stores /sub shops
+  - Referrers Filter (out) to filter out the orders.
+  - Insert Text when no reviews found.
 
   **Note:** Please make sure, The Shop Id and Secret is correct. In the case of invalid credentials the plugin will not work.
  
@@ -95,24 +99,11 @@ Follow these steps to install the plugin.
 
 - A complete working plugin
 
-### v1.0.1 (03-07-2017)
-
-- Exception handling error fixed
-
-### v1.0.2 (31-08-2017)
-
-- Plugin type changed from "general" to "export"
-- Plenty ID field in configuration added
-
-### v1.1.0 (12-10-2017)
-
-- Added options to filter out specific referrer ids.
-
 ## Authors
 
 * **eKomi** - [github profile](https://github.com/ekomi-ltd)
 
-See also the list of [contributors](https://github.com/ekomi-ltd/plugin-plentymarkets-integration/graphs/contributors) who participated in this project.
+See also the list of [contributors](https://github.com/ekomi-ltd/plugin-plentymarkets-ekomifeedback/graphs/contributors) who participated in this project.
 
 ## License
 

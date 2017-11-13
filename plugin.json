@@ -8,10 +8,10 @@
     "license": "AGPL-3.0",
     "pluginIcon": "icon_plugin.jpg",
     "price": 0.00,
-    "description": "This plugin allows you to integrate your Plentymarkets Store easily with eKomi system to collect verified reviews.",
+    "description": "The eKomi product review container allows an easy integration of eKomi Reviews and ratings into your webshop. This allows you to collect verified reviews, display eKomi seal on your website and get your seller ratings on Google and individual positioning of product reviews and includes the Google rich snippet functionality.",
     "shortDescription": {
         "de": "Diese plugin erlaubt es Ihnen Ihren Plentymarkets Store eShop ganz einfach im eKomi System zu integrieren um verifizierte Rezensionen zu sammeln.",
-        "en": "This plugin allows you to integrate your Plentymarkets shop easily with eKomi system to collect verified reviews."
+        "en": "The eKomi product review container allows an easy integration of eKomi Reviews and ratings into your webshop. This allows you to collect verified reviews, display eKomi seal on your website and get your seller ratings on Google and individual positioning of product reviews and includes the Google rich snippet functionality."
     },
     "categories": ["3521","3527"],
     "author": "eKomi Ltd",

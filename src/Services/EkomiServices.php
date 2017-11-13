@@ -184,6 +184,11 @@ class EkomiServices {
 
         if ($this->configHelper->getEnabled() == 'true') {
             if ($this->validateShop()) {
+                $review = $this->reviewsRepository->getReviewById(1);
+                if (is_null($review)) {
+                    $range = 'all';
+                }
+                
                 $ekomi_api_url = "http://api.ekomi.de/v3/getProductfeedback?interface_id={$this->configHelper->getShopId()}&interface_pw={$this->configHelper->getShopSecret()}&type=json&charset=utf-8&range={$range}";
                 $ch = curl_init();
                 curl_setopt($ch, CURLOPT_URL, $ekomi_api_url);

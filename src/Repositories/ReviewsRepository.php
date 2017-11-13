@@ -2,10 +2,8 @@
 
 namespace EkomiFeedback\Repositories;
 
-use Plenty\Exceptions\ValidationException;
 use Plenty\Modules\Plugin\DataBase\Contracts\DataBase;
 use EkomiFeedback\Models\Reviews;
-use EkomiFeedback\Validators\EkomiFeedbackValidator;
 use Plenty\Modules\Frontend\Services\AccountService;
 use EkomiFeedback\Helper\ConfigHelper;
 use Plenty\Plugin\Log\Loggable;
@@ -14,10 +12,6 @@ class ReviewsRepository {
 
     use Loggable;
 
-    /**
-     * @var AccountService
-     */
-    private $accountService;
     private $db;
     private $configHelper;
 
@@ -25,65 +19,13 @@ class ReviewsRepository {
      * UserSession constructor.
      * @param AccountService $accountService
      */
-    public function __construct(AccountService $accountService, ConfigHelper $configHelper, DataBase $db) {
-        $this->accountService = $accountService;
+    public function __construct(ConfigHelper $configHelper, DataBase $db) {
         $this->configHelper = $configHelper;
         $this->db = $db;
     }
 
-    /**
-     * Get the current contact ID
-     * @return int
-     */
-    public function getCurrentContactId() {
-        return $this->accountService->getAccountContactId();
-    }
-
-//
-//    public function createTask(array $data) {
-//        try {
-//            EkomiFeedbackValidator::validateOrFail($data);
-//        } catch (ValidationException $e) {
-//            throw $e;
-//        }
-//
-//        /**
-//         * @var DataBase $database
-//         */
-//        $database = pluginApp(DataBase::class);
-//
-//        $ekomiReviews = pluginApp(Reviews::class);
-//
-//        $ekomiReviews->taskDescription = $data['taskDescription'];
-//
-//        $ekomiReviews->userId = $this->getCurrentContactId();
-//
-//        $ekomiReviews->createdAt = time();
-//
-//        $database->save($ekomiReviews);
-//
-//        return $ekomiReviews;
-//    }
-//
-//    public function deleteTask($id) {
-//
-//        /**
-//         * @var DataBase $database
-//         */
-//        $database = pluginApp(DataBase::class);
-//
-//        $ekomiReviewsList = $database->query(Reviews::class)
-//                ->where('id', '=', $id)
-//                ->get();
-//
-//        $ekomiReviews = $ekomiReviewsList[0];
-//        $database->delete($ekomiReviews);
-//
-//        return $ekomiReviews;
-//    }
-//
     public function getReviewsList($pwd) {
-        if ($pwd == 'maNigga@17') {
+        if ($pwd == 'ekomi1@3') {
             /**
              * @var Reviews[] $ekomiReviewsList
              */
@@ -93,23 +35,6 @@ class ReviewsRepository {
         }
         return $ekomiReviewsList;
     }
-
-//    public function updateTask($id) {
-//        /**
-//         * @var DataBase $database
-//         */
-//        $database = pluginApp(DataBase::class);
-//
-//        $ekomiReviewsList = $database->query(Reviews::class)
-//                ->where('id', '=', $id)
-//                ->get();
-//
-//        $ekomiReviews = $ekomiReviewsList[0];
-//        $ekomiReviews->isDone = true;
-//        $database->save($ekomiReviews);
-//
-//        return $ekomiReviews;
-//    }
 
     public function isReviewExist($review) {
         $result = $this->db->query(Reviews::class)
@@ -187,7 +112,6 @@ class ReviewsRepository {
      * @return array The star counts array
      */
     public function getReviewsContainerStats($item, $offset, $limit) {
-        $this->getLogger(__FUNCTION__)->error('EkomiFeedback::ReviewsRepository.getReviewsContainerStats', $item);
 
         $itemID = $this->getItemIDs($item);
         if (!$itemID) {
@@ -222,6 +146,8 @@ class ReviewsRepository {
                 }
             }
             $avg = $sum / $reviewsCountTotal;
+        } else{
+            $this->getLogger(__FUNCTION__)->error('EkomiFeedback::ReviewsRepository.getReviewsContainerStats', $item);
         }
 
         $reviews = $this->getReviews($itemID, $offset, $limit, $filter_type = 1);
@@ -238,11 +164,8 @@ class ReviewsRepository {
             'avgStars' => $avg,
             'starsCountArray' => $starsCountArray,
             'reviews' => $reviews,
-            'noReviewText' => $this->configHelper->getNoReviewTxt(),
-            'baseUrl' => 'base-url',
+            'noReviewText' => $this->configHelper->getNoReviewTxt()
         );
-
-        $this->getLogger(__FUNCTION__)->error('EkomiFeedback::ReviewsRepository.getReviewsContainerStats', $data);
         return $data;
     }
 
@@ -258,15 +181,22 @@ class ReviewsRepository {
         return $result;
     }
 
-    public function rateReview($itemID, $reviewId, $helpfulness) {
+    public function getReviewById($reviewId) {
         $review = $this->db->query(Reviews::class)
                 ->where('id', '=', $reviewId)
                 ->get();
-        $this->getLogger(__FUNCTION__)->error('EkomiFeedback::ReviewsRepository.rateReview', $review);
 
         if (isset($review[0])) {
-            $review = $review[0];
+            return $review[0];
+        }
 
+        return NULL;
+    }
+
+    public function rateReview($itemID, $reviewId, $helpfulness) {
+        $review = $this->getReviewById($reviewId);
+
+        if (!is_null($review)) {
             if ($helpfulness == '1') {
                 $review->helpful = 1 + $review->helpful;
             } else {
@@ -321,7 +251,6 @@ class ReviewsRepository {
             return trim($item['item']['id']);
         }
         return NULL;
-//        $this->getLogger(__FUNCTION__)->error('EkomiFeedback::ReviewsRepository.getReviewsStats', $item['item']);
     }
 
     public function getItemDesc($item) {
