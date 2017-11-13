@@ -23,7 +23,7 @@ if (typeof jQuery !== 'undefined') {
 
             jQuery.ajax({
                 type: "POST",
-                url: prcBaseUrl + '/loadReviews',
+                url: prcBaseUrl + 'loadReviews',
                 data: data,
                 cache: false,
                 success: function (data) {
@@ -53,7 +53,7 @@ if (typeof jQuery !== 'undefined') {
 
             jQuery.ajax({
                 type: "POST",
-                url: 'saveFeedback',
+                url: prcBaseUrl + 'saveFeedback',
                 data: data,
                 cache: false,
                 success: function (data) {
@@ -80,7 +80,7 @@ if (typeof jQuery !== 'undefined') {
 
                 jQuery.ajax({
                     type: "POST",
-                    url: 'loadReviews',
+                    url: prcBaseUrl + 'loadReviews',
                     data: data,
                     cache: false,
                     success: function (data) {

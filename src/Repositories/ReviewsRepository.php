@@ -283,7 +283,7 @@ class ReviewsRepository {
         if (!empty($url)) {
             $url = explode('item', $url);
             if (isset($url[0])) {
-                return $url;
+                return $url[0];
             }
         }
         return '';
