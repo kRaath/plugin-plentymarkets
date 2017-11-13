@@ -23,7 +23,7 @@ if (typeof jQuery !== 'undefined') {
 
             jQuery.ajax({
                 type: "POST",
-                url: '/loadReviews',
+                url: prcBaseUrl + '/loadReviews',
                 data: data,
                 cache: false,
                 success: function (data) {

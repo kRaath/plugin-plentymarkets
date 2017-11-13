@@ -146,7 +146,7 @@ class ReviewsRepository {
                 }
             }
             $avg = $sum / $reviewsCountTotal;
-        } else{
+        } else {
             $this->getLogger(__FUNCTION__)->error('EkomiFeedback::ReviewsRepository.getReviewsContainerStats', $item);
         }
 
@@ -164,7 +164,8 @@ class ReviewsRepository {
             'avgStars' => $avg,
             'starsCountArray' => $starsCountArray,
             'reviews' => $reviews,
-            'noReviewText' => $this->configHelper->getNoReviewTxt()
+            'noReviewText' => $this->configHelper->getNoReviewTxt(),
+            'baseUrl' => $this->getBaseUrl($item)
         );
         return $data;
     }
@@ -273,6 +274,17 @@ class ReviewsRepository {
     public function getItemImageUrl($item) {
         if (isset($item['images']['all'][0])) {
             return $item['images']['all'][0]['urlPreview'];
+        }
+        return '';
+    }
+
+    public function getBaseUrl($item) {
+        $url = $this->getItemImageUrl($item);
+        if (!empty($url)) {
+            $url = explode('item', $url);
+            if (isset($url[0])) {
+                return $url;
+            }
         }
         return '';
     }
