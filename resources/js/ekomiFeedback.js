@@ -103,7 +103,7 @@ if (typeof jQuery !== 'undefined') {
         jQuery('#ekomi_prc_reviews').on('click', function (e) {
             e.preventDefault();
             jQuery('html, body').animate({
-                scrollTop: jQuery(".nav-item").offset().top
+                scrollTop: jQuery(".nav-tabs").offset().top
             }, 1800);
 
             jQuery(".nav-tabs .nav-item:last a").click();
