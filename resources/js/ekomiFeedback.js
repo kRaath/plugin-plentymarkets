@@ -99,5 +99,15 @@ if (typeof jQuery !== 'undefined') {
                 jQuery('.loads_more_reviews').hide();
             }
         });
+
+        jQuery('#ekomi_prc_reviews').on('click', function (e) {
+            e.preventDefault();
+            jQuery('html, body').animate({
+                scrollTop: jQuery(".nav-item").offset().top
+            }, 1800);
+
+            jQuery(".nav-item > a")[0].click();
+        });
+
     });
 }
