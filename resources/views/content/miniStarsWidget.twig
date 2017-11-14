@@ -5,14 +5,16 @@
         <div class="ekomi_stars_wrap">
             <div class="ekomi_stars_gold" style="width:{{avg * 20}}%"></div>
         </div>
-            <meta content="{{itemName}}" itemprop="name">
+        <meta content="{{itemName}}" itemprop="name">
         <div class="ekomi_total_reviews_wrap">
-            <span class="total_reviews">({{count}})</span>
+            <a href="#ekomi_prc_tab">
+                <span class="total_reviews">({{count}})</span>
+            </a>
         </div>
     </div>
 
 </div>
 
 {% block AdditionalScripts %}
-	<link rel="stylesheet" type="text/css" href="{{ plugin_path('EkomiFeedback') }}/css/ekomifeedback.css">
+    <link rel="stylesheet" type="text/css" href="{{ plugin_path('EkomiFeedback') }}/css/ekomifeedback.css">
 {% endblock %}        
