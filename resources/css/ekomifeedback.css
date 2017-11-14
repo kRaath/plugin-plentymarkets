@@ -6,9 +6,6 @@
     width: 0;
     display: inline !important;
 }
-.mini_stars_counter{
-    margin: 3px 0px;
-}
 .ekomi_prc_widget.mini_stars_counter{
     display: inline-block;
 }
