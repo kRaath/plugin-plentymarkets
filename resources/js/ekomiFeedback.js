@@ -106,7 +106,7 @@ if (typeof jQuery !== 'undefined') {
                 scrollTop: jQuery(".nav-item").offset().top
             }, 1800);
 
-            jQuery(".nav-item > a")[0].click();
+            jQuery(".nav-item li:last a").click();
         });
 
     });
