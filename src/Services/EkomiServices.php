@@ -202,15 +202,15 @@ class EkomiServices {
 
                     if ($reviews) {
                         $this->reviewsRepository->saveReviews($reviews);
-                        $this->getLogger(__FUNCTION__)->error('EkomiFeedback::EkomiServices.fetchProductReviews', 'Reviews fetched  successfully');
+                        $this->getLogger(__FUNCTION__)->error('EkomiFeedback::EkomiServices.fetchProductReviews', 'Reviews fetched  successfully. |url:'.$ekomi_api_url);
                     } else {
-                        $this->getLogger(__FUNCTION__)->error('EkomiFeedback::EkomiServices.fetchProductReviews', 'Something went wrong!');
+                        $this->getLogger(__FUNCTION__)->error('EkomiFeedback::EkomiServices.fetchProductReviews', 'Something went wrong! |url:'.$ekomi_api_url);
                     }
                 } else {
-                    $this->getLogger(__FUNCTION__)->error('EkomiFeedback::EkomiServices.fetchProductReviews', 'no reviews available: ' . $ekomi_api_url);
+                    $this->getLogger(__FUNCTION__)->error('EkomiFeedback::EkomiServices.fetchProductReviews', 'no reviews available. |url:'.$ekomi_api_url);
                 }
             } else {
-                $this->getLogger(__FUNCTION__)->error('EkomiFeedback::EkomiServices.fetchProductReviews', 'Shop id or shop secret is not correct!');
+                $this->getLogger(__FUNCTION__)->error('EkomiFeedback::EkomiServices.fetchProductReviews', 'Shop id or shop secret is not correct! |url:'.$ekomi_api_url);
             }
         } else {
             $this->getLogger(__FUNCTION__)->error('EkomiFeedback::EkomiServices.fetchProductReviews', 'Plugin is not enabled!');
