@@ -46,11 +46,15 @@ Follow these steps to install the plugin.
 
 1. Login to Admin Panel
  
+ 
 2. Go Start » Plugins
+
 
 3. Add New Plugin
  
+ 
 4. Add through Git
+ 
  
 5. Enter Plugin Git URL & Git Account Credentials
 
@@ -96,6 +100,24 @@ Follow these steps to install the plugin.
   **Note:** Please make sure, The Shop Id and Secret is correct. In the case of invalid credentials the plugin will not work.
  
 10. Save the configuration form by clicking on Save Icon
+
+
+11. Waite for 15 minutes
+
+
+12. Go Start » Plugins » Content
+   - Activate mini stars counter
+     >Find **_Mini Stars Counter (EkomiFeedback)_**        
+        Select container where to display      
+        i.e Tick **_Single Item: Before price_**
+  
+  
+  - Activate Reviews Container Tab
+  	>Find **Reviews Container Tab (EkomiFeedback)**<br>
+        Select container **_Single Item: Add detail tabs_**
+  - Activate Reviews Container
+	>Find **Reviews Container (EkomiFeedback)**<br>
+        Select container **_Single Item: Add content to detail tabs_**
  
 
 ## Built With
