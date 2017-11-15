@@ -47,6 +47,13 @@ class ContentController extends Controller {
         return $twig->render('EkomiFeedback::content.hello');
     }
 
+    /**
+     * Fetches all product reviews by calling getProductFeedback api
+     * 
+     * @param Twig $twig
+     * @param ReviewsRepository $reviewsRepo
+     * @return string
+     */
     public function fetchProductReviews(Twig $twig, ReviewsRepository $reviewsRepo): string {
         $service = pluginApp(EkomiServices::class);
 
@@ -58,6 +65,8 @@ class ContentController extends Controller {
     }
 
     /**
+     * Shows all reviews
+     * 
      * @param Twig                   $twig
      * @param ReviewsRepository $reviewsRepo
      * @return string
@@ -69,6 +78,8 @@ class ContentController extends Controller {
     }
 
     /**
+     * Loads Reviews by ajax call
+     * 
      * @param  \Plenty\Plugin\Http\Request $request
      * @param ReviewsRepository       $reviewsRepo
      * @return string
@@ -87,11 +98,15 @@ class ContentController extends Controller {
 
             return json_encode(['result' => $result, 'count' => count($reviews), 'state' => 'success', 'message' => 'reviews fetched']);
         } else {
+            $this->getLogger(__FUNCTION__)->error('EkomiFeedback::ContentController.loadReviews', ['state' => 'error', 'message' => 'empty data fields', 'data' => $data]);
+
             return json_encode(['state' => 'error', 'message' => 'empty data fields', 'data' => $data]);
         }
     }
 
     /**
+     * Saves Feeback
+     * 
      * @param  \Plenty\Plugin\Http\Request $request
      * @param ReviewsRepository       $reviewsRepo
      * @return string
@@ -103,8 +118,6 @@ class ContentController extends Controller {
             'state' => '',
             'message' => ''
         );
-
-        $this->getLogger(__FUNCTION__)->error('EkomiFeedback::ContentController.saveFeedback', $data);
 
         if (!empty($data)) {
             $itemID = trim($data['prcItemID']);
@@ -128,6 +141,8 @@ class ContentController extends Controller {
             $response['state'] = 'success';
             $response['message'] = 'Missing data fields';
             $response['data'] = $data;
+
+            $this->getLogger(__FUNCTION__)->error('EkomiFeedback::ContentController.saveFeedback', $response);
         }
 
         return json_encode($response);

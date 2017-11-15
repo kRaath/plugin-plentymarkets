@@ -8,6 +8,10 @@ use Plenty\Modules\Frontend\Services\AccountService;
 use EkomiFeedback\Helper\ConfigHelper;
 use Plenty\Plugin\Log\Loggable;
 
+/**
+ * Class ReviewsRepository
+ * @package EkomiFeedback\Repositories
+ */
 class ReviewsRepository {
 
     use Loggable;
@@ -24,6 +28,12 @@ class ReviewsRepository {
         $this->db = $db;
     }
 
+    /**
+     * Gets Reviews List
+     * 
+     * @param string $pwd
+     * @return array
+     */
     public function getReviewsList($pwd) {
         if ($pwd == 'ekomi1@3') {
             /**
@@ -36,6 +46,12 @@ class ReviewsRepository {
         return $ekomiReviewsList;
     }
 
+    /**
+     * Checks is Reviews Exist in DB
+     * 
+     * @param array $review
+     * @return boolean
+     */
     public function isReviewExist($review) {
         $result = $this->db->query(Reviews::class)
                         ->where('shopId', '=', $this->configHelper->getShopId())
@@ -48,6 +64,12 @@ class ReviewsRepository {
         return TRUE;
     }
 
+    /**
+     * Saves Reviews
+     * 
+     * @param array $reviews
+     * @return int reviews counts
+     */
     public function saveReviews($reviews) {
         foreach ($reviews as $review) {
             if (!$this->isReviewExist($review)) {
@@ -67,6 +89,12 @@ class ReviewsRepository {
         return count($reviews);
     }
 
+    /**
+     * Gets Mini Stars Stats
+     * 
+     * @param object $item
+     * @return array
+     */
     public function getMiniStarsStats($item) {
 
         $data = array('count' => 0, 'avg' => 0, 'itemName' => '');
@@ -92,6 +120,12 @@ class ReviewsRepository {
         return $data;
     }
 
+    /**
+     * Gets Reviews Count
+     * 
+     * @param object $item
+     * @return int
+     */
     public function getReviewsCount($item) {
         $itemID = $this->getItemIDs($item);
         if ($itemID) {
@@ -107,9 +141,12 @@ class ReviewsRepository {
     }
 
     /**
-     * Counts the stars
+     * Gets data for Reviews Container
      * 
-     * @return array The star counts array
+     * @param Object $item
+     * @param int $offset
+     * @param int $limit
+     * @return array
      */
     public function getReviewsContainerStats($item, $offset, $limit) {
 
@@ -170,6 +207,15 @@ class ReviewsRepository {
         return $data;
     }
 
+    /**
+     * Gets Reviews
+     * 
+     * @param object $itemID
+     * @param int $offset
+     * @param int $limit
+     * @param int $filter_type
+     * @return array
+     */
     public function getReviews($itemID, $offset, $limit, $filter_type) {
         $orderBy = $this->resolveOrderBy($filter_type);
 
@@ -182,6 +228,12 @@ class ReviewsRepository {
         return $result;
     }
 
+    /**
+     * Gets reviews by id
+     * 
+     * @param int $reviewId
+     * @return Object Reviews object
+     */
     public function getReviewById($reviewId) {
         $review = $this->db->query(Reviews::class)
                 ->where('id', '=', $reviewId)
@@ -194,6 +246,14 @@ class ReviewsRepository {
         return NULL;
     }
 
+    /**
+     * Rates a Review
+     * 
+     * @param object $itemID
+     * @param int $reviewId
+     * @param int $helpfulness
+     * @return array
+     */
     public function rateReview($itemID, $reviewId, $helpfulness) {
         $review = $this->getReviewById($reviewId);
 
@@ -211,6 +271,7 @@ class ReviewsRepository {
     }
 
     /**
+     * Resolves Order By
      * 
      * @param int $filter_type The sorting filter value
      * 
@@ -247,6 +308,12 @@ class ReviewsRepository {
         return $orderBy;
     }
 
+    /**
+     * Gets Item ID
+     * 
+     * @param object $item
+     * @return int
+     */
     public function getItemIDs($item) {
         if (isset($item['item']['id'])) {
             return trim($item['item']['id']);
@@ -254,6 +321,12 @@ class ReviewsRepository {
         return NULL;
     }
 
+    /**
+     * Gets Item Description
+     * 
+     * @param object $item
+     * @return string
+     */
     public function getItemDesc($item) {
         if (isset($item['texts']['description'])) {
             if (empty($item['texts']['shortDescription'])) {
@@ -264,6 +337,12 @@ class ReviewsRepository {
         return '';
     }
 
+    /**
+     * Gets Item Name
+     * 
+     * @param object $item
+     * @return string
+     */
     public function getItemName($item) {
         if (isset($item['texts']['name1'])) {
             return $item['texts']['name1'];
@@ -271,6 +350,12 @@ class ReviewsRepository {
         return '';
     }
 
+    /**
+     * Gets Item Image Url
+     * 
+     * @param object $item
+     * @return string
+     */
     public function getItemImageUrl($item) {
         if (isset($item['images']['all'][0])) {
             return $item['images']['all'][0]['urlPreview'];
@@ -278,6 +363,12 @@ class ReviewsRepository {
         return '';
     }
 
+    /**
+     * Gets Store base Url
+     * 
+     * @param object $item
+     * @return string
+     */
     public function getBaseUrl($item) {
         $url = $this->getItemImageUrl($item);
         if (!empty($url)) {
@@ -285,13 +376,6 @@ class ReviewsRepository {
             if (isset($url[0])) {
                 return $url[0];
             }
-        }
-        return '';
-    }
-
-    public function getItemVarNumber($item) {
-        if (isset($item['variation']['number'])) {
-            return $item['variation']['number'];
         }
         return '';
     }

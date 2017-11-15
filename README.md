@@ -1,10 +1,11 @@
-# EkomiFeedback
+# plugin-plentymarkets-ekomifeedback
 
 The eKomi product review container allows an easy integration of eKomi Reviews and ratings into your webshop. This allows you to collect verified reviews, display eKomi seal on your website and get your seller ratings on Google and individual positioning of product reviews and includes the Google rich snippet functionality.
 <p>
-<strong>eKomi Reviews and Ratings allows you to:</strong>
+<strong>eKomi Feedback Features:</strong>
 </p>
 <ul>
+
 <li>Collect order and/or product base Reviews</li>
 <li>Supports Simple, Configurable, Grouped and Bundle products</li>
 <li>Manage Reviews: our team of Customer Feedback Managers, reviews each and every review for any terms which are not allowed and also put all negative reviews in moderation.</li>
@@ -13,6 +14,13 @@ The eKomi product review container allows an easy integration of eKomi Reviews a
 <li>Get Google Seller Ratings.</li>
 <li>Increase Click through Rate by over 17%</li>
 <li>Increase conversion Rate</li>
+<li>Product total reviews</li>
+<li>Product avg reviews (star rating)</li>
+<li>List of reviews with pagination and sorting options</li>
+<li>Rating schema for google structured data</li>
+<li>Mini star ratings</li>
+<li>The parent /child review display</li>
+
 </ul>
 
 <p>eKomi is available in English, French, German, Spanish, Dutch, Italian, Russian and Polish<br />If you have any questions regarding the plugin, please contact your eKomi Account Manager.</p>
@@ -20,9 +28,11 @@ The eKomi product review container allows an easy integration of eKomi Reviews a
 <p><b>Please note</b> that you will need an eKomi account to use the plugin. To create an eKomi account, go to 
 <a href='http://eKomi.com'>eKomi.com</a>
 
-## System Requirements
+## Requirements
 
 - plentymarkets version 7.0.0
+- [IO Plugin](https://marketplace.plentymarkets.com/plugins/templates/IO_4696)
+- [Ceres Plugin](https://marketplace.plentymarkets.com/plugins/templates/Ceres_4697)
 
 ## Known issues
 - Not any known issue  
@@ -60,41 +70,41 @@ Follow these steps to install the plugin.
  
 6. Fetch The Latest Plugin Changes
 
- 
-7. Deploy EkomiFeedback Plugin In Productive It will take few minutes and then productive icon will turn to blue.
- 
-8. Select Clients
+7. Select Clients
     - Click on Search icon
     - Choose Client(s)
+
+8. Deploy EkomiFeedback Plugin In Productive It will take few minutes and then productive icon will turn to blue.
+ 
 
 9. Plugin Configuration
 
 * Go to EkomiFeedback » Configuration
  
   - Enable / Disable The Plugin
+  - Insert your Interface Shop Id
+  - Insert your Interface Shop Secret
   - Enable / Disable Product Reviews ( if enabled, product attributes will also be sent to eKomi i.e.  product id, name, image and URL )
   - Enable / Disable Group Reviews ( if enabled, Reviews of child/variants products will also be added  )
-  - Insert Client Store Plenty IDs. Multiple comma separated Plenty ID can also be added.(optional)
   - Select Mode. (for SMS, mobile number format should be according E164)
-  - Insert your Interface Shop Id
-  - Choose Order Statuses on which you want to send information to eKomi.
-  - Insert your Interface Shop Secret
+  - Insert Client Store Plenty IDs. Multiple comma separated Plenty ID can also be added.(optional)
+  - Select Order Statuses on which you want to send information to eKomi.
   - Client Store plenty IDs comma separated (optional) to activate to client stores /sub shops
-  - Referrers Filter (out) to filter out the orders.
+  - Select Referrers Filter (out) to filter out the orders.
   - Insert Text when no reviews found.
 
   **Note:** Please make sure, The Shop Id and Secret is correct. In the case of invalid credentials the plugin will not work.
  
-10. Set Enabled to “Yes” and save configuration
+10. Save the configuration form by clicking on Save Icon
  
 
 ## Built With
 
-* plentymarkets shop 4 framework
+* plentymarkets stable 7 framework
 
 ## Versioning
 
-### v1.0.0 (16-04-2017)
+### v1.0.0 (16-11-2017)
 
 - A complete working plugin
 

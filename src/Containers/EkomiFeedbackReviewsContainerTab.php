@@ -5,6 +5,9 @@ namespace EkomiFeedback\Containers;
 use Plenty\Plugin\Templates\Twig;
 use EkomiFeedback\Repositories\ReviewsRepository;
 
+/**
+ * Ekomi Feedback Reviews Container Tab
+ */
 class EkomiFeedbackReviewsContainerTab {
 
     public function call(Twig $twig, $arg): string {
