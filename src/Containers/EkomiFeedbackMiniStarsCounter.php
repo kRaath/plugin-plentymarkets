@@ -5,14 +5,14 @@ namespace EkomiFeedback\Containers;
 use Plenty\Plugin\Templates\Twig;
 use EkomiFeedback\Repositories\ReviewsRepository;
 
-class EkomiFeedbackMiniStarsWidget {
+class EkomiFeedbackMiniStarsCounter {
 
     public function call(Twig $twig, $arg): string {
-        $reviewRepo = $database = pluginApp(ReviewsRepository::class);
+        $reviewRepo = pluginApp(ReviewsRepository::class);
 
         $templateData = $reviewRepo->getMiniStarsStats($arg[0]);
 
-        return $twig->render('EkomiFeedback::content.miniStarsWidget', $templateData);
+        return $twig->render('EkomiFeedback::content.miniStarsCounter', $templateData);
     }
 
 }

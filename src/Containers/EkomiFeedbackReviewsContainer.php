@@ -11,7 +11,7 @@ class EkomiFeedbackReviewsContainer {
         $offset = 0;
         $limit = 5;
 
-        $reviewRepo = $database = pluginApp(ReviewsRepository::class);
+        $reviewRepo = pluginApp(ReviewsRepository::class);
 
         $data = $reviewRepo->getReviewsContainerStats($arg[0], $offset, $limit);
 

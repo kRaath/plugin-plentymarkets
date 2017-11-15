@@ -30,9 +30,9 @@
     "dataProviders"         :
     [
         {
-            "key"           :"EkomiFeedback\\Containers\\EkomiFeedbackMiniStarsWidget",
-            "name"          :"MiniStarsWidget",
-            "description"   :"eKomi Mini Stars Widget"
+            "key"           :"EkomiFeedback\\Containers\\EkomiFeedbackMiniStarsCounter",
+            "name"          :"Mini Stars Counter",
+            "description"   :"eKomi Mini Stars Counter"
         },
         {
             "key"           :"EkomiFeedback\\Containers\\EkomiFeedbackReviewsContainerTab",

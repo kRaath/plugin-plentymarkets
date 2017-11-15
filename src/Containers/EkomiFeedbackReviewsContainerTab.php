@@ -8,7 +8,7 @@ use EkomiFeedback\Repositories\ReviewsRepository;
 class EkomiFeedbackReviewsContainerTab {
 
     public function call(Twig $twig, $arg): string {
-        $reviewRepo = $database = pluginApp(ReviewsRepository::class);
+        $reviewRepo = pluginApp(ReviewsRepository::class);
 
         $count = $reviewRepo->getReviewsCount($arg[0]);
 
