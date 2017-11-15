@@ -47,7 +47,7 @@ class ContentController extends Controller {
         return $twig->render('EkomiFeedback::content.hello');
     }
 
-    public function fetchProductReviews(Twig $twig, ReviewsRepository $ekomiReviewsRepo): string {
+    public function fetchProductReviews(Twig $twig, ReviewsRepository $reviewsRepo): string {
         $service = pluginApp(EkomiServices::class);
 
         $reviews = $service->fetchProductReviews($range = 'all');
@@ -59,21 +59,21 @@ class ContentController extends Controller {
 
     /**
      * @param Twig                   $twig
-     * @param ReviewsRepository $ekomiReviewsRepo
+     * @param ReviewsRepository $reviewsRepo
      * @return string
      */
-    public function showReview(string $pwd, Twig $twig, ReviewsRepository $ekomiReviewsRepo): string {
-        $list = $ekomiReviewsRepo->getReviewsList($pwd);
+    public function showReview(string $pwd, Twig $twig, ReviewsRepository $reviewsRepo): string {
+        $list = $reviewsRepo->getReviewsList($pwd);
         $templateData = array("tasks" => $list);
         return $twig->render('EkomiFeedback::content.reviews', $templateData);
     }
 
     /**
      * @param  \Plenty\Plugin\Http\Request $request
-     * @param ReviewsRepository       $ekomiReviewsRepo
+     * @param ReviewsRepository       $reviewsRepo
      * @return string
      */
-    public function loadReviews(Request $request, ReviewsRepository $ekomiReviewsRepo, Twig $twig): string {
+    public function loadReviews(Request $request, ReviewsRepository $reviewsRepo, Twig $twig): string {
         $data = $request->all();
         if (!empty($data)) {
             $itemID = trim($data['prcItemID']);
@@ -81,7 +81,7 @@ class ContentController extends Controller {
             $limit = (int) trim($data['reviewsLimit']);
             $filter_type = trim($data['prcFilter']);
 
-            $reviews = $ekomiReviewsRepo->getReviews($itemID, $offset, $limit, $filter_type);
+            $reviews = $reviewsRepo->getReviews($itemID, $offset, $limit, $filter_type);
 
             $result = $twig->render('EkomiFeedback::content.reviewsContainerPartial', ['reviews' => $reviews]);
 
@@ -93,10 +93,10 @@ class ContentController extends Controller {
 
     /**
      * @param  \Plenty\Plugin\Http\Request $request
-     * @param ReviewsRepository       $ekomiReviewsRepo
+     * @param ReviewsRepository       $reviewsRepo
      * @return string
      */
-    public function saveFeedback(Request $request, ReviewsRepository $ekomiReviewsRepo): string {
+    public function saveFeedback(Request $request, ReviewsRepository $reviewsRepo): string {
         $data = $request->all();
 
         $response = array(
@@ -111,7 +111,7 @@ class ContentController extends Controller {
             $reviewId = trim($data['review_id']);
             $helpfulness = trim($data['helpfulness']);
 
-            $review = $ekomiReviewsRepo->rateReview($itemID, (int) $reviewId, $helpfulness);
+            $review = $reviewsRepo->rateReview($itemID, (int) $reviewId, $helpfulness);
 
             if (!empty($review)) {
                 $message = ($review->helpful) . ' out of ' . ($review->helpful + $review->nothelpful) . ' people found this review helpful';

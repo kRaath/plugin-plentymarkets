@@ -1,5 +1,5 @@
 # Plugin - Plentymarkets - EkomiFeedback
-This plugin allows you to integrate your Plentymarkets shop easily with eKomi system to collect verified reviews.
+The eKomi product review container allows an easy integration of eKomi Reviews and ratings into your webshop. This allows you to collect verified reviews, display eKomi seal on your website and get your seller ratings on Google and individual positioning of product reviews and includes the Google rich snippet functionality.
 ***
 
 **Integrate the plugin with Plentymarkets shop:**

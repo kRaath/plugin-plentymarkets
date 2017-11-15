@@ -1,7 +1,6 @@
 # EkomiFeedback
 
-eKomi Plugin for plentymarkets allows you to integrate your plentymarkets shop 4 easily with eKomi system. This allows you to collect verified reviews, display eKomi seal on your website and get your seller ratings on Google. This helps you increase your website's click through rates, conversion rates and also, if you are running Google AdWord Campaigns, this helps in improving your Quality Score and hence your costs per click.
-
+The eKomi product review container allows an easy integration of eKomi Reviews and ratings into your webshop. This allows you to collect verified reviews, display eKomi seal on your website and get your seller ratings on Google and individual positioning of product reviews and includes the Google rich snippet functionality.
 <p>
 <strong>eKomi Reviews and Ratings allows you to:</strong>
 </p>

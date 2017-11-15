@@ -18,7 +18,7 @@
     "authorIcon": "icon_author.jpg",
     "email": "support@ekomi.zendesk.com",
     "phone": "+49 3047376382",
-    "keywords": ["plugins", "orders export", "ekomi", "integration","prc","feedback"],
+    "keywords": ["plugins", "orders export", "ekomi", "integration","reviews container","feedback","prc"],
     "isClosedSource": true,
     "namespace": "EkomiFeedback",
     
