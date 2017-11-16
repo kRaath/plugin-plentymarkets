@@ -4,6 +4,6 @@
 ## Email
 [support@ekomi.zendesk.com](support@ekomi.zendesk.com)
 
-## Phone
+## Telefon
  
 +49 3047376382
